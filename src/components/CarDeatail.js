@@ -99,7 +99,7 @@ const CarDeatail = ({
     body.append('city', city_Id);
 
     // console.log('bodybodybodybodybody', JSON.stringify(body));
-    alert(JSON.stringify(body));
+    // alert(JSON.stringify(body));
     // return;
     post_api('car_list', body)
       .then(v => {

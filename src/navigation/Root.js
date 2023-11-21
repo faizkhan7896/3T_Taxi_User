@@ -28,7 +28,7 @@ function App() {
   const [LanguageUpdated, setLanguageUpdated] = useState(false);
   const [reload, setReload] = useState({});
   const [LocationData, setLocationData] = useState({});
-  // alert(JSON.stringify(cityId));
+  // alert(JSON.stringify(countryId))
   // console.log('countryIdcountryIdcountryId',);
 
   const updateLang = val => {
@@ -107,12 +107,6 @@ function App() {
               type: CITY,
               payload: 'Oslo',
             });
-          }
-          if (res?.results[0]?.components?.country == 'India') {
-            store.dispatch({
-              type: CITY,
-              payload: 'Cairo',
-            });
           } else {
             store.dispatch({
               type: CITY,
@@ -145,7 +139,7 @@ function App() {
           console.log('Arabic');
         }
         if (res?.results[0]?.components?.country == 'India') {
-          store.dispatch({type: COUNTRY, payload: '10'});
+          store.dispatch({type: COUNTRY, payload: '4'});
           updateLang('English');
           console.log('English');
         }
