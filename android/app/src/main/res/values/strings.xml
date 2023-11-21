@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">3T</string>
+     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDmLCUMGhVP2osA_Fv5w87nVwiqJbk2HhQ</string>
+    <string name="facebook_app_id">1153864072170100</string>
+    <string name="fb_login_protocol_scheme">fb1234</string>
+    <string name="facebook_client_token">22040b80cab33540b7f7f4171c662af8</string>
+</resources>

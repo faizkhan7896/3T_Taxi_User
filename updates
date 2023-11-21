@@ -1,0 +1,163 @@
+3t Taxi User app :24/12/2022 updates
+
+following points are completed:-
+※ show current locaton with location marker
+※ show arrival location marker ,
+※ route direcition plugin setup andinstallation,
+※ show route between starting point to end point,
+※ place search with suggetibn
+
+※ link - https://we.tl/t-AQbVOX15ev
+
+3t Taxi User app :26/12/2022 updates
+
+following points are completed:-
+※ addBookingRequest
+※ get_notification
+※ get_booking_request
+※ get_User_Search_Booking
+※ get_booking_details
+※ cancel_by_User
+※ get distance between start location to end location
+※ get time duration between start location to end location
+
+※ link - https://we.tl/t-lqacCGD7Pi
+
+3t Taxi driver app :28/12/2022 updates
+
+following points are completed:-
+※ update_driver_lat_lon
+※ get_Driver_booking_Request
+※ add_Driver_Accept_Booking
+※ rejectBookingByDriver
+※ enter_driver_otp
+
+※ link - https://we.tl/t-gEasw0ij3P
+
+3t Taxi user app :28/12/2022 updates
+
+following points are completed:-
+※ get_driver_lat_lon
+※ userbookingcontinue
+
+※ link - https://we.tl/t-VyomvWc9A2
+
+3t Taxi driver app :29/12/2022 updates
+
+following points are completed:-
+※ show location button in map
+※ contact
+※ getDriverAccountDetail
+※ getDriverBadges
+※ enter_driver_otp
+
+    ※ link - https://we.tl/t-qzami08vMn
+
+3t Taxi user app :29/12/2022 updates
+
+following points are completed:-
+※ userbookingcontinue  
+ ※ cancelBookingRequest  
+ ※ addEndTripRatting
+※ addEndTripRatting
+※ addEndTripRatting
+※ addEndTripRatting
+※ addEndTripRatting
+
+    ※ link - https://we.tl/t-TJvH897Tdu
+
+3t Taxi user app :05/01/2022 updates
+
+following points are completed:-
+※ addBookingRequest api changes
+※ cancelBookingByUser api,
+※ get_User_all_booking api
+※ get_user_booking_receipts_detail api
+※ get_user_booking_receipts api
+※ map screen changes and search location data show in map screen
+※ show image when booking data id empty
+
+    ※ link - https://we.tl/t-JB7iSjFnNH
+
+addBookingRequest
+get_notification
+get_booking_request
+get_User_Search_Booking
+get_booking_details
+cancel_by_User
+
+1- addBookingRequest api changes
+2- cancelBookingByUser api,
+3- get_User_all_booking api
+4- get_user_booking_receipts_detail api
+5- get_user_booking_receipts api
+6- map screen changes and search location data show in map screen
+7- show image when booking data id empty
+
+3t Taxi driver app :06/01/2023 updates
+
+following points are completed:-
+※ ADD firebase account
+※ add firebase notification in app
+※ add time after select destinetion location
+※ update_lat_lon api
+※ add_card api
+※ getUsercard api
+※ add_support api
+※ faq_list api
+
+    ※ link - https://we.tl/t-cbaIdlC3KM
+
+3t Taxi driver app :09/01/2023 updates
+
+following points are completed:-
+    ※ deleteReceiptByUser api
+    ※ get_profile api changes
+    ※ update_user_profile api changes
+    ※ add image option in edit profile screen
+    ※ user_cancel_ride api
+    ※ Call API when notification arrives and show driver
+    ※ show data driver data and start otp on pickup user
+    ※ connet cancel ride screen to pickup user screen
+
+    ※ link - https://we.tl/t-3NofAL2uI6
+
+
+
+
+3t Taxi driver app :13/01/2023 updates
+
+following points are completed:-
+    ※ getFleetOwner api
+    ※ faq_list_driver api 
+    ※ faq_list_user api 
+    ※ get_notification api changes
+    ※ notification screen changes user site
+    ※ get_privacy_policy user app
+    ※ get_privacy_policy driver app
+    ※ insert_chat api user app
+    ※ get_chat api user app
+    ※ get_conversation api user app
+
+    ※ link - https://we.tl/t-g73YU8t27J driver
+    ※ link - https://we.tl/t-UC0SjzHXdc user
+
+
+
+
+
+
+
+
+
+
+    1- deleteReceiptByUser
+
+2- get_profile changes  
+3- update_user_profile changes
+
+5- get_user_booking_receipts changes
+6- get_driver_booking_receipts changes
+7- user_cancel_ride  
+8- add_Driver_Accept_Booking notifcation add
+9- userbookingcontinue add notification add

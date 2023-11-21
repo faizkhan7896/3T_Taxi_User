@@ -1,0 +1,27 @@
+export const CURRENTFLOW = 'CURRENTFLOW';
+export const LOGIN = 'LOGIN';
+export const SIGNUP = 'SIGNUP';
+export const UPDATEPROFILE = 'UPDATEPROFILE';
+export const ADDRECENTSEARCH = 'ADDRECENTSEARCH';
+export const CLEARSEARCH = 'CLEARSEARCH';
+export const SIGNOUT = 'SIGNOUT';
+export const SELECTEDTAB = 'SELECTEDTAB';
+export const USER = 'USER';
+export const THEMEMODE = 'THEMEMODE';
+export const USERDATA = 'USERDATA';
+export const ID = 'ID';
+export const B_ID = 'B_ID';
+export const START = 'START';
+export const END = 'END';
+export const CONTINUE_TRUE = 'CONTINUE_TRUE';
+export const START_TRUE = 'CONTINUE_TRUE';
+export const CONTINUE_FALSE = 'CONTINUE_FALSE';
+export const D_TOKEN = 'D_TOKEN';
+export const COUNTRY = 'COUNTRY';
+export const CITY = 'CITY';
+export const TRIP_DATA = 'TRIP_DATA';
+export const ADDRESS = 'ADDRESS';
+export const LANGUAGEUPDATED_ = 'LANGUAGEUPDATED_';
+export const BOOKING_LATER_DATE = 'BOOKING_LATER_DATE';
+export const BOOKING_STATUS = 'BOOKING_STATUS';
+ 
