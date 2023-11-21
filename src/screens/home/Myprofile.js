@@ -163,18 +163,18 @@ export default function MyProfile() {
         <View style={styles.row}>
           <View style={{alignItems: 'center'}}>
             <Text style={styles.num}>{userData.total_rides || 0}</Text>
-            <Text style={styles.title}>{localizationStrings.Total_Trips}</Text>
+            <Text style={styles.title}>{localizationStrings.Total_Rides}</Text>
           </View>
           <View style={{alignItems: 'center'}}>
             <Text style={styles.num}>{userData.request_rides || 0}</Text>
             <Text style={styles.title}>
-              {localizationStrings.Requested_Trips}
+              {localizationStrings.Requested_Rides}
             </Text>
           </View>
           <View style={{alignItems: 'center'}}>
             <Text style={styles.num}>{userData.cancel_rides || 0}</Text>
             <Text style={styles.title}>
-              {localizationStrings.Cancled_Trips}
+              {localizationStrings.Cancled_Rides}
             </Text>
           </View>
         </View>

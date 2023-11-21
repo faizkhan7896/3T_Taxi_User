@@ -119,7 +119,7 @@ const ChooseLocation = ({
   //       : 0,
   // });
 
-  // alert(JSON.stringify(userData?.payment_option));
+  // alert(JSON.stringify(BookingType));
 
   // alert(JSON.stringify(userData?.payment_option));
   // console.log('lat1,lon1, drop_lat, drop_lon', lat1, lon1, drop_lat, drop_lon);
@@ -584,7 +584,7 @@ const ChooseLocation = ({
     body.append('droplat', drop_lat);
     body.append('droplon', drop_lon);
     body.append('car_type_id', selected);
-    body.append('booktype', selected);
+    body.append('booktype', BookingType);
     body.append(
       'start_time',
       moment(BookingType == 'later' ? date : new Date()).format(
