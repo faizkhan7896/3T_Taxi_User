@@ -14,7 +14,7 @@ import {TextInput} from 'react-native-paper';
 import CustomHeader from '../../components/CustomHeader';
 import CustomButton from '../../components/CustomButton';
 import {useSelector} from 'react-redux';
-import {ShowToast, validate} from '../../utils/constance';
+import {ShowToast, baseUrl, validate} from '../../utils/constance';
 import {apis} from '../../utils/apis';
 import CustomTextInput from '../../components/CustomTextInput';
 import {post_api, showError, showSuccess} from '../../utils/Constants';
@@ -35,6 +35,7 @@ export default function SetProfile() {
   const [country, setCountry] = useState({});
   const [AllCountrys, setAllCountrys] = useState([]);
   const [Number, setNumber] = useState('');
+  const [password, setPassword] = useState('');
   // alert(JSON.stringify(country))
 
   const GetCountry = async id => {
@@ -47,6 +48,7 @@ export default function SetProfile() {
           setAllCountrys(v?.result);
           v?.result.map((X, i) => X.id == countryId && setCountry(X));
           // showSuccess('Ride continue successfully');
+
           return;
         }
         // showError(v.message);
@@ -62,7 +64,7 @@ export default function SetProfile() {
   }, []);
 
   const signup = () => {
-    if (!fName || !lName || !email || !Number) {
+    if (!fName || !lName || !email || !Number || !password) {
       showError(localizationStrings?.msg_fill_all_field);
       return;
     }
@@ -70,22 +72,32 @@ export default function SetProfile() {
       showSuccess(localizationStrings?.msg_valid_email);
       return;
     }
+    if (country?.phone_code == undefined) {
+      showError(localizationStrings?.Please_Select_Country_Code);
+      return;
+    }
+
     const body = new FormData();
     // body.append('user_id', userData.id);
+    // body.append('mobile', country?.phone_code + '' + Number);
     body.append('first_name', fName);
     body.append('last_name', lName);
     body.append('email', email);
     body.append('user_name', fName + ' ' + lName);
     body.append('country', country?.id);
-    body.append('mobile', country?.phone_code + '' + Number);
+    body.append('password', password);
+    body.append('mobile', Number);
+    body.append('phone_code', ' ' + country?.phone_code);
+
     setLoading(true);
     console.log(body);
-    // return;
+
     post_api('userSignUp', body)
       .then(v => {
         setLoading(false);
+
         if (v.status == '1') {
-          // alert(JSON.stringify(v?.result))
+          // alert(JSON.stringify(v?.result));
           store.dispatch({type: ID, payload: v?.result[0]?.id});
           store.dispatch({type: USERDATA, payload: v?.result[0]});
           store.dispatch({type: LOGIN});
@@ -95,9 +107,10 @@ export default function SetProfile() {
           showError(v.message);
         }
       })
-      .catch(v => {
+      .catch(e => {
         setLoading(false);
-        showError(v.message);
+        showError(e.message);
+        // alert(e.message);
       });
   };
 
@@ -146,6 +159,20 @@ export default function SetProfile() {
         onChangeText={setEmail}
         keyboardType="email-address"
         autoCapitalize="none"
+      />
+
+      <Text style={styles.label}>{localizationStrings.Your_Password}</Text>
+
+      <CustomTextInput
+        value={password}
+        lHeight={2}
+        fontSize={16}
+        fontFamily={'Jost-Medium'}
+        mh={30}
+        top={15}
+        placeholder={localizationStrings?.Password}
+        onChangeText={setPassword}
+        secureTextEntry={true}
       />
 
       <View style={{alignItems: 'center'}}>
@@ -228,6 +255,7 @@ export default function SetProfile() {
           />
         </View>
       </View>
+
       <CustomButton
         title={localizationStrings.Next}
         onPress={() => signup()}

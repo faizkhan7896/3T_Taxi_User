@@ -9,6 +9,7 @@ import ApplyPromoCode from '../screens/auth/ApplyPromoCode';
 import PromoCode from '../screens/auth/PromoCode';
 import ForgotPassword from '../screens/auth/ForgotPassword';
 import PaymentAuth from '../screens/auth/PaymentAuth';
+import Splash from '../screens/auth/Splash';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,6 +19,7 @@ function App() {
       screenOptions={{headerShown: false}}
       initialRouteName="GetStarted">
       <Stack.Screen name="GetStarted" component={GetStarted} />
+      <Stack.Screen name="Splash" component={Splash} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="VerifyCode" component={VerifyCode} />
       <Stack.Screen name="SetProfile" component={SetProfile} />
