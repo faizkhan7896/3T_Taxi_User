@@ -262,7 +262,9 @@
     "Type_Your": "Type youre reason...",
     "Driver_Destination": "Driver is on the way",
 
-    "Submit": "Submit"
+    "Submit": "Submit",
+    "Password": "Password",
+    "Please_Select_Country_Code": "Please Select Country Code"
   },
 
   "Arabic": {
@@ -527,7 +529,9 @@
     "Rating_Submitted_Successfully": "تم إرسال التقييم بنجاح",
     "Driver_not_found": "لم يتم العثور على سائق بالقرب منك",
 
-    "Submit": "يُقدِّم"
+    "Submit": "يُقدِّم",
+    "Password": "كلمة المرور",
+    "Please_Select_Country_Code": "الرجاء تحديد رمز البلد"
   },
 
   "Norwegian": {
@@ -799,6 +803,8 @@
     "Rating_Submitted_Successfully": "Vurdering sendt inn",
     "Driver_not_found": "Driver ikke funnet i nærheten av deg",
 
-    "Submit": "Sende inn"
+    "Submit": "Sende inn",
+    "Password": "Passord",
+    "Please_Select_Country_Code": "Vennligst velg landskode"
   }
 }

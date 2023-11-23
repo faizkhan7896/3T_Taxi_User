@@ -17,6 +17,8 @@ import {
 import {useEffect} from 'react';
 import {useState} from 'react';
 import {baseUrl} from '../utils/constance';
+import GetStarted from '../screens/auth/GetStarted';
+import Splash from '../screens/auth/Splash';
 
 const Stack = createNativeStackNavigator();
 
@@ -82,6 +84,7 @@ function App() {
         const response = await fetch(url, {method: 'GET'});
 
         const res = await response.json();
+
         clearTimeout(timeoutId);
         console.log('URL=', url);
         console.log('country=', res?.results[0]?.components?.country);
@@ -196,7 +199,7 @@ function App() {
 
     const intervalCall = setInterval(() => {
       update_language();
-    }, 2500);
+    }, 1500);
     return () => {
       // clean up
       clearInterval(intervalCall);
@@ -206,8 +209,10 @@ function App() {
   if (!isLoggedIn) {
     return (
       <NavigationContainer>
-        {LocationData?.country == 'Norway' &&
-        localizationStrings.getLanguage() == 'Norwegian' ? (
+        {LocationData?.country == undefined ? (
+          <Splash />
+        ) : LocationData?.country == 'Norway' &&
+          localizationStrings.getLanguage() == 'Norwegian' ? (
           <AuthNavigation />
         ) : LocationData?.country == 'Egypt' &&
           localizationStrings.getLanguage() == 'Arabic' ? (
@@ -226,8 +231,12 @@ function App() {
   return (
     <NavigationContainer>
       {Language_Updated != true ? (
-        LocationData?.country == 'Norway' &&
-        localizationStrings.getLanguage() == 'Norwegian' ? (
+        Object.keys(LocationData).length === 0 ? (
+          <Splash />
+        ) : LocationData?.country == undefined ? (
+          <Splash />
+        ) : LocationData?.country == 'Norway' &&
+          localizationStrings.getLanguage() == 'Norwegian' ? (
           <HomeNavigator />
         ) : LocationData?.country == 'Egypt' &&
           localizationStrings.getLanguage() == 'Arabic' ? (

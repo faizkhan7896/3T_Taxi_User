@@ -120,10 +120,12 @@ export const post_api = async (api_name, body) => {
     const response = await fetch(baseUrl + api_name, {
       method: 'POST',
       body: body,
-      headers: {'content-type': 'multipart/form-data'},
+      headers: {
+        'content-type': 'multipart/form-data',
+      },
     });
     const res = await response.json();
-    // console.log(res);
+    console.log(res);
     return res;
   } catch (error) {
     // console.log(error);
