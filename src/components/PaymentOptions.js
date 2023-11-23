@@ -41,6 +41,11 @@ export const data = [
       id: 'Pay_in_Car',
       image: require('../assets/icons/using/CardMachine_EG.png'),
     },
+    {
+      name: localizationStrings?.Card,
+      id: 'Card',
+      image: require('../assets/icons/using/Card_.png'),
+    },
   ],
 ];
 

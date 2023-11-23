@@ -1,7 +1,7 @@
-import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 import messaging from '@react-native-firebase/messaging';
-import { initStripe } from '@stripe/stripe-react-native';
-import React, { useEffect, useRef, useState } from 'react';
+import {initStripe} from '@stripe/stripe-react-native';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   Dimensions,
   Image,
@@ -13,18 +13,18 @@ import {
   Text,
   TouchableOpacity,
   View,
-  useWindowDimensions
+  useWindowDimensions,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import FlashMessage from 'react-native-flash-message';
 import 'react-native-gesture-handler';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import Toast from 'react-native-toast-message';
-import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
+import {Provider} from 'react-redux';
+import {PersistGate} from 'redux-persist/integration/react';
 import Root from './src/navigation/Root';
-import store, { persistor } from './src/redux/store';
-import { theme } from './src/utils/theme';
+import store, {persistor} from './src/redux/store';
+import {theme} from './src/utils/theme';
 
 export default function App({navigation}) {
   // GoogleSignin.configure({
@@ -212,243 +212,3 @@ const styles = StyleSheet.create({
   },
   toastText: {color: 'white', fontWeight: '500', textAlign: 'left'},
 });
-
-// import React, {useEffect} from 'react';
-// import {TouchableOpacity, Text, StyleSheet, View, Platform} from 'react-native';
-// import {
-//   pay,
-//   MerchantInfo,
-//   CustomerInfo,
-//   FawryCallbacks,
-//   FawryLanguages,
-//   openCardsManager,
-//   BillItems,
-// } from '@fawry_pay/rn-fawry-pay-sdk';
-// import uuid from 'react-native-uuid';
-
-// const fawryConfig = {
-//   baseUrl: 'https://atfawry.fawrystaging.com/',
-//   language: FawryLanguages.ENGLISH,
-//   signature: '',
-//   allow3DPayment: true,
-//   skipReceipt: false,
-//   skipLogin: true,
-//   payWithCardToken: true,
-//   authCaptureMode: false,
-//   allowVoucher: true,
-//   merchantInfo: {
-//     merchantCode:
-//       Platform.OS === 'android'
-//         ? '+/IAAY2notgLsdUB9VeTFg=='
-//         : '+/IAAY2nothN6tNlekupwA==',
-//     merchantSecretCode:
-//       Platform.OS === 'android'
-//         ? '69826c87-963d-47b7-8beb-869f7461fd93'
-//         : '4b815c12-891c-42ab-b8de-45bd6bd02c3d',
-//     merchantRefNum: uuid.v4().toString(),
-//   },
-//   customerInfo: {
-//     customerName: 'Ahmed Kamal',
-//     customerMobile: '+1234567890',
-//     customerEmail: 'ahmed.kamal@example.com',
-//     customerProfileId: '12345',
-//   },
-// };
-
-// const eventListeners = [
-//   {
-//     eventName: FawryCallbacks.FAWRY_EVENT_PAYMENT_COMPLETED,
-//     listener: data => {
-//       console.log(FawryCallbacks.FAWRY_EVENT_PAYMENT_COMPLETED, data);
-//     },
-//   },
-//   {
-//     eventName: FawryCallbacks.FAWRY_EVENT_ON_SUCCESS,
-//     listener: data => {
-//       console.log(FawryCallbacks.FAWRY_EVENT_ON_SUCCESS, data);
-//     },
-//   },
-//   {
-//     eventName: FawryCallbacks.FAWRY_EVENT_ON_FAIL,
-//     listener: error => {
-//       console.log(FawryCallbacks.FAWRY_EVENT_ON_FAIL, error);
-//     },
-//   },
-//   {
-//     eventName: FawryCallbacks.FAWRY_EVENT_CardManager_FAIL,
-//     listener: error => {
-//       console.log(FawryCallbacks.FAWRY_EVENT_CardManager_FAIL, error);
-//     },
-//   },
-// ];
-
-// const attachEventListeners = () => {
-//   eventListeners.forEach(eventListener => {
-//     const {eventName, listener} = eventListener;
-//     FawryCallbacks.FawryEmitter.addListener(eventName, listener);
-//   });
-// };
-
-// const detachEventListeners = () => {
-//   eventListeners.forEach(eventListener => {
-//     const {eventName, listener} = eventListener;
-//     FawryCallbacks.FawryEmitter.removeAllListeners(eventName);
-//   });
-// };
-
-// export default function App() {
-//   useEffect(() => {
-//     attachEventListeners();
-
-//     return detachEventListeners;
-//   }, []);
-
-//   const handlePayments = () => {
-//     const billItems: BillItems[] = [
-//       {
-//         itemId: 'item1',
-//         description: 'Item 1 Description',
-//         quantity: '1',
-//         price: '50',
-//       },
-//       {
-//         itemId: 'item2',
-//         description: 'Item 2 Description',
-//         quantity: '2',
-//         price: '25',
-//       },
-//       {
-//         itemId: 'item3',
-//         description: 'Item 3 Description',
-//         quantity: '3',
-//         price: '20',
-//       },
-//     ];
-
-//     pay(
-//       fawryConfig.baseUrl,
-//       fawryConfig.language,
-//       fawryConfig.merchantInfo,
-//       fawryConfig.customerInfo,
-//       billItems,
-//       fawryConfig.allow3DPayment,
-//       fawryConfig.skipReceipt,
-//       fawryConfig.skipLogin,
-//       fawryConfig.payWithCardToken,
-//       fawryConfig.authCaptureMode,
-//       fawryConfig.allowVoucher,
-//       fawryConfig.signature,
-//     );
-//   };
-
-//   const handleCardsManager = () => {
-//     openCardsManager(
-//       fawryConfig.baseUrl,
-//       fawryConfig.language,
-//       fawryConfig.merchantInfo,
-//       fawryConfig.customerInfo,
-//     );
-//   };
-
-//   return (
-//     <View style={styles.container}>
-//       <TouchableOpacity style={styles.button} onPress={handlePayments}>
-//         <Text style={styles.buttonText}>Checkout / Pay</Text>
-//       </TouchableOpacity>
-//       <TouchableOpacity style={styles.button} onPress={handleCardsManager}>
-//         <Text style={styles.buttonText}>Manage Cards</Text>
-//       </TouchableOpacity>
-//     </View>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-//   button: {
-//     backgroundColor: '#007AFF',
-//     padding: 10,
-//     paddingHorizontal: 20,
-//     borderRadius: 25,
-//     marginBottom: 20,
-//     shadowColor: '#000',
-//     shadowOffset: {width: 0, height: 2},
-//     shadowOpacity: 0.3,
-//     shadowRadius: 4,
-//     elevation: 5,
-//   },
-//   buttonText: {
-//     color: 'white',
-//     fontSize: 18,
-//     fontWeight: 'bold',
-//   },
-// });
-
-// import {View, Text, TouchableOpacity} from 'react-native';
-// import React from 'react';
-// import {OPay, OPayCountry} from 'opay-online-rn-sdk';
-
-// export default function App() {
-//   const payInput = {
-//     publicKey: '{PublicKey}', // your public key
-//     merchantId: '256612345678901', // your merchant id
-//     merchantName: 'TEST 123',
-//     reference: '12347544444555666', // reference unique, must be updated on each request
-//     countryCode: 'EG', // uppercase
-//     currency: 'EGP', // uppercase
-//     payAmount: 10000,
-//     productName: '',
-//     productDescription: '',
-//     callbackUrl: 'http://www.callbackurl.com',
-//     userClientIP: '110.246.160.183',
-//     expireAt: 30,
-//     paymentType: '', // optional
-//     // optional
-//     userInfo: {
-//       userId: 'userId',
-//       userEmail: 'userEmail',
-//       userMobile: 'userMobile',
-//       userName: 'uesrName',
-//     },
-//   };
-//   const cashierStatusParams = {
-//     privateKey: 'OPAYPRV16946278056470.6527620987722339',
-//     merchantId: '281823091304127',
-//     reference: '123',
-//     countryCode: 'EG',
-//   };
-
-//   return (
-//     <View style={{alignItems: 'center', justifyContent: 'center', flex: 1}}>
-//       <TouchableOpacity
-//         style={{
-//           height: 50,
-//           width: 100,
-//           backgroundColor: 'blue',
-//           borderRadius: 5,
-//         }}
-//         onPress={() => {
-//           new OPay().getCashierStatus(cashierStatusParams);
-//           // new OPay().getCashierStatus(cashierStatusParam).then((response){
-//           //   const status = response.data.status
-//           //   switch(status){
-//           //       case PayResultStatus.initial:
-//           //         break;
-//           //       case PayResultStatus.pending:
-//           //           break;
-//           //       case PayResultStatus.success:
-//           //           break;
-//           //       case PayResultStatus.fail:
-//           //           break;
-//           //       case PayResultStatus.close:
-//           //           break;
-//           //   }})
-//         }}>
-//         <Text>App</Text>
-//       </TouchableOpacity>
-//     </View>
-//   );
-// }

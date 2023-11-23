@@ -258,6 +258,47 @@ const ChooseLocation = ({
       : countryId == '11' && 'sar';
   // alert(time)
 
+  const payWith_Stripe = async () => {
+    navigation.navigate('PaymentWebview', {
+      url:
+        'https://3tdrive.com/stripe/create_checkout_session?amount=' +
+        LastAmountWithCoupan,
+      visible_: setVisible,
+      user_id: userId,
+      picuplocation: add1,
+      picuplat: lat1,
+      pickuplon: lon1,
+      dropofflocation: Drop_address,
+      droplat: drop_lat,
+      droplon: drop_lon,
+      car_type_id: selected,
+      end_time: moment(date1).format('YYYY-MM-DD hh:mm:s'),
+      amount: LastAmountWithCoupan,
+      vat: charge_vat?.vat,
+      payment_type: paymentMethod,
+      distance: distance,
+      distance_time: time,
+      timezone: 'asia/kolkata',
+      apply_code:
+        SelectedCoupan == ''
+          ? SelectedCoupan
+          : SelectedCoupan?.coupon_code || '',
+      promo_id:
+        SelectedCoupan == SelectedCoupan ? '' : SelectedCoupan?.id || '',
+      promo_discount_amount: Discount,
+      transaction_id: '',
+      start_time: moment(BookingType == 'later' ? date : new Date()).format(
+        'YYYY-MM-DD hh:mm:s',
+      ),
+      toll_tax:
+        TollData?.tolls != undefined
+          ? TollData?.tolls[0]?.fares[0]?.convertedPrice?.value
+          : 0,
+      req_datetime: moment(BookingType == 'later' ? date : new Date()).format(
+        'YYYY-MM-DD hh:mm:s',
+      ),
+    });
+  };
   const payWith_OPay = async () => {
     // navigation.navigate('PaymentWebview', {
     //   url: 'https://sandboxcashier.opaycheckout.com/bankInfo?payToken=eyJhbGciOiJIUzUxMiJ9.eyJjb3VudHJ5IjoiRUciLCJwYXlObyI6IjIzMDkyNTUwODE4MTA5OTA2MjkyMyIsInN1YiI6IjI4MTgyMzA5MTM2MDAzNyIsIm9yZGVyTm8iOiIyMzA5MjUxNDgxODEwOTkwNjA3MDkiLCJvcmRlckN1cnJlbmN5IjoiRUdQIiwicGF5TWV0aG9kIjoiQmFua0NhcmQiLCJzZXNzaW9uSWQiOiIyMzA5MjUxNDgxODEwOTkwNjA3MDkiLCJzaWxlbmNlIjoiWSIsImV4cCI6MTY5NTYyNjMzMH0.Z3i3aiq_hDAee_FabIvDBIsC1yA0PQH_mJ86NT8EJLEj4SxjvxRgulhAC8GXTrO1vieSe3MST7ruT9GmmYEa8g&session=230925148181099060709',
@@ -1019,7 +1060,8 @@ const ChooseLocation = ({
                   payWith_OPay();
                 }
                 if (userData?.payment_option == 'Card') {
-                  CardPayment();
+                  payWith_Stripe();
+                  // CardPayment();
                 }
                 if (userData?.payment_option == 'Google Pay') {
                   payWithGooglePay(requestData);

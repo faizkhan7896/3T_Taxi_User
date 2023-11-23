@@ -18,6 +18,8 @@ import {post_api, showError, showSuccess} from '../utils/Constants';
 import store from '../redux/store';
 import {B_ID} from '../redux/ActionTypes';
 import localizationStrings from '../utils/Localization';
+import TextFormatted from './TextFormated';
+import moment from 'moment';
 
 const WebViewScreen = () => {
   const {params} = useRoute();
@@ -130,6 +132,7 @@ const WebViewScreen = () => {
             params?.visible_(true);
             store.dispatch({type: B_ID, payload: v.result.id});
             showSuccess(localizationStrings?.msg_Booking_Created);
+            navigation.goBack();
           }, 1500);
           return;
         }
@@ -148,6 +151,9 @@ const WebViewScreen = () => {
   const onNavigationStateChange = navState => {
     console.log('WebView Response', navState);
     if (navState?.url?.split('result?status=')[1]?.slice(0, 7) == 'SUCCESS') {
+      add_booking();
+    }
+    if (navState?.title == '3tdrive.com/stripe/payment_success') {
       add_booking();
     }
     // setResponsee(navState);
