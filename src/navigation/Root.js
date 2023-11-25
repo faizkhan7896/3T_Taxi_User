@@ -230,13 +230,13 @@ function App() {
 
   return (
     <NavigationContainer>
-      {Language_Updated != true ? (
-        Object.keys(LocationData).length === 0 ? (
-          <Splash />
-        ) : LocationData?.country == undefined ? (
-          <Splash />
-        ) : LocationData?.country == 'Norway' &&
-          localizationStrings.getLanguage() == 'Norwegian' ? (
+      {Object.keys(LocationData).length === 0 ? (
+        <Splash />
+      ) : LocationData?.country == undefined ? (
+        <Splash />
+      ) : Language_Updated != true ? (
+        LocationData?.country == 'Norway' &&
+        localizationStrings.getLanguage() == 'Norwegian' ? (
           <HomeNavigator />
         ) : LocationData?.country == 'Egypt' &&
           localizationStrings.getLanguage() == 'Arabic' ? (

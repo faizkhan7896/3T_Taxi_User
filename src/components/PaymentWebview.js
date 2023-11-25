@@ -20,6 +20,7 @@ import {B_ID} from '../redux/ActionTypes';
 import localizationStrings from '../utils/Localization';
 import TextFormatted from './TextFormated';
 import moment from 'moment';
+import {baseUrl} from '../utils/constance';
 
 const WebViewScreen = () => {
   const {params} = useRoute();
@@ -32,7 +33,7 @@ const WebViewScreen = () => {
   const dimensions = useWindowDimensions();
   const [loading, setLoading] = useState(false);
 
-  // alert(JSON.stringify(loading));
+  // alert('aaaaa - ', JSON.stringify(params.payment_type));
   // console.log(
   //   'data',
   //   params?.user_id,
@@ -120,13 +121,15 @@ const WebViewScreen = () => {
     body.append('transaction_id', params?.transaction_id);
     body.append('req_datetime', params?.req_datetime);
 
-    console.log(JSON.stringify(body));
-    // return;
+    alert('Work In Progress');
     post_api('addBookingRequest', body)
       .then(v => {
+        console.log('v -', v);
+
         setLoading(false);
+
         if (v.status == 1) {
-          console.log('v.result.id', v.result.id);
+          console.log('v.result.id', v.result);
           navigation.goBack();
           setTimeout(() => {
             params?.visible_(true);
@@ -149,12 +152,14 @@ const WebViewScreen = () => {
   };
 
   const onNavigationStateChange = navState => {
-    console.log('WebView Response', navState);
+    // console.log('WebView Response - - ', navState);
+
     if (navState?.url?.split('result?status=')[1]?.slice(0, 7) == 'SUCCESS') {
       add_booking();
     }
-    if (navState?.title == '3tdrive.com/stripe/payment_success') {
+    if (navState?.title == 'https://3tdrive.com/stripe/payment_success') {
       add_booking();
+      // '3tdrive.com/stripe/payment_success'
     }
     // setResponsee(navState);
   };

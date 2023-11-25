@@ -212,7 +212,7 @@ const HomeMap = ({navigation}) => {
       // console.log('Nearest Driver URL.....................', url);
       const response = await fetch(url, requestOptions);
       const res = await response.json();
-      console.log('Nearest Driver.....................', res);
+      // console.log('Nearest Driver.....................', res);
 
       if (res.status == '1') {
         // alert(JSON.stringify(res?.message));
@@ -233,10 +233,10 @@ const HomeMap = ({navigation}) => {
 
     post_api('get_booking_details', body)
       .then(v => {
-        console.log('booking detail api v - ', v);
+        // console.log('booking detail api v - ', v);
 
         console.log('______________________', v?.result[0]?.status);
-        console.log('booking_id______________________', booking_id);
+        // console.log('booking_id______________________', booking_id);
 
         if (v.status == 1) {
           animateMarker(

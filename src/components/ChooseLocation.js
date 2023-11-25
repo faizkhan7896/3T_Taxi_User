@@ -260,9 +260,7 @@ const ChooseLocation = ({
 
   const payWith_Stripe = async () => {
     navigation.navigate('PaymentWebview', {
-      url:
-        'https://3tdrive.com/stripe/create_checkout_session?amount=' +
-        LastAmountWithCoupan,
+      url: 'https://3tdrive.com/stripe/create_checkout_session?amount=30&currency=inr&user_id=1',
       visible_: setVisible,
       user_id: userId,
       picuplocation: add1,
@@ -339,7 +337,7 @@ const ChooseLocation = ({
       // console.log(res);
       const rslt = await res.json();
       console.log(rslt);
-      // alert(JSON.stringify(rslt?.message));
+      alert(JSON.stringify(rslt?.message));
       // return;
 
       if (rslt.message == 'SUCCESSFUL') {
