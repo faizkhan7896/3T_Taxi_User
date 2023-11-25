@@ -33,7 +33,7 @@ const WebViewScreen = () => {
   const dimensions = useWindowDimensions();
   const [loading, setLoading] = useState(false);
 
-  // alert('aaaaa - ', JSON.stringify(params.payment_type));
+  // alert(JSON.stringify(params?.order_id));
   // console.log(
   //   'data',
   //   params?.user_id,
@@ -95,15 +95,19 @@ const WebViewScreen = () => {
     body.append('amount', params?.amount);
     body.append('vat', params?.vat);
     body.append('toll_tax', params?.toll_tax);
-    body.append('payment_type', params?.payment_type);
+    body.append('payment_type', params?.payment_type?.id);
     body.append('distance', params?.distance);
     body.append('distance_time', params?.distance_time);
     body.append('timezone', params?.timezone);
+    body.append('transaction_id', params.url?.split('uniqueID=')[1]);
+    body.append('req_datetime', params?.req_datetime);
+    body.append('booktype', params?.BookingType);
+    body.append('order_id', params?.order_id);
+
     body.append(
       'current_datetime',
       moment(new Date()).format('YYYY-MM-DD hh:mm:s'),
     );
-
     body.append(
       'apply_code',
       params?.apply_code == '' ? '' : params?.apply_code?.coupon_code || '',
@@ -118,46 +122,49 @@ const WebViewScreen = () => {
         ? 0
         : params?.promo_discount_amount || 0,
     );
-    body.append('transaction_id', params?.transaction_id);
-    body.append('req_datetime', params?.req_datetime);
 
-    alert('Work In Progress');
+    // alert('Work In Progress');
+    console.log('addBookingRequest', JSON.stringify(body));
+    // return;
     post_api('addBookingRequest', body)
       .then(v => {
         console.log('v -', v);
-
-        setLoading(false);
+        // alert(JSON.stringify(v?.status));
 
         if (v.status == 1) {
-          console.log('v.result.id', v.result);
-          navigation.goBack();
+          // console.log('v.result.id', v.result);
+          // navigation.goBack();
           setTimeout(() => {
             params?.visible_(true);
             store.dispatch({type: B_ID, payload: v.result.id});
             showSuccess(localizationStrings?.msg_Booking_Created);
             navigation.goBack();
+            setLoading(false);
           }, 1500);
           return;
         }
+
         if (v.status == 0) {
+          setLoading(false);
           console.log('v.result.id', v.result.id);
           store.dispatch({type: B_ID, payload: v.result.id});
           showError(localizationStrings?.Driver_not_found);
           return;
         }
-
-        showError(v.message);
       })
       .catch(e => showError(e));
   };
 
   const onNavigationStateChange = navState => {
-    // console.log('WebView Response - - ', navState);
+    console.log('WebView Response - - ', navState);
 
     if (navState?.url?.split('result?status=')[1]?.slice(0, 7) == 'SUCCESS') {
       add_booking();
     }
-    if (navState?.title == 'https://3tdrive.com/stripe/payment_success') {
+    if (
+      navState?.title == '3tdrive.com/stripe/payment_success' &&
+      loading == false
+    ) {
       add_booking();
       // '3tdrive.com/stripe/payment_success'
     }

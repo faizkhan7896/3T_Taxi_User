@@ -248,6 +248,22 @@ const ChooseLocation = ({
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
+  function generateRandomString() {
+    const length = 10;
+    let result = '';
+    const characters = '3T079ALF901';
+    const charactersLength = characters.length;
+
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+
+    return result;
+  }
+
+  const randomString = generateRandomString();
+  // alert(generateRandomSixDigitInteger())
+
   const currency =
     countryId == '4'
       ? 'inr'
@@ -260,7 +276,16 @@ const ChooseLocation = ({
 
   const payWith_Stripe = async () => {
     navigation.navigate('PaymentWebview', {
-      url: 'https://3tdrive.com/stripe/create_checkout_session?amount=30&currency=inr&user_id=1',
+      url:
+        'https://3tdrive.com/stripe/create_checkout_session?amount=' +
+        LastAmountWithCoupan +
+        '&currency=' +
+        currency +
+        '&user_id=' +
+        userId 
+        +
+        '&uniqueID=' +
+        randomString,
       visible_: setVisible,
       user_id: userId,
       picuplocation: add1,
@@ -269,6 +294,8 @@ const ChooseLocation = ({
       dropofflocation: Drop_address,
       droplat: drop_lat,
       droplon: drop_lon,
+      BookingType: BookingType,
+      order_id: randomString,
       car_type_id: selected,
       end_time: moment(date1).format('YYYY-MM-DD hh:mm:s'),
       amount: LastAmountWithCoupan,
@@ -319,7 +346,7 @@ const ChooseLocation = ({
           description: 'description',
           name: 'name',
         },
-        reference: generateRandomSixDigitInteger().toString(),
+        reference: randomString.toString(),
         payMethod: 'BankCard',
         returnUrl: 'https://your-return-url.com',
       };
@@ -407,6 +434,23 @@ const ChooseLocation = ({
     });
   };
 
+  const GetDriverAvailablity = () => {
+    const body = new FormData();
+    body.append('picuplat', lat1);
+    body.append('pickuplon', lon1);
+    body.append('car_type_id', selected);
+    console.log(body);
+
+    post_api('check_available_driver', body).then(v => {
+      if (v.status == 1) {
+        payWith_Stripe();
+        // add_booking();
+      } else {
+        showError(localizationStrings?.Driver_not_found);
+      }
+    });
+  };
+
   const PaymentWithGoogle = async clientSecret => {
     // alert(JSON.stringify(clientSecret));
     // return;
@@ -490,21 +534,6 @@ const ChooseLocation = ({
     getCordinates2({lat, lng, address});
   };
 
-  function generateRandomString() {
-    const length = 10;
-    let result = '';
-    const characters = '3T079ALF901';
-    const charactersLength = characters.length;
-
-    for (let i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-
-    return result;
-  }
-
-  const randomString = generateRandomString();
-
   // alert(paymentMethod);
 
   const Update_Payment = () => {
@@ -545,72 +574,6 @@ const ChooseLocation = ({
       : countryId == '10'
       ? localizationStrings.EGP
       : countryId == '11' && localizationStrings.SAR;
-
-  // alert(JSON.stringify(userData?.payment_option));
-
-  // Distance * CarCharges + Distance * (CarCharges / 100) * Vat + TollPrice - Discount
-
-  const user_wallet_transfer = async () => {
-    if (PaymentAmount > userData?.wallet) {
-      showError(localizationStrings?.msg_transaction);
-      return;
-    }
-    // return;
-    const body = new FormData();
-    // body.append('request_id', '75');
-    body.append('user_id', userId);
-    body.append('amount', PaymentAmount.toString());
-    body.append('random_key', randomString);
-
-    console.log(body);
-
-    post_api('user_wallet_transfer', body)
-      .then(v => {
-        console.log('distanceCalculation===>', v);
-        if (v.status == 1) {
-          add_booking();
-          get_Profile(userId);
-        }
-      })
-      .catch(e => {
-        showError(e);
-      });
-  };
-
-  const CardPayment = async () => {
-    if (CardDetails?.card_num == undefined) {
-      showError(localizationStrings?.msg_select_card);
-      return;
-    }
-
-    const body = new FormData();
-    body.append('user_id', userId);
-    body.append('card_number', CardDetails?.card_num);
-    body.append('expiry_month', CardDetails?.card_exp?.split('/')[0]);
-    body.append('expiry_year', CardDetails?.card_exp?.split('/')[1]);
-    body.append('cvc_code', CardDetails?.card_cvv);
-    // body.append('amount', 25);
-    body.append('amount', PaymentAmount?.toString());
-    body.append('currency', country);
-
-    console.log('paymentByCard', body);
-
-    post_api('paymentByCard', body)
-      .then(v => {
-        // console.log('___paymentByCard', v);
-        if (v.status == '1') {
-          // alert(JSON.stringify(v?.transaction_id));
-          add_booking(v?.transaction_id);
-          return;
-        } else {
-          showError(v?.message);
-        }
-      })
-      .catch(e => {
-        showError(e);
-        console.log('paymentByCardpaymentByCardpaymentByCard', e);
-      });
-  };
 
   const add_booking = async transaction_id => {
     setLoading(true);
@@ -655,7 +618,7 @@ const ChooseLocation = ({
       'promo_id',
       SelectedCoupan == SelectedCoupan ? '' : SelectedCoupan?.id || '',
     );
-    body.append('promo_discount_amount', Discount);
+    body.append('promo_discount_amount', Discount || 0);
     body.append('transaction_id', transaction_id);
     body.append('order_id', randomString);
 
@@ -1058,7 +1021,8 @@ const ChooseLocation = ({
                   payWith_OPay();
                 }
                 if (userData?.payment_option == 'Card') {
-                  payWith_Stripe();
+                  GetDriverAvailablity();
+
                   // CardPayment();
                 }
                 if (userData?.payment_option == 'Google Pay') {

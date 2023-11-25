@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, useWindowDimensions} from 'react-native';
 import React, {useEffect} from 'react';
 import {Image} from 'react-native';
 import {TouchableOpacity} from 'react-native';
@@ -9,12 +9,14 @@ import {baseUrl} from '../utils/constance';
 import Loader from './Loader';
 import localizationStrings from '../utils/Localization';
 import {Dimensions} from 'react-native';
+import RenderHTML from 'react-native-render-html';
 
 const FAQs = () => {
   const [select, setSelect] = useState('');
   const [loading, setLoading] = useState(false);
   const [list, setList] = useState([]);
-  // alert(JSON.stringify(localizationStrings.getLanguage()));
+  const dimension = useWindowDimensions();
+  // alert(JSON.stringify(list[0].answer.split('<p>')));
 
   const get_faq = async () => {
     try {
@@ -83,6 +85,17 @@ const FAQs = () => {
             />
           </TouchableOpacity>
           {i == select && (
+            <RenderHTML
+              baseStyle={{
+                fontFamily: 'Poppins-Regular',
+                color: '#B4B4B4',
+                fontSize: 14,
+              }}
+              contentWidth={dimension.width - 50}
+              source={{html: v.answer}}
+            />
+          )}
+          {/* {i == select && (
             <Text
               style={{
                 fontSize: 12,
@@ -91,9 +104,9 @@ const FAQs = () => {
                 marginTop: 12,
                 // textAlign: 'left',
               }}>
-              {v.answer.split('<p>')}
+              {v.answer?.split('</p>\r\n')}
             </Text>
-          )}
+          )} */}
         </View>
       ))}
     </ScrollView>

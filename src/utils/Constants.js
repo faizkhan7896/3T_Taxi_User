@@ -124,6 +124,8 @@ export const post_api = async (api_name, body) => {
         'content-type': 'multipart/form-data',
       },
     });
+    console.log('post_api_BODY', body);
+
     const res = await response.json();
     console.log(res);
     return res;
