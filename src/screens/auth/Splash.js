@@ -12,7 +12,7 @@ import {
 
 export default function Splash() {
   return (
-    <View style={{justifyContent: 'center', flex: 1}}>
+    <View style={{justifyContent: 'center', flex: 1,backgroundColor:'#fff'}}>
       <StatusBar
         barStyle={'dark-content'}
         translucent={true}

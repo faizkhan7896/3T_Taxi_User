@@ -230,9 +230,7 @@ function App() {
 
   return (
     <NavigationContainer>
-      {Object.keys(LocationData).length === 0 ? (
-        <Splash />
-      ) : LocationData?.country == undefined ? (
+      {LocationData?.country == undefined ? (
         <Splash />
       ) : Language_Updated != true ? (
         LocationData?.country == 'Norway' &&

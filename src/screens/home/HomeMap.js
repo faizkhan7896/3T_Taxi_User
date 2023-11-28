@@ -141,7 +141,7 @@ const HomeMap = ({navigation}) => {
   const [modal, setModal] = useState(false);
   const [DriversNearBy, setDriversNearBy] = useState([]);
 
-  // alert(JSON.stringify(startTrip))
+  // alert(JSON.stringify(booking_status))
   // alert(JSON.stringify(book))
 
   // alert(JSON.stringify(userData))
@@ -306,14 +306,14 @@ const HomeMap = ({navigation}) => {
 
     // store.dispatch({type: BOOKING_STATUS, booking_status: 'FINISH'});
     // store.dispatch({type: B_ID, booking_id: ''});
-    // store.dispatch({type: START, startTrip: true});
+    // store.dispatch({type: START, startTrip: false});
     // store.dispatch({type: END, startTrip: false});
     // store.dispatch({type: TRIP_DATA, tripData: {}});
     // store.dispatch({type: CONTINUE_TRUE, continue_trip: false});
     // store.dispatch({type: START_TRUE, start_trip: false});
     // store.dispatch({type: CONTINUE_FALSE, continue_trip: false});
 
-    if (startTrip == undefined) {
+    if (startTrip == undefined || tripData?.status == undefined) {
       store.dispatch({type: START, startTrip: false});
       store.dispatch({type: END, startTrip: false});
     }

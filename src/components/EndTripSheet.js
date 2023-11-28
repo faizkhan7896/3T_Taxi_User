@@ -188,33 +188,27 @@ const App = ({navigation, setReviewSended}) => {
       console.log('addEndTripRattingBadgeaddEndTripRattingBadge', v);
       // alert(JSON.stringify(v.status));
       if (v.status == 1) {
-        if (tip == 0) {
-          setReviewSended(true);
-          showSuccess(localizationStrings?.Rating_Submitted_Successfully);
-          store.dispatch({type: BOOKING_STATUS, booking_status: 'FINISH'});
-          // store.dispatch({type: B_ID, booking_id: ''});
-          store.dispatch({type: START, startTrip: false});
-          store.dispatch({type: END, startTrip: false});
-          store.dispatch({type: TRIP_DATA, tripData: {}});
-          store.dispatch({type: CONTINUE_TRUE, continue_trip: false});
-          store.dispatch({type: START_TRUE, start_trip: false});
-          store.dispatch({type: CONTINUE_FALSE, continue_trip: false});
-        }
-        if (tip != 0) {
-          setReviewSended(true);
-          showSuccess(localizationStrings?.Rating_Submitted_Successfully);
-          store.dispatch({type: BOOKING_STATUS, booking_status: 'FINISH'});
-          store.dispatch({type: B_ID, booking_id: ''});
-          store.dispatch({type: START, startTrip: false});
-          store.dispatch({type: END, startTrip: false});
-          store.dispatch({type: TRIP_DATA, tripData: {}});
-          store.dispatch({type: CONTINUE_TRUE, continue_trip: false});
-          store.dispatch({type: START_TRUE, start_trip: false});
-          store.dispatch({type: CONTINUE_FALSE, continue_trip: false});
-        }
+        setReviewSended(true);
+        showSuccess(localizationStrings?.Rating_Submitted_Successfully);
+        store.dispatch({type: BOOKING_STATUS, booking_status: 'FINISH'});
+        store.dispatch({type: B_ID, booking_id: ''});
+        store.dispatch({type: START, startTrip: false});
+        store.dispatch({type: END, startTrip: false});
+        store.dispatch({type: TRIP_DATA, tripData: {}});
+        store.dispatch({type: CONTINUE_TRUE, continue_trip: false});
+        store.dispatch({type: START_TRUE, start_trip: false});
+        store.dispatch({type: CONTINUE_FALSE, continue_trip: false});
 
         setLoading(false);
       } else {
+        store.dispatch({type: BOOKING_STATUS, booking_status: 'FINISH'});
+        store.dispatch({type: B_ID, booking_id: ''});
+        store.dispatch({type: START, startTrip: false});
+        store.dispatch({type: END, startTrip: false});
+        store.dispatch({type: TRIP_DATA, tripData: {}});
+        store.dispatch({type: CONTINUE_TRUE, continue_trip: false});
+        store.dispatch({type: START_TRUE, start_trip: false});
+        store.dispatch({type: CONTINUE_FALSE, continue_trip: false});
         setLoading(false);
         ShowToast(v.message, 'error');
       }
@@ -584,7 +578,7 @@ const App = ({navigation, setReviewSended}) => {
               color={'gray'}
               mb={30}
               onPress={() => {
-                store.dispatch({type: BOOKING_STATUS, booking_id: 'FINISH'});
+                store.dispatch({type: BOOKING_STATUS, booking_status: 'FINISH'});
                 store.dispatch({type: B_ID, booking_id: ''});
                 store.dispatch({type: START, startTrip: false});
                 store.dispatch({type: END, startTrip: false});
@@ -670,6 +664,9 @@ const App = ({navigation, setReviewSended}) => {
             CardPayment();
           }
           if (paymentMethod?.id == 'Cash') {
+            AddReview();
+          }
+          if (paymentMethod?.id == 'Pay_in_Car') {
             AddReview();
           }
         }}

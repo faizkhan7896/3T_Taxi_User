@@ -41,11 +41,11 @@ export const data = [
       id: 'Pay_in_Car',
       image: require('../assets/icons/using/CardMachine_EG.png'),
     },
-    // {
-    //   name: localizationStrings?.Card,
-    //   id: 'Card',
-    //   image: require('../assets/icons/using/Card_.png'),
-    // },
+    {
+      name: localizationStrings?.Card,
+      id: 'Card',
+      image: require('../assets/icons/using/Card_.png'),
+    },
   ],
 ];
 
@@ -221,7 +221,7 @@ export default function PaymentOptions({
           showsVerticalScrollIndicator={false}
         />
 
-        {selected?.id == 'Card' && (
+        {/* {selected?.id == 'Card' && (
           <View style={{marginVertical: 20}}>
             <Text
               style={{
@@ -261,7 +261,7 @@ export default function PaymentOptions({
             // mv={20}
             onPress={() => navigation.navigate('AddCard')}
           />
-        )}
+        )} */}
         {/* <View style={{flexDirection: 'row', marginVertical: 10}}> */}
         {customBut == true ? (
           <CustomButton_2
@@ -276,7 +276,9 @@ export default function PaymentOptions({
                 ? localizationStrings?.Card
                 : selected?.id == 'OPay'
                 ? localizationStrings?.Opay
-                : selected?.id == 'Cash' && localizationStrings?.Cash)
+                : selected?.id == 'Cash'
+                ? localizationStrings?.Cash
+                : selected?.id == 'Pay_in_Car' && localizationStrings?.PayInCar)
 
               // : selected?.id == 'Pay_in_Car' && localizationStrings?.PayInCar)
               // (selected == 'Google Pay'
@@ -305,16 +307,14 @@ export default function PaymentOptions({
                 ? localizationStrings?.Card
                 : selected?.id == 'OPay'
                 ? localizationStrings?.Opay
-                : selected?.id == 'Cash' && localizationStrings?.Cash)
+                : selected?.id == 'Cash'
+                ? localizationStrings?.Cash
+                : selected?.id == 'Pay_in_Car' && localizationStrings?.PayInCar)
             }
             flex={1}
             mh={10}
             mv={20}
             onPress={() => {
-              if (selected?.id == 'Card' && Data?.length == 0) {
-                showError(localizationStrings?.msg_select_card);
-                return;
-              }
               setIsOpen(false);
             }}
           />
