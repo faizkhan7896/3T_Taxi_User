@@ -85,7 +85,7 @@ const App = ({navigation, setReviewSended}) => {
   const scrollView = useRef();
   const [badges, setBadges] = useState();
   const [rating, setRating] = useState(0);
-  const [Comment, setComment] = useState(false);
+  const [Comment, setComment] = useState('');
   const [badge, setBadge] = useState([]);
   const [loading, setLoading] = useState(false);
   const [tip, setTip] = useState(0);
@@ -169,7 +169,7 @@ const App = ({navigation, setReviewSended}) => {
       showError('Please Select Any Badge');
       return;
     }
-    setLoading(true);
+    // setLoading(true);
     const body2 = new FormData();
     body2.append('user_id', userId);
     body2.append('driver_id', tripData?.driver_id);
@@ -178,8 +178,8 @@ const App = ({navigation, setReviewSended}) => {
     body2.append('review', Comment);
     body2.append('badge_id', badge.join(','));
     body2.append('type', 'USER');
-    body2.append('payment_type', paymentMethod);
-    body2.append('tip_amount', tip?.toString());
+    body2.append('payment_type', paymentMethod?.id);
+    body2.append('tip_amount', tip);
 
     console.log('addEndTripRattingBadge', body2);
     // return
@@ -198,7 +198,10 @@ const App = ({navigation, setReviewSended}) => {
         store.dispatch({type: CONTINUE_TRUE, continue_trip: false});
         store.dispatch({type: START_TRUE, start_trip: false});
         store.dispatch({type: CONTINUE_FALSE, continue_trip: false});
-
+        setTimeout(() => {
+          navigation.goBack();
+          // navigation.navigate('HomeMap');
+        }, 100);
         setLoading(false);
       } else {
         store.dispatch({type: BOOKING_STATUS, booking_status: 'FINISH'});
@@ -209,6 +212,10 @@ const App = ({navigation, setReviewSended}) => {
         store.dispatch({type: CONTINUE_TRUE, continue_trip: false});
         store.dispatch({type: START_TRUE, start_trip: false});
         store.dispatch({type: CONTINUE_FALSE, continue_trip: false});
+        setTimeout(() => {
+          navigation.goBack();
+          // navigation.navigate('HomeMap');
+        }, 100);
         setLoading(false);
         ShowToast(v.message, 'error');
       }
@@ -578,7 +585,10 @@ const App = ({navigation, setReviewSended}) => {
               color={'gray'}
               mb={30}
               onPress={() => {
-                store.dispatch({type: BOOKING_STATUS, booking_status: 'FINISH'});
+                store.dispatch({
+                  type: BOOKING_STATUS,
+                  booking_status: 'FINISH',
+                });
                 store.dispatch({type: B_ID, booking_id: ''});
                 store.dispatch({type: START, startTrip: false});
                 store.dispatch({type: END, startTrip: false});

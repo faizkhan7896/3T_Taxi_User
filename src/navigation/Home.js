@@ -58,7 +58,7 @@ function HomeNavigator() {
 
   async function status(status) {
     try {
-      const url = baseUrl + 'update_chat_status';
+      const url = baseUrl + 'update_chat_online_status';
 
       const body = new FormData();
       body.append('user_id', userId);
@@ -75,7 +75,7 @@ function HomeNavigator() {
       console.log(res);
       const rslt = await res.json();
       // console.log(rslt);
-      // console.log(status);
+      console.log(status);
       // alert(status);
     } catch (e) {}
   }
@@ -110,6 +110,8 @@ function HomeNavigator() {
       clearInterval(intervalCall);
     };
   }, []);
+
+  
 
   return (
     <Stack.Navigator

@@ -24,7 +24,7 @@ const SearchingDriverPopup = ({visible, setVisible, estimate}) => {
   // console.log('booking_id', booking_id, 'userId', userId);
   // alert(JSON.stringify(booking_id));
 
-  const cancel_trip = () => {
+  const cancel_trip_old = () => {
     setLoading(true);
     const body = new FormData();
     body.append('user_id', userId);
@@ -33,6 +33,33 @@ const SearchingDriverPopup = ({visible, setVisible, estimate}) => {
     console.log(body);
 
     post_api('user_cancel_ride', body)
+      .then(v => {
+        setLoading(false);
+        if (v.status == 1) {
+          setVisible(false);
+          showSuccess(localizationStrings?.msg_Ride_canceled);
+          store.dispatch({type: END});
+          store.dispatch({type: TRIP_DATA, payload: {}});
+          store.dispatch({type: B_ID, payload: ''});
+          return;
+        }
+        showError(v.message);
+      })
+      .catch(e => {
+        setLoading(false);
+        showError(e);
+      });
+  };
+  
+  const cancel_trip = () => {
+    setLoading(true);
+    const body = new FormData();
+    body.append('user_id', userId);
+    body.append('booking_id', booking_id);
+
+    console.log(body);
+
+    post_api('user_cancel_ride_refund_amount', body)
       .then(v => {
         setLoading(false);
         if (v.status == 1) {

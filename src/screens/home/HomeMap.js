@@ -6,6 +6,7 @@ import {
   Modal,
   Platform,
   StyleSheet,
+  Text,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -23,6 +24,7 @@ import {
   CONTINUE_FALSE,
   CONTINUE_TRUE,
   END,
+  NOTIICATION_VISIBLE,
   START,
   START_TRUE,
   TRIP_DATA,
@@ -46,6 +48,8 @@ import {
 } from '../../utils/constance';
 import {theme} from '../../utils/theme';
 import localizationStrings from '../../utils/Localization';
+import * as Animatable from 'react-native-animatable';
+import {useNavigation} from '@react-navigation/native';
 
 const screen = Dimensions.get('window');
 const ASPECT_RATIO = screen.width / screen.height;
@@ -67,7 +71,7 @@ const MARKERS = [
   {latitude: 22.712013983840972, longitude: 75.87053831666708},
 ];
 
-const HomeMap = ({navigation}) => {
+const HomeMap = () => {
   const {
     userId,
     startTrip,
@@ -78,11 +82,14 @@ const HomeMap = ({navigation}) => {
     tripData,
     booking_status,
     cityId,
+    visible_,
   } = useSelector(state => state?.user);
   const [isFocused, setIsFocused] = useState(true);
   const [driverLatLon, setdriverLatLon] = useState({});
+  const navigation = useNavigation();
 
-  // alert(JSON.stringify(cityId));
+  // alert(JSON.stringify(visible_?.data?.body?.split('-')[1]));
+
   // console.log('tripData', tripData);
   const mapRef = useRef();
   const markerRef = useRef();
@@ -140,6 +147,9 @@ const HomeMap = ({navigation}) => {
   const [AddsBanner, setAddsBanner] = useState();
   const [modal, setModal] = useState(false);
   const [DriversNearBy, setDriversNearBy] = useState([]);
+  const [visible, setVisible] = useState(false);
+  const handleViewRef = useRef();
+  const [notival, setNotival] = useState('');
 
   // alert(JSON.stringify(booking_status))
   // alert(JSON.stringify(book))
@@ -568,6 +578,61 @@ const HomeMap = ({navigation}) => {
     });
   };
 
+  const CusomNotification = navigation => {
+    return (
+      <Animatable.View
+        duration={300}
+        animation={visible_?.value ? 'fadeInDown' : 'fadeInUp'}
+        ref={handleViewRef}
+        style={{
+          backgroundColor: '#25231F',
+          position: 'absolute',
+          width: Dimensions.get('window').width,
+          paddingVertical: 10,
+          paddingHorizontal: 15,
+          top: 0,
+        }}>
+        <TouchableOpacity
+          activeOpacity={1}
+          onPress={() => {
+            store.dispatch({
+              type: NOTIICATION_VISIBLE,
+              payload: {value: false, data: ''},
+            });
+            navigation.navigate('Inbox');
+          }}
+          style={{
+            backgroundColor: '#25231F',
+            position: 'absolute',
+            width: Dimensions.get('window').width,
+            paddingVertical: 10,
+            paddingHorizontal: 15,
+            top: 0,
+          }}>
+          <View style={{}}>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Image
+                style={{height: 50, width: 50, marginRight: 10}}
+                resizeMode="contain"
+                source={require('../../assets/icons/taxi_logo.png')}
+              />
+              <Text
+                numberOfLines={2}
+                style={{
+                  color: '#fff',
+                  // fontSize: 18,
+                  fontWeight: '500',
+                  width: Dimensions.get('window').width / 1.3,
+                }}>
+                {visible_?.data}
+              </Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+      </Animatable.View>
+    );
+  };
+
   return (
     <View style={styles.container}>
       <CustomHeader
@@ -957,6 +1022,75 @@ const HomeMap = ({navigation}) => {
           </TouchableOpacity>
         </Modal>
       )}
+
+      {visible_?.value == true && (
+        <Animatable.View
+          duration={300}
+          animation={visible_?.value ? 'fadeInDown' : 'fadeInUp'}
+          ref={handleViewRef}
+          style={{
+            backgroundColor: '#25231F',
+            position: 'absolute',
+            width: Dimensions.get('window').width,
+            paddingVertical: 10,
+            paddingHorizontal: 15,
+            top: 0,
+          }}>
+          <TouchableOpacity
+            activeOpacity={1}
+            onPress={() => {
+              store.dispatch({
+                type: NOTIICATION_VISIBLE,
+                payload: {value: false, data: ''},
+              });
+              if (visible_?.data?.body?.split('-')[1] == 'Chat') {
+                navigation.navigate('ChatDeatils', {
+                  item: tripData,
+                  Driver: true,
+                });
+              } else {
+                navigation.navigate('Inbox');
+              }
+            }}
+            style={{
+              backgroundColor: '#25231F',
+              position: 'absolute',
+              width: Dimensions.get('window').width,
+              paddingVertical: 10,
+              paddingHorizontal: 15,
+              top: 0,
+            }}>
+            <View style={{}}>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Image
+                  style={{height: 50, width: 50, marginRight: 10}}
+                  resizeMode="contain"
+                  source={require('../../assets/icons/taxi_logo.png')}
+                />
+                <Text
+                  numberOfLines={2}
+                  style={{
+                    color: '#fff',
+                    // fontSize: 18,
+                    fontWeight: '500',
+                    width: Dimensions.get('window').width / 1.3,
+                    textAlign:'left'
+                  }}>
+                  {visible_?.data?.body?.split('-')[0]}
+                </Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+        </Animatable.View>
+      )}
+      {/* {visible_?.value == true && (
+        <CusomNotification
+          source={require('../../assets/icons/alert.png')}
+          visible={visible}
+          setVisible={setVisible}
+          navigation={navigation}
+        />
+      )} */}
     </View>
   );
 };

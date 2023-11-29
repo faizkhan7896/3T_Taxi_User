@@ -25,6 +25,7 @@ import {PersistGate} from 'redux-persist/integration/react';
 import Root from './src/navigation/Root';
 import store, {persistor} from './src/redux/store';
 import {theme} from './src/utils/theme';
+import {NOTIICATION_VISIBLE} from './src/redux/ActionTypes';
 
 export default function App({navigation}) {
   // GoogleSignin.configure({
@@ -33,7 +34,6 @@ export default function App({navigation}) {
   // });
   const dimension = useWindowDimensions();
   // const navigation = useNavigation();
-
   const [visible, setVisible] = useState(false);
   const handleViewRef = useRef();
   const [notival, setNotival] = useState('');
@@ -137,14 +137,28 @@ export default function App({navigation}) {
   };
 
   React.useEffect(() => {
+    // store.dispatch({
+    //   type: NOTIICATION_VISIBLE,
+    //   payload: {value: false, data: ''},
+    // });
+    // setVisible(false);
+
     const unsubscribe = messaging().onMessage(async remoteMessage => {
-      setNotival(remoteMessage?.notification?.body);
+      setNotival(remoteMessage?.notification);
+      store.dispatch({
+        type: NOTIICATION_VISIBLE,
+        payload: {value: true, data: remoteMessage?.notification},
+      });
       setVisible(true);
       setTimeout(() => {
         setNotival('');
         setVisible(false);
+        store.dispatch({
+          type: NOTIICATION_VISIBLE,
+          payload: {value: false, data: ''},
+        });
       }, 3000);
-      console.log('A new FCM message arrived', remoteMessage);
+      console.log('A new FCM message arrived', remoteMessage?.notification);
     });
 
     return unsubscribe;
@@ -167,14 +181,15 @@ export default function App({navigation}) {
           </BottomSheetModalProvider>
         </GestureHandlerRootView>
         <FlashMessage position="top" />
-        {visible == true && (
+        {/* {visible == true && (
           <CusomNotification
             source={require('./src/assets/icons/alert.png')}
             visible={visible}
             setVisible={setVisible}
             navigation={navigation}
           />
-        )}
+        )} */}
+
         <Toast
           visibilityTime={1500}
           autoHide={true}

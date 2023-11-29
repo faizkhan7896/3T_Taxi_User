@@ -5,6 +5,7 @@ import {
   Image,
   useWindowDimensions,
   TouchableOpacity,
+  Share,
 } from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import ProfileImg from './ProfileImg';
@@ -37,7 +38,7 @@ export default function StartTripSlider({start}) {
   const [estimatedTome, setEstimatedTome] = useState();
   console.log(estimatedTome);
 
-  // alert(JSON.stringify(userData?.wallet <= tripData?.amount));
+  // alert(JSON.stringify(tripData?.driver_details?.mobile));
 
   const {countryId} = useSelector(state => state.user || 9);
 
@@ -94,7 +95,6 @@ export default function StartTripSlider({start}) {
     setEstimatedTome(formattedTime.join(' '));
     return;
   }
-  
 
   const GetEstimatedTime = async () => {
     const body = new FormData();
@@ -124,6 +124,34 @@ export default function StartTripSlider({start}) {
   useEffect(() => {
     GetEstimatedTime();
   }, []);
+
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        message:
+          'Track my 3T ride!\n Hey I booked a 3T! The Captain is' +
+          tripData?.driver_details?.user_name +
+          ', driving a ' +
+          tripData?.driver_details?.car_name +
+          ', ' +
+          tripData?.driver_details?.plate_number +
+          ', mobile number is +' +
+          tripData?.driver_details?.mobile +
+          '.\n\nhttps://play.google.com/store/apps/details?id=com.RN_3T_Driver',
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 
   const fadeIn = {
     from: {marginLeft: -120},
@@ -334,24 +362,28 @@ export default function StartTripSlider({start}) {
               {localizationStrings.Current_trip}
             </Text>
 
-            <Image
-              source={require('../assets/icons/using/livelocation.png')}
-              style={{
-                height: 16,
-                width: 16,
-                resizeMode: 'contain',
-                tintColor: theme.colors.yellow,
-              }}
-            />
-            <Text
-              style={{
-                fontSize: 14,
-                fontFamily: 'Jost-Regular',
-                color: theme.colors.yellow,
-                marginLeft: 6,
-              }}>
-              {localizationStrings.Share}
-            </Text>
+            <TouchableOpacity
+              style={{flexDirection: 'row'}}
+              onPress={() => onShare()}>
+              <Image
+                source={require('../assets/icons/using/livelocation.png')}
+                style={{
+                  height: 16,
+                  width: 16,
+                  resizeMode: 'contain',
+                  tintColor: theme.colors.yellow,
+                }}
+              />
+              <Text
+                style={{
+                  fontSize: 14,
+                  fontFamily: 'Jost-Regular',
+                  color: theme.colors.yellow,
+                  marginLeft: 6,
+                }}>
+                {localizationStrings.Share}
+              </Text>
+            </TouchableOpacity>
           </View>
           {!hide && (
             <View>
@@ -366,7 +398,7 @@ export default function StartTripSlider({start}) {
                       fontFamily: 'Jost-Medium',
                       color: theme.colors.yellow,
                     }}>
-                    {localizationStrings.Change}
+                    {/* {localizationStrings.Change} */}
                   </Text>
                 }
               />
@@ -383,7 +415,7 @@ export default function StartTripSlider({start}) {
                     fontFamily: 'Jost-Regular',
                     color: '#FFFFFF',
                   }}>
-                  {localizationStrings.Payment}
+                  {localizationStrings.payment}
                 </Text>
               </View>
               <View
@@ -401,15 +433,17 @@ export default function StartTripSlider({start}) {
                   }}>
                   <Image
                     source={
-                      tripData?.payment_type == '3T Wallet'
-                        ? require('../assets/icons/using/Logo.png')
+                      tripData?.payment_type == 'OPay'
+                        ? require('../assets/icons/using/Opay.jpeg')
                         : tripData?.payment_type == 'Card'
                         ? require('../assets/icons/using/card.png')
                         : tripData?.payment_type == 'Apple Pay'
                         ? require('../assets/icons/using/apple_white.png')
                         : tripData?.payment_type == 'Google Pay'
                         ? require('../assets/icons/using/GooglePay.png')
-                        : require('../assets/icons/using/Cash.png')
+                        : tripData?.payment_type == 'Pay_in_Car'
+                        ? require('../assets/icons/using/CardMachine_EG.png')
+                        : require('../assets/icons/using/CashMachine.png')
                     }
                     style={{height: 20, width: 35, resizeMode: 'contain'}}
                   />
@@ -421,16 +455,19 @@ export default function StartTripSlider({start}) {
                       flex: 1,
                       marginLeft: 15,
                     }}>
-                    {localizationStrings?.Pay_Tyep +
-                      ' ' +
-                      (tripData?.payment_type == 'Google Pay'
-                        ? localizationStrings?.Google_Pay
-                        : tripData?.payment_type == 'Card'
-                        ? localizationStrings?.Card
-                        : tripData?.payment_type == 'OPay'
-                        ? localizationStrings?.Opay
-                        : tripData?.payment_type == 'Cash' &&
-                          localizationStrings?.Cash)}
+                    {localizationStrings?.Pay_Tyep+' '}
+                    {tripData?.payment_type == 'OPay'
+                      ? localizationStrings?.Opay
+                      : tripData?.payment_type == 'Card'
+                      ? localizationStrings?.Visa_Card
+                      : tripData?.payment_type == 'Apple Pay'
+                      ? 'Apple Pay'
+                      : tripData?.payment_type == 'Google Pay'
+                      ? localizationStrings.Google_Pay
+                      : tripData?.payment_type == 'Pay_in_Car'
+                      ? localizationStrings.PayInCar
+                      : tripData?.payment_type == 'Cash' &&
+                        localizationStrings?.Cash}
                   </Text>
                   <Text
                     style={{

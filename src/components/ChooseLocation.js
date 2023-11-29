@@ -80,7 +80,7 @@ const ChooseLocation = ({
   });
 
   const {destinationCords, destinationAddress} = state;
-  const {userId, countryId, address_, cityId, booking_Later_Date, userData} =
+  const {userId, countryId, address_, cityId, booking_Later_Date,tripData, userData} =
     useSelector(state => state?.user);
 
   const [selected, setSelected] = useState();
@@ -105,7 +105,7 @@ const ChooseLocation = ({
   const [ShowPricing, setShowPricing] = useState(false);
   const [Show_CardDetails, setShow_CardDetails] = useState(false);
   const [estimatedTime, setEstimatedTime] = useState('');
-  // alert(JSON.stringify(moment(date).format('Do MMM' + ' @' + 'hh:mm a')))
+  // alert(JSON.stringify(tripData))
 
   // console.log('Calculation Formula ============================', {
   //   carges: Car_Details?.charge + ' + ',
@@ -282,8 +282,7 @@ const ChooseLocation = ({
         '&currency=' +
         currency +
         '&user_id=' +
-        userId 
-        +
+        userId +
         '&uniqueID=' +
         randomString,
       visible_: setVisible,
@@ -678,9 +677,13 @@ const ChooseLocation = ({
       ShowListener.remove();
     };
   }, []);
+
   // useEffect(() => {
-  //   alert();
-  // }, []);
+  //   const unsubscribe = navigation.addListener('focus', () => {
+  //     setBook('2');
+  //   });
+  //   return unsubscribe;
+  // }, [navigation]);
 
   const fadeIn = {from: {height: 0}, to: {height: book != '0' ? 580 : 230}};
   const fadeOut = {from: {height: book != '0' ? 580 : 230}, to: {height: 40}};

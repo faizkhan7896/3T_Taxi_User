@@ -24,6 +24,8 @@ import {
 import {theme} from '../utils/theme';
 import Home from '../screens/home/Home';
 import HomeMap from '../screens/home/HomeMap';
+import Inbox from '../screens/home/Inbox';
+// import ChatDeatils from '../screens/home/ChatDeatils';
 
 const Stack = createNativeStackNavigator();
 
@@ -81,6 +83,11 @@ function App() {
       <Drawer.Screen
         name="HomeMap"
         component={HomeMap}
+        options={{drawerItemStyle: {height: 0}}}
+      />
+      <Drawer.Screen
+        name="Inbox"
+        component={Inbox}
         options={{drawerItemStyle: {height: 0}}}
       />
       <Drawer.Screen

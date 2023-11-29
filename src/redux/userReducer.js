@@ -12,6 +12,7 @@ import {
   ID,
   LANGUAGEUPDATED_,
   LOGIN,
+  NOTIICATION_VISIBLE,
   SIGNOUT,
   START,
   START_TRUE,
@@ -28,6 +29,7 @@ const initialState = {
   booking_Later_Date: '',
   booking_status: '',
   login: false,
+  visible_: false,
   LangigaeUpdated: false,
   startTrip: false,
   tripData: {},
@@ -57,6 +59,8 @@ export default function userReducer(state = initialState, action) {
       return {...state, cityId: action.payload};
     case LANGUAGEUPDATED_:
       return {...state, LangigaeUpdated: action.payload};
+    case NOTIICATION_VISIBLE:
+      return {...state, visible_: action.payload};
     case LOGIN:
       return {...state, login: true};
     case START:
