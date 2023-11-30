@@ -245,8 +245,24 @@ const HomeMap = () => {
       .then(v => {
         // console.log('booking detail api v - ', v);
 
-        console.log('______________________', v?.result[0]?.status);
-        // console.log('booking_id______________________', booking_id);
+        console.log('booking_id______________________', v?.result[0]?.status);
+
+        // alert(JSON.stringify(v?.result[0]?.status));
+
+        if (v?.result[0]?.status == 'Cancel') {
+          // alert(JSON.stringify(v?.result[0]?.status));
+
+          store.dispatch({type: BOOKING_STATUS, booking_id: 'FINISH'});
+          store.dispatch({type: B_ID, booking_id: ''});
+          store.dispatch({type: START, startTrip: false});
+          store.dispatch({type: END, startTrip: false});
+          store.dispatch({type: TRIP_DATA, tripData: {}});
+          store.dispatch({type: CONTINUE_TRUE, continue_trip: false});
+          store.dispatch({type: START_TRUE, start_trip: false});
+          store.dispatch({type: CONTINUE_FALSE, continue_trip: false});
+          navigation.navigate('HomeMap');
+          setBook(0);
+        }
 
         if (v.status == 1) {
           animateMarker(
@@ -269,20 +285,6 @@ const HomeMap = () => {
             setBook(0);
             store.dispatch({type: B_ID, booking_id: ''});
             store.dispatch({type: TRIP_DATA, payload: {}});
-          }
-          if (v?.result[0]?.status == 'Cancel') {
-            // alert(JSON.stringify(v?.result[0]?.status));
-
-            store.dispatch({type: BOOKING_STATUS, booking_id: 'FINISH'});
-            store.dispatch({type: B_ID, booking_id: ''});
-            store.dispatch({type: START, startTrip: false});
-            store.dispatch({type: END, startTrip: false});
-            store.dispatch({type: TRIP_DATA, tripData: {}});
-            store.dispatch({type: CONTINUE_TRUE, continue_trip: false});
-            store.dispatch({type: START_TRUE, start_trip: false});
-            store.dispatch({type: CONTINUE_FALSE, continue_trip: false});
-            navigation.navigate('HomeMap');
-            setBook(0);
           }
         }
       })
@@ -376,7 +378,7 @@ const HomeMap = () => {
       }
     }, 2500);
     return () => clearInterval(int);
-  }, [isFocused, tripData]);
+  }, [isFocused, tripData?.status, visible_]);
 
   async function RemoveBanner() {
     try {
@@ -576,61 +578,6 @@ const HomeMap = () => {
       distance: d,
       time: t,
     });
-  };
-
-  const CusomNotification = navigation => {
-    return (
-      <Animatable.View
-        duration={300}
-        animation={visible_?.value ? 'fadeInDown' : 'fadeInUp'}
-        ref={handleViewRef}
-        style={{
-          backgroundColor: '#25231F',
-          position: 'absolute',
-          width: Dimensions.get('window').width,
-          paddingVertical: 10,
-          paddingHorizontal: 15,
-          top: 0,
-        }}>
-        <TouchableOpacity
-          activeOpacity={1}
-          onPress={() => {
-            store.dispatch({
-              type: NOTIICATION_VISIBLE,
-              payload: {value: false, data: ''},
-            });
-            navigation.navigate('Inbox');
-          }}
-          style={{
-            backgroundColor: '#25231F',
-            position: 'absolute',
-            width: Dimensions.get('window').width,
-            paddingVertical: 10,
-            paddingHorizontal: 15,
-            top: 0,
-          }}>
-          <View style={{}}>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Image
-                style={{height: 50, width: 50, marginRight: 10}}
-                resizeMode="contain"
-                source={require('../../assets/icons/taxi_logo.png')}
-              />
-              <Text
-                numberOfLines={2}
-                style={{
-                  color: '#fff',
-                  // fontSize: 18,
-                  fontWeight: '500',
-                  width: Dimensions.get('window').width / 1.3,
-                }}>
-                {visible_?.data}
-              </Text>
-            </View>
-          </View>
-        </TouchableOpacity>
-      </Animatable.View>
-    );
   };
 
   return (
@@ -1074,7 +1021,7 @@ const HomeMap = () => {
                     // fontSize: 18,
                     fontWeight: '500',
                     width: Dimensions.get('window').width / 1.3,
-                    textAlign:'left'
+                    textAlign: 'left',
                   }}>
                   {visible_?.data?.body?.split('-')[0]}
                 </Text>

@@ -9,7 +9,16 @@ import Loader from './Loader';
 import messaging from '@react-native-firebase/messaging';
 import CancelRide from './CancelRide';
 import store from '../redux/store';
-import {B_ID, END, START, TRIP_DATA} from '../redux/ActionTypes';
+import {
+  B_ID,
+  BOOKING_STATUS,
+  CONTINUE_FALSE,
+  CONTINUE_TRUE,
+  END,
+  START,
+  START_TRUE,
+  TRIP_DATA,
+} from '../redux/ActionTypes';
 import LinearGradient from 'react-native-linear-gradient';
 import * as Animatable from 'react-native-animatable';
 import {TouchableOpacity} from 'react-native';
@@ -50,7 +59,7 @@ const SearchingDriverPopup = ({visible, setVisible, estimate}) => {
         showError(e);
       });
   };
-  
+
   const cancel_trip = () => {
     setLoading(true);
     const body = new FormData();
@@ -148,7 +157,7 @@ const SearchingDriverPopup = ({visible, setVisible, estimate}) => {
       // clean up
       clearInterval(intervalCall);
     };
-  }, [booking_id]);
+  }, [booking_id, tripData]);
 
   // const fadeIn = {from: {marginHorizontal: 0}, to: {marginHorizontal: 200}};
   // const fadeIn = {from: {paddingLeft: 0}, to: {paddingLeft: 200}};
