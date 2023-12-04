@@ -165,6 +165,14 @@ const HomeMap = () => {
       : countryId == '10'
       ? 'EGP'
       : countryId == '11' && 'SAR';
+  const Mapregion =
+    countryId == '4'
+      ? 'IND'
+      : countryId == '9'
+      ? 'NOR'
+      : countryId == '10'
+      ? 'EGY'
+      : countryId == '11' && 'SAR';
 
   const GetToll = async () => {
     try {
@@ -415,9 +423,11 @@ const HomeMap = () => {
   }, [updatedDropLocation]);
 
   const getDragLocation = async () => {
+    // alert()
     const locPermissionDenied = await locationPermission();
     if (locPermissionDenied) {
       console.log('curLoc - ', curLoc);
+
       get_address(curLoc?.latitude, curLoc?.longitude).then(v => {
         console.log('v 1 - ', v);
         updateState({
@@ -431,17 +441,18 @@ const HomeMap = () => {
   };
 
   const getDropDragLocation = async () => {
+    // alert()
     const locPermissionDenied = await locationPermission();
     if (locPermissionDenied) {
       console.log('locations latitued - ', destinationCords?.latitude);
-      get_address(destinationCords?.latitude, destinationCords?.longitude).then(
-        v => {
-          console.log('v data - ', address1);
-          updateState({
-            address2: v,
-          });
-        },
-      );
+      // get_address(destinationCords?.latitude, destinationCords?.longitude).then(
+      //   v => {
+      //     console.log('v data - ', address1);
+      //     updateState({
+      //       address2: v,
+      //     });
+      //   },
+      // );
       onCenter();
       console.log('console.log(address_1,)', address1);
       animate(destinationCords?.latitude, destinationCords?.longitude);
@@ -452,11 +463,16 @@ const HomeMap = () => {
     const locPermissionDenied = await locationPermission();
     if (locPermissionDenied) {
       const {latitude, longitude, heading} = await getCurrentLocation();
-      get_address(latitude, longitude).then(v => {
-        updateState({
-          address1: v,
+      // alert(JSON.stringify(address1));
+
+      if (address1 == '') {
+        get_address(latitude, longitude).then(v => {
+          updateState({
+            address1: v,
+          });
         });
-      });
+        // alert(JSON.stringify(address1))
+      }
       onCenter();
       // console.log('console.log(address_1,)', address1);
       animate(latitude, longitude);
@@ -741,6 +757,7 @@ const HomeMap = () => {
             {tripData?.status == 'Start' ? (
               <MapViewDirections
                 // origin={curLoc}
+                region={Mapregion}
                 origin={{
                   latitude: parseFloat(tripData?.driver_details?.lat),
                   longitude: parseFloat(tripData?.driver_details?.lon),
@@ -753,10 +770,11 @@ const HomeMap = () => {
                   latitudeDelta: LATITUDE_DELTA,
                   longitudeDelta: LONGITUDE_DELTA,
                 }}
-                apikey={mapsApiKey}
+                mode="DRIVING"
+                // apikey={mapsApiKey}
                 strokeWidth={2}
                 strokeColor="#FFDC00"
-                optimizeWaypoints={true}
+                optimizeWaypoints={false}
                 onStart={params => {
                   console.log(
                     `Started routing between "${params.origin}" and "${params.destination}"`,
@@ -784,8 +802,10 @@ const HomeMap = () => {
               <MapViewDirections
                 // origin={curLoc}
                 origin={{
-                  latitude: parseFloat(tripData?.driver_details?.lat),
-                  longitude: parseFloat(tripData?.driver_details?.lon),
+                  // latitude: parseFloat(tripData?.driver_details?.lat),
+                  // longitude: parseFloat(tripData?.driver_details?.lon),
+                  latitude: parseFloat(tripData?.picuplat),
+                  longitude: parseFloat(tripData?.pickuplon),
                   latitudeDelta: LATITUDE_DELTA,
                   longitudeDelta: LONGITUDE_DELTA,
                 }}

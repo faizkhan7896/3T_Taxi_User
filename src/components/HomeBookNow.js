@@ -239,7 +239,7 @@ const HomeBookNow = ({
               ]);
             }}
             query={{
-              key: 'AIzaSyDmLCUMGhVP2osA_Fv5w87nVwiqJbk2HhQ',
+              key: 'AIzaSyCGzL3BtdfRz6geQcU1EJf8sP1b4tPGMB0',
               language: 'en',
             }}
             enablePoweredByContainer={false}
@@ -278,7 +278,7 @@ const HomeBookNow = ({
                 ]);
               }}
               query={{
-                key: 'AIzaSyDmLCUMGhVP2osA_Fv5w87nVwiqJbk2HhQ',
+                key: 'AIzaSyCGzL3BtdfRz6geQcU1EJf8sP1b4tPGMB0',
                 language: 'en',
               }}
               enablePoweredByContainer={false}

@@ -32,43 +32,44 @@ export default function Home({navigation}) {
   const [distance, setDistance] = useState('');
   const [time, setTime] = useState('');
   console.log('place1', place1);
+  // alert()
 
-  const requestLocationPermission = async () => {
-    try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-      );
-      if (granted) {
-        Geolocation.getCurrentPosition(
-          position => {
-            console.log(position);
-            setCoords1({
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude,
-            });
-            get_address(
-              position.coords.latitude,
-              position.coords.longitude,
-            ).then(v => setAdd1(v));
-          },
-          error => {
-            // See error code charts below.
-            console.log('error:-', error.code, error.message);
-          },
-          {
-            accuracy: {android: 'high', ios: 'best'},
-          },
-          {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
-        );
-      }
-    } catch (err) {
-      console.warn(err);
-    }
-  };
+  // const requestLocationPermission = async () => {
+  //   try {
+  //     const granted = await PermissionsAndroid.request(
+  //       PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+  //     );
+  //     if (granted) {
+  //       Geolocation.getCurrentPosition(
+  //         position => {
+  //           console.log(position);
+  //           setCoords1({
+  //             latitude: position.coords.latitude,
+  //             longitude: position.coords.longitude,
+  //           });
+  //           get_address(
+  //             position.coords.latitude,
+  //             position.coords.longitude,
+  //           ).then(v => setAdd1(v));
+  //         },
+  //         error => {
+  //           // See error code charts below.
+  //           console.log('error:-', error.code, error.message);
+  //         },
+  //         {
+  //           accuracy: {android: 'high', ios: 'best'},
+  //         },
+  //         {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
+  //       );
+  //     }
+  //   } catch (err) {
+  //     console.warn(err);
+  //   }
+  // };
 
-  useEffect(() => {
-    requestLocationPermission();
-  }, []);
+  // useEffect(() => {
+  //   requestLocationPermission();
+  // }, []);
 
   return (
     <View style={{flex: 1}}>
@@ -111,14 +112,14 @@ export default function Home({navigation}) {
             showsMyLocationButton={false}
             userInterfaceStyle="dark"
             showsUserLocation={false}
-            onPress={e => {
-              console.log(e.nativeEvent.coordinate);
-              setCoords2(e.nativeEvent.coordinate);
-              get_address(
-                e.nativeEvent.coordinate.latitude,
-                e.nativeEvent.coordinate.longitude,
-              ).then(address => setAdd2(address));
-            }}
+            // onPress={e => {
+            //   console.log(e.nativeEvent.coordinate);
+            //   setCoords2(e.nativeEvent.coordinate);
+            //   get_address(
+            //     e.nativeEvent.coordinate.latitude,
+            //     e.nativeEvent.coordinate.longitude,
+            //   ).then(address => setAdd2(address));
+            // }}
             onRegionChangeComplete={e => console.log('onchange region ', e)}
             // onRegionChange={e => console.log('rigion', e)}
             region={{

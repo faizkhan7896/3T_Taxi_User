@@ -80,8 +80,15 @@ const ChooseLocation = ({
   });
 
   const {destinationCords, destinationAddress} = state;
-  const {userId, countryId, address_, cityId, booking_Later_Date,tripData, userData} =
-    useSelector(state => state?.user);
+  const {
+    userId,
+    countryId,
+    address_,
+    cityId,
+    booking_Later_Date,
+    tripData,
+    userData,
+  } = useSelector(state => state?.user);
 
   const [selected, setSelected] = useState();
   const [keyboardVisible, setKeyboardVisible] = useState(false);
