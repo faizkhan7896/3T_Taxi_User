@@ -14,14 +14,14 @@ import localizationStrings from '../utils/Localization';
 export const data = [
   [
     {
-      name: localizationStrings.Google_Pay,
-      id: 'Google Pay',
-      image: require('../assets/icons/using/GooglePay.png'),
+      name: localizationStrings.Opay,
+      id: 'OPay',
+      image: require('../assets/icons/using/Opay.jpeg'),
     },
     {
-      name: localizationStrings?.Card,
-      id: 'Card',
-      image: require('../assets/icons/using/Card_.png'),
+      name: localizationStrings?.Fawry,
+      id: 'Fawry',
+      image: require('../assets/icons/using/Fawry.png'),
     },
     {
       name: localizationStrings?.Cash,
@@ -32,11 +32,6 @@ export const data = [
 
   [
     {
-      name: localizationStrings?.Opay,
-      id: 'OPay',
-      image: require('../assets/icons/using/Opay.jpeg'),
-    },
-    {
       name: localizationStrings?.PayInCar,
       id: 'Pay_in_Car',
       image: require('../assets/icons/using/CardMachine_EG.png'),
@@ -45,6 +40,11 @@ export const data = [
       name: localizationStrings?.Card,
       id: 'Card',
       image: require('../assets/icons/using/Card_.png'),
+    },
+    {
+      name: localizationStrings?.Google_Pay,
+      id: 'Google Pay',
+      image: require('../assets/icons/using/GooglePay.png'),
     },
   ],
 ];
@@ -208,7 +208,8 @@ export default function PaymentOptions({
         </Text>
 
         <FlatList
-          data={data[country == 'NOK' ? 0 : 1]}
+          // data={data[country == 'NOK' ? 1 : 0]}
+          data={data[1]}
           renderItem={(item, index) => (
             <Card
               item={item}
@@ -221,7 +222,7 @@ export default function PaymentOptions({
           showsVerticalScrollIndicator={false}
         />
 
-        {/* {selected?.id == 'Card' && (
+        {selected?.id == 'Card' && (
           <View style={{marginVertical: 20}}>
             <Text
               style={{
@@ -251,6 +252,7 @@ export default function PaymentOptions({
             ))}
           </View>
         )}
+
         {selected?.id == 'Card' && Data?.length == 0 && (
           <CustomButton_2
             bgColor={'#FFDC004D'}
@@ -261,7 +263,7 @@ export default function PaymentOptions({
             // mv={20}
             onPress={() => navigation.navigate('AddCard')}
           />
-        )} */}
+        )}
         {/* <View style={{flexDirection: 'row', marginVertical: 10}}> */}
         {customBut == true ? (
           <CustomButton_2
@@ -278,6 +280,8 @@ export default function PaymentOptions({
                 ? localizationStrings?.Opay
                 : selected?.id == 'Cash'
                 ? localizationStrings?.Cash
+                : selected?.id == 'Fawry'
+                ? localizationStrings?.Fawry
                 : selected?.id == 'Pay_in_Car' && localizationStrings?.PayInCar)
 
               // : selected?.id == 'Pay_in_Car' && localizationStrings?.PayInCar)
@@ -309,6 +313,8 @@ export default function PaymentOptions({
                 ? localizationStrings?.Opay
                 : selected?.id == 'Cash'
                 ? localizationStrings?.Cash
+                : selected?.id == 'Fawry'
+                ? localizationStrings?.Fawry
                 : selected?.id == 'Pay_in_Car' && localizationStrings?.PayInCar)
             }
             flex={1}
@@ -347,7 +353,7 @@ const Card = ({title, item, source, id, onPress, selected}) => {
       }}>
       <Image
         source={item?.item?.image}
-        style={{height: 30, width: 30, resizeMode: 'contain'}}
+        style={{height: 22, width: 35, resizeMode: 'contain', borderWidth: 1}}
       />
       <Text
         style={{
@@ -355,6 +361,7 @@ const Card = ({title, item, source, id, onPress, selected}) => {
           color: theme.colors.white,
           fontFamily: 'Jost-Medium',
           marginHorizontal: 10,
+          marginTop: -2,
         }}>
         {item?.item?.id == 'Google Pay'
           ? localizationStrings?.Google_Pay
@@ -364,6 +371,8 @@ const Card = ({title, item, source, id, onPress, selected}) => {
           ? localizationStrings?.Opay
           : item?.item?.id == 'Pay_in_Car'
           ? localizationStrings?.PayInCar
+          : item?.item?.id == 'Fawry'
+          ? localizationStrings?.Fawry
           : item?.item?.id == 'Cash' && localizationStrings?.Cash}
       </Text>
     </TouchableOpacity>

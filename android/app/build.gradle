@@ -274,6 +274,7 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'com.facebook.fresco:animated-gif:2.5.0'  ///gif    
     implementation 'com.google.firebase:firebase-appcheck-playintegrity:17.0.1'
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
 
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules

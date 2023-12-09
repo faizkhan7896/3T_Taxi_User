@@ -39,7 +39,7 @@ export default function SetupPayment() {
       ? 'EGP'
       : countryId == '11' && 'SAR';
 
-  // alert(JSON.stringify(Data?.length))
+  // alert(JSON.stringify(Data[0]?.card_exp))
 
   const get_card = () => {
     console.log('userId in cards -', userId);
@@ -91,7 +91,7 @@ export default function SetupPayment() {
     return unsubscribe;
   }, [navigation]);
 
-  const ListItem = ({source, text, text2, onPress, Check, cardId}) => {
+  const ListItem = ({source, text, text2, text3, onPress, Check, cardId}) => {
     return (
       <TouchableOpacity
         onPress={() => console.log('on Press --- ')}
@@ -142,6 +142,20 @@ export default function SetupPayment() {
                 marginBottom: 5,
               }}>
               {text2}
+            </Text>
+
+            <Text
+              numberOfLines={1}
+              style={{
+                fontSize: 16,
+                color: theme.colors.white,
+                fontFamily: 'Jost-Medium',
+                marginHorizontal: 20,
+                width: dimension.width / 2,
+                // marginTop: 10,
+                // marginBottom: 5,
+              }}>
+              {text3}
             </Text>
 
             <Text
@@ -259,6 +273,7 @@ export default function SetupPayment() {
               source={require('../../assets/icons/using/card.png')}
               text={v.card_name}
               text2={v.card_num}
+              text3={v.card_exp}
               cardId={v.id}
               // Check={
               //   selected == v.card_name

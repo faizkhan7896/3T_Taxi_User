@@ -45,7 +45,7 @@ const CancelRide = ({isOpen, setIsOpen, setBook, setcancel_popup}) => {
     body.append('user_id', userId);
     body.append('request_id', booking_id);
     body.append('other_reason', reason);
-    body.append('cancel_time', moment(new Date()).format('YYYY-MM-DD hh:mm:s'));
+    body.append('cancel_time', moment(new Date()).format('YYYY-MM-DD hh:mm:ss'));
     body.append('cancel_reaison', selected);
     body.append('type', 'USER');
     console.log('body', body);

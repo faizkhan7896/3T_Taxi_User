@@ -78,7 +78,7 @@ export default function App({navigation}) {
       // publishableKey: "pk_test_51MY68nKcyP8J3Gsb9xV80XexI3P5Jd9pGCXv6XDgTo6iPTT2QxQjJOIoUn40FXC0oOL5kHHLvZlVBTbwzGoQDlkV00cCrU6gwg",
       publishableKey:
         'pk_live_51MY68nKcyP8J3Gsb9BcoQzFyD2TZMOQ7irrzgm3IHbwJQ20GmhR5uQpLVXoWZrP2MrTM1ubsbjX5m4XGaMGB9huK00kYoCMp66',
-      // merchantIdentifier: 'BCR2DN4TRKYLFSLH',
+      merchantIdentifier: 'BCR2DN4TRKYLFSLH',
       urlScheme: 'RNStripe',
     });
   }, []);

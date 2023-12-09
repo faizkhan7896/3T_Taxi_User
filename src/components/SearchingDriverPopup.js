@@ -23,17 +23,25 @@ import LinearGradient from 'react-native-linear-gradient';
 import * as Animatable from 'react-native-animatable';
 import {TouchableOpacity} from 'react-native';
 import localizationStrings from '../utils/Localization';
-const SearchingDriverPopup = ({visible, setVisible, estimate}) => {
-  const {userId, booking_id, tripData} = useSelector(state => state.user);
+const SearchingDriverPopup = ({
+  visible,
+  setVisible,
+  estimate,
+  Refund_Payment_access,
+}) => {
+  const {userId, booking_id, userData, tripData} = useSelector(
+    state => state.user,
+  );
   const [driver_data, setDriver_data] = useState({});
   const [loading, setLoading] = useState(false);
   const [cancel_ride_popup, setCancel_ride_popup] = useState(false);
   const dimension = useWindowDimensions();
   const [accept, setAccept] = useState(false);
   // console.log('booking_id', booking_id, 'userId', userId);
-  // alert(JSON.stringify(booking_id));
+  // alert(JSON.stringify(tripData?.amount));
+  // alert(JSON.stringify(userData?.payment_option));
 
-  const cancel_trip_old = () => {
+  const cancel_trip = () => {
     setLoading(true);
     const body = new FormData();
     body.append('user_id', userId);
@@ -50,6 +58,9 @@ const SearchingDriverPopup = ({visible, setVisible, estimate}) => {
           store.dispatch({type: END});
           store.dispatch({type: TRIP_DATA, payload: {}});
           store.dispatch({type: B_ID, payload: ''});
+          if (userData?.payment_option == 'Card') {
+            Refund_Payment_access(tripData?.transaction_id);
+          }
           return;
         }
         showError(v.message);
@@ -60,32 +71,35 @@ const SearchingDriverPopup = ({visible, setVisible, estimate}) => {
       });
   };
 
-  const cancel_trip = () => {
-    setLoading(true);
-    const body = new FormData();
-    body.append('user_id', userId);
-    body.append('booking_id', booking_id);
+  // const cancel_trip = () => {
+  //   setLoading(true);
+  //   const body = new FormData();
+  //   body.append('user_id', userId);
+  //   body.append('booking_id', booking_id);
 
-    console.log(body);
+  //   console.log(body);
 
-    post_api('user_cancel_ride_refund_amount', body)
-      .then(v => {
-        setLoading(false);
-        if (v.status == 1) {
-          setVisible(false);
-          showSuccess(localizationStrings?.msg_Ride_canceled);
-          store.dispatch({type: END});
-          store.dispatch({type: TRIP_DATA, payload: {}});
-          store.dispatch({type: B_ID, payload: ''});
-          return;
-        }
-        showError(v.message);
-      })
-      .catch(e => {
-        setLoading(false);
-        showError(e);
-      });
-  };
+  //   post_api('user_cancel_ride_refund_amount', body)
+  //     .then(v => {
+  //       setLoading(false);
+  //       if (v.status == 1) {
+  //         setVisible(false);
+  //         showSuccess(localizationStrings?.msg_Ride_canceled);
+  //         store.dispatch({type: END});
+  //         store.dispatch({type: TRIP_DATA, payload: {}});
+  //         store.dispatch({type: B_ID, payload: ''});
+  // if (userData?.payment_option == 'Card') {
+  //   // Refund_Payment_access();
+  // }
+  //         return;
+  //       }
+  //       showError(v.message);
+  //     })
+  //     .catch(e => {
+  //       setLoading(false);
+  //       showError(e);
+  //     });
+  // };
 
   const seraching_driver = async () => {
     const body = new FormData();

@@ -200,6 +200,7 @@ const CarDeatail = ({
               {item.charge}
             </Text> */}
             <Text
+            numberOfLines={2}
               style={{
                 // fontSize: 12,
                 color: '#BAB6AE',

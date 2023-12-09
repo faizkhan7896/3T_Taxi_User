@@ -264,6 +264,7 @@
 
     "Submit": "Submit",
     "Password": "Password",
+    "Fawry": "Fawry",
     "Please_Select_Country_Code": "Please Select Country Code"
   },
 
@@ -531,6 +532,8 @@
 
     "Submit": "يُقدِّم",
     "Password": "كلمة المرور",
+    "Fawry": "فوري",
+
     "Please_Select_Country_Code": "الرجاء تحديد رمز البلد"
   },
 
@@ -805,6 +808,8 @@
 
     "Submit": "Sende inn",
     "Password": "Passord",
+    "Fawry": "Fawry",
+
     "Please_Select_Country_Code": "Vennligst velg landskode"
   }
 }

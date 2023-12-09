@@ -32,6 +32,7 @@ import {
 import store from '../../redux/store';
 import Start_Trip from '../../screens/home/Start_Trip';
 import {
+  add_time,
   getCurrentLocation,
   get_Profile,
   locationPermission,
@@ -50,6 +51,7 @@ import {theme} from '../../utils/theme';
 import localizationStrings from '../../utils/Localization';
 import * as Animatable from 'react-native-animatable';
 import {useNavigation} from '@react-navigation/native';
+import SearchingDriverPopup from '../../components/SearchingDriverPopup';
 
 const screen = Dimensions.get('window');
 const ASPECT_RATIO = screen.width / screen.height;
@@ -88,7 +90,7 @@ const HomeMap = () => {
   const [driverLatLon, setdriverLatLon] = useState({});
   const navigation = useNavigation();
 
-  // alert(JSON.stringify(visible_?.data?.body?.split('-')[1]));
+  // alert(JSON.stringify(curLoc));
 
   // console.log('tripData', tripData);
   const mapRef = useRef();
@@ -150,8 +152,9 @@ const HomeMap = () => {
   const [visible, setVisible] = useState(false);
   const handleViewRef = useRef();
   const [notival, setNotival] = useState('');
+  const [displaySearch_, setDisplaySearch] = useState(false);
 
-  // alert(JSON.stringify(booking_status))
+  // alert(JSON.stringify(curLoc))
   // alert(JSON.stringify(book))
 
   // alert(JSON.stringify(userData))
@@ -255,7 +258,7 @@ const HomeMap = () => {
 
         console.log('booking_id______________________', v?.result[0]?.status);
 
-        // alert(JSON.stringify(v?.result[0]?.status));
+        // alert(JSON.stringify(v?.result[0]?.status));        
 
         if (v?.result[0]?.status == 'Cancel') {
           // alert(JSON.stringify(v?.result[0]?.status));
@@ -273,6 +276,12 @@ const HomeMap = () => {
         }
 
         if (v.status == 1) {
+          if (v?.result[0]?.status == 'Request') {
+            // alert(JSON.stringify(v?.result[0]?.status));
+            setDisplaySearch(true);
+            // alert(JSON.stringify(v?.result[0]?.status));
+          }
+
           animateMarker(
             v?.result[0]?.driver_details?.lat,
             v?.result[0]?.driver_details?.lon,
@@ -324,6 +333,7 @@ const HomeMap = () => {
 
     // CLEAR ALL DATA & REDUX
 
+    
     // store.dispatch({type: BOOKING_STATUS, booking_status: 'FINISH'});
     // store.dispatch({type: B_ID, booking_id: ''});
     // store.dispatch({type: START, startTrip: false});
@@ -386,7 +396,7 @@ const HomeMap = () => {
       }
     }, 2500);
     return () => clearInterval(int);
-  }, [isFocused, tripData?.status, visible_]);
+  }, [isFocused, tripData?.status, visible_,displaySearch_]);
 
   async function RemoveBanner() {
     try {
@@ -463,7 +473,7 @@ const HomeMap = () => {
     const locPermissionDenied = await locationPermission();
     if (locPermissionDenied) {
       const {latitude, longitude, heading} = await getCurrentLocation();
-      // alert(JSON.stringify(address1));
+      // alert(JSON.stringify(latitude));
 
       if (address1 == '') {
         get_address(latitude, longitude).then(v => {
@@ -473,6 +483,7 @@ const HomeMap = () => {
         });
         // alert(JSON.stringify(address1))
       }
+
       onCenter();
       // console.log('console.log(address_1,)', address1);
       animate(latitude, longitude);
@@ -926,6 +937,8 @@ const HomeMap = () => {
           BookingType={BookingType}
           TollData={TollData}
           updateState={updateState}
+          displaySearch={displaySearch_}
+          setDisplaySearch={setDisplaySearch}
         />
       )}
       {tripData?.status == 'Start' && <Continue_Trip setBook={setBook} />}
@@ -988,6 +1001,14 @@ const HomeMap = () => {
             </TouchableOpacity>
           </TouchableOpacity>
         </Modal>
+      )}
+
+      {displaySearch_ == true && (
+        <SearchingDriverPopup
+          visible={displaySearch_}
+          setVisible={setDisplaySearch}
+          estimate={moment(add_time(new Date(), time)).format('mm ')}
+        />
       )}
 
       {visible_?.value == true && (

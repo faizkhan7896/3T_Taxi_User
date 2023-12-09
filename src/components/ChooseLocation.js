@@ -1,3 +1,4 @@
+import * as Fawry from '@fawry_pay/rn-fawry-pay-sdk';
 import {useNavigation} from '@react-navigation/native';
 import {PlatformPay, usePlatformPay} from '@stripe/stripe-react-native';
 import moment from 'moment';
@@ -17,10 +18,9 @@ import * as Animatable from 'react-native-animatable';
 import DatePicker from 'react-native-date-picker';
 import {useSelector} from 'react-redux';
 import SwipeButton from 'rn-swipe-button';
-import {BOOKING_LATER_DATE, B_ID} from '../redux/ActionTypes';
+import {B_ID} from '../redux/ActionTypes';
 import store from '../redux/store';
 import {
-  Get_timeBy_LatLng,
   add_time,
   get_Profile,
   post_api,
@@ -29,7 +29,7 @@ import {
 } from '../utils/Constants';
 import {ImagePath} from '../utils/ImagePath';
 import localizationStrings from '../utils/Localization';
-import {ShowToast, mapsApiKey} from '../utils/constance';
+import {ShowToast, baseUrl, mapsApiKey} from '../utils/constance';
 import {theme} from '../utils/theme';
 import AddressPickup from './AddressPickup';
 import AskNow from './AskNow';
@@ -69,6 +69,8 @@ const ChooseLocation = ({
   onBooklater_press,
   TollData,
   updateState,
+  displaySearch,
+  setDisplaySearch,
 }) => {
   const navigation = useNavigation();
   const [date, setDate] = useState(new Date());
@@ -89,6 +91,7 @@ const ChooseLocation = ({
     tripData,
     userData,
   } = useSelector(state => state?.user);
+  const dimension = useNavigation();
 
   const [selected, setSelected] = useState();
   const [keyboardVisible, setKeyboardVisible] = useState(false);
@@ -112,7 +115,10 @@ const ChooseLocation = ({
   const [ShowPricing, setShowPricing] = useState(false);
   const [Show_CardDetails, setShow_CardDetails] = useState(false);
   const [estimatedTime, setEstimatedTime] = useState('');
-  // alert(JSON.stringify(tripData))
+  const [transaction_id_, setTransaction_id] = useState('');
+
+  // alert(JSON.stringify(CardDetails))
+  // alert(JSON.stringify(tripData?.booktype == 'later' ? displaySearch : visible))
 
   // console.log('Calculation Formula ============================', {
   //   carges: Car_Details?.charge + ' + ',
@@ -233,27 +239,110 @@ const ChooseLocation = ({
   );
 
   const LastAmountWithCoupan = (PaymentAmount || 0) - (Discount || 0);
+  // alert(LastAmountWithCoupan)
 
   useEffect(() => {
     Get_timeBy_LatLng(lat1, lon1, drop_lat, drop_lon);
     // alert()
   }, [drop_lat, drop_lon, date, BookingType]);
 
-  useEffect(() => {
-    (async function () {
-      if (!(await isPlatformPaySupported({googlePay: {testEnv: false}}))) {
-        Alert.alert('Google Pay is not supported.');
-        return;
-      }
-    })();
-  }, []);
+  // FAWRY PAY PAYMENT CODE
 
-  function generateRandomSixDigitInteger() {
-    const min = 100000; // Minimum 6-digit number
-    const max = 999999; // Maximum 6-digit number
+  // const cartItems: Fawry.BillItems[] = [
+  //   {
+  //     itemId: 'item1',
+  //     description: 'Item 1 Description',
+  //     quantity: '1',
+  //     price: '10',
+  //   },
+  // ];
 
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
+  // const merchant: Fawry.MerchantInfo = {
+  //   merchantCode: '770000016144',
+  //   merchantSecretCode: '178a5865-632c-4366-9669-eee601b62a6f',
+  //   merchantRefNum: uuid.v4().toString(),
+  // };
+
+  // const customer: Fawry.CustomerInfo = {
+  //   customerName: userData?.user_name,
+  //   customerMobile: userData?.mobile,
+  //   customerEmail: userData?.email,
+  //   customerProfileId: userData?.id,
+  // };
+
+  // const fawryConfig: Fawry.FawryLaunchModel = {
+  //   baseUrl: 'https://atfawry.fawrystaging.com/',
+  //   lang: Fawry.FawryLanguages.ENGLISH,
+  //   signature: '',
+  //   allow3DPayment: true,
+  //   skipReceipt: false,
+  //   skipLogin: true,
+  //   payWithCardToken: true,
+  //   authCaptureMode: false,
+  //   allowVoucher: true,
+  //   items: cartItems,
+  //   merchantInfo: merchant,
+  //   customerInfo: customer,
+  // };
+
+  // // Define event listeners for payment and card manager events
+  // const eventListeners = [
+  //   {
+  //     eventName: Fawry.FawryCallbacks.FAWRY_EVENT_PAYMENT_COMPLETED,
+  //     listener: (data: any) =>
+  //       console.log(
+  //         'Fawry.FawryCallbacks',
+  //         Fawry.FawryCallbacks.FAWRY_EVENT_PAYMENT_COMPLETED,
+  //         data,
+  //       ),
+  //   },
+  //   {
+  //     eventName: Fawry.FawryCallbacks.FAWRY_EVENT_ON_SUCCESS,
+  //     listener: (data: any) => {
+  //       console.log(
+  //         'Fawry.FawryCallbacks',
+  //         Fawry.FawryCallbacks.FAWRY_EVENT_ON_SUCCESS,
+  //         data,
+  //       );
+  //       add_booking();
+  //     },
+  //   },
+  //   {
+  //     eventName: Fawry.FawryCallbacks.FAWRY_EVENT_ON_FAIL,
+  //     listener: (error: any) =>
+  //       console.log(
+  //         'Fawry.FawryCallbacks',
+  //         Fawry.FawryCallbacks.FAWRY_EVENT_ON_FAIL,
+  //         error,
+  //       ),
+  //   },
+  //   {
+  //     eventName: Fawry.FawryCallbacks.FAWRY_EVENT_CardManager_FAIL,
+  //     listener: (error: any) =>
+  //       console.log(
+  //         'Fawry.FawryCallbacks',
+  //         Fawry.FawryCallbacks.FAWRY_EVENT_CardManager_FAIL,
+  //         error,
+  //       ),
+  //   },
+  // ];
+
+  // // Attach event listeners
+  // const attachEventListeners = () =>
+  //   eventListeners.forEach(({eventName, listener}) =>
+  //     Fawry.FawryCallbacks.FawryEmitter.addListener(eventName, listener),
+  //   );
+
+  // // Detach event listeners when the component unmounts
+  // const detachEventListeners = () =>
+  //   eventListeners.forEach(({eventName}) =>
+  //     Fawry.FawryCallbacks.FawryEmitter.removeAllListeners(eventName),
+  //   );
+
+  // useEffect(() => {
+  //   attachEventListeners();
+  //   return detachEventListeners;
+  // }, []);
 
   function generateRandomString() {
     const length = 10;
@@ -269,7 +358,6 @@ const ChooseLocation = ({
   }
 
   const randomString = generateRandomString();
-  // alert(generateRandomSixDigitInteger())
 
   const currency =
     countryId == '4'
@@ -279,155 +367,46 @@ const ChooseLocation = ({
       : countryId == '10'
       ? 'egy'
       : countryId == '11' && 'sar';
-  // alert(time)
 
-  const payWith_Stripe = async () => {
-    navigation.navigate('PaymentWebview', {
-      url:
-        'https://3tdrive.com/stripe/create_checkout_session?amount=' +
-        LastAmountWithCoupan +
-        '&currency=' +
-        currency +
-        '&user_id=' +
-        userId +
-        '&uniqueID=' +
-        randomString,
-      visible_: setVisible,
-      user_id: userId,
-      picuplocation: add1,
-      picuplat: lat1,
-      pickuplon: lon1,
-      dropofflocation: Drop_address,
-      droplat: drop_lat,
-      droplon: drop_lon,
-      BookingType: BookingType,
-      order_id: randomString,
-      car_type_id: selected,
-      end_time: moment(date1).format('YYYY-MM-DD hh:mm:s'),
-      amount: LastAmountWithCoupan,
-      vat: charge_vat?.vat,
-      payment_type: paymentMethod,
-      distance: distance,
-      distance_time: time,
-      timezone: 'asia/kolkata',
-      apply_code:
-        SelectedCoupan == ''
-          ? SelectedCoupan
-          : SelectedCoupan?.coupon_code || '',
-      promo_id:
-        SelectedCoupan == SelectedCoupan ? '' : SelectedCoupan?.id || '',
-      promo_discount_amount: Discount,
-      transaction_id: '',
-      start_time: moment(BookingType == 'later' ? date : new Date()).format(
-        'YYYY-MM-DD hh:mm:s',
-      ),
-      toll_tax:
-        TollData?.tolls != undefined
-          ? TollData?.tolls[0]?.fares[0]?.convertedPrice?.value
-          : 0,
-      req_datetime: moment(BookingType == 'later' ? date : new Date()).format(
-        'YYYY-MM-DD hh:mm:s',
-      ),
-    });
+  // --->>> PAYMENT BY GOOGLE PAY <<<---
+
+  const requestData = {
+    cardPaymentMethod: {
+      tokenizationSpecification: {
+        type: 'PAYMENT_GATEWAY',
+        // stripe (see Example):
+        gateway: 'stripe',
+        gatewayMerchantId: 'BCR2DN4TRKYLFSLH',
+        stripe: {
+          publishableKey:
+            'pk_live_51MY68nKcyP8J3Gsb9BcoQzFyD2TZMOQ7irrzgm3IHbwJQ20GmhR5uQpLVXoWZrP2MrTM1ubsbjX5m4XGaMGB9huK00kYoCMp66',
+          version: '2018-11-08',
+        },
+      },
+      allowedCardNetworks,
+      allowedCardAuthMethods,
+    },
+    transaction: {
+      totalPrice: '5',
+      totalPriceStatus: 'FINAL',
+      currencyCode: 'NOK',
+      testEnv: false,
+    },
+    merchantName: 'Example Merchant',
   };
-  const payWith_OPay = async () => {
-    // navigation.navigate('PaymentWebview', {
-    //   url: 'https://sandboxcashier.opaycheckout.com/bankInfo?payToken=eyJhbGciOiJIUzUxMiJ9.eyJjb3VudHJ5IjoiRUciLCJwYXlObyI6IjIzMDkyNTUwODE4MTA5OTA2MjkyMyIsInN1YiI6IjI4MTgyMzA5MTM2MDAzNyIsIm9yZGVyTm8iOiIyMzA5MjUxNDgxODEwOTkwNjA3MDkiLCJvcmRlckN1cnJlbmN5IjoiRUdQIiwicGF5TWV0aG9kIjoiQmFua0NhcmQiLCJzZXNzaW9uSWQiOiIyMzA5MjUxNDgxODEwOTkwNjA3MDkiLCJzaWxlbmNlIjoiWSIsImV4cCI6MTY5NTYyNjMzMH0.Z3i3aiq_hDAee_FabIvDBIsC1yA0PQH_mJ86NT8EJLEj4SxjvxRgulhAC8GXTrO1vieSe3MST7ruT9GmmYEa8g&session=230925148181099060709',
-    // });
-    // return;
-    try {
-      // setLoading(true);
-      const url =
-        'https://api.opaycheckout.com/api/v1/international/cashier/create';
-
-      const body = {
-        amount: {
-          currency: 'EGP',
-          total: parseFloat(LastAmountWithCoupan + '00'),
-        },
-
-        callbackUrl: 'https://your-call-back-url.com',
-        country: 'EG',
-        product: {
-          description: 'description',
-          name: 'name',
-        },
-        reference: randomString.toString(),
-        payMethod: 'BankCard',
-        returnUrl: 'https://your-return-url.com',
-      };
-
-      console.log(body);
-      const res = await fetch(url, {
-        method: 'POST', // or 'PUT'
-        headers: {
-          'Content-Type': 'application/json',
-          MerchantId: '281823091304127',
-          Authorization: 'Bearer OPAYPUB16946278056470.016889235515118783',
-        },
-        body: JSON.stringify(body),
-      });
-      // console.log(res);
-      const rslt = await res.json();
-      console.log(rslt);
-      alert(JSON.stringify(rslt?.message));
-      // return;
-
-      if (rslt.message == 'SUCCESSFUL') {
-        // Linking.openURL(rslt?.data?.cashierUrl);
-        navigation.navigate('PaymentWebview', {
-          url: rslt?.data?.cashierUrl,
-          visible_: setVisible,
-          user_id: userId,
-          picuplocation: add1,
-          picuplat: lat1,
-          pickuplon: lon1,
-          dropofflocation: Drop_address,
-          droplat: drop_lat,
-          droplon: drop_lon,
-          car_type_id: selected,
-          end_time: moment(date1).format('YYYY-MM-DD hh:mm:s'),
-          amount: LastAmountWithCoupan,
-          vat: charge_vat?.vat,
-          payment_type: paymentMethod,
-          distance: distance,
-          distance_time: time,
-          timezone: 'asia/kolkata',
-          apply_code:
-            SelectedCoupan == ''
-              ? SelectedCoupan
-              : SelectedCoupan?.coupon_code || '',
-          promo_id:
-            SelectedCoupan == SelectedCoupan ? '' : SelectedCoupan?.id || '',
-          promo_discount_amount: Discount,
-          transaction_id: rslt?.data?.reference,
-          start_time: moment(BookingType == 'later' ? date : new Date()).format(
-            'YYYY-MM-DD hh:mm:s',
-          ),
-          toll_tax:
-            TollData?.tolls != undefined
-              ? TollData?.tolls[0]?.fares[0]?.convertedPrice?.value
-              : 0,
-          req_datetime: moment(
-            BookingType == 'later' ? date : new Date(),
-          ).format('YYYY-MM-DD hh:mm:s'),
-        });
-      } else {
-        ShowToast(rslt.message || 'Unknown error', 'error');
+  useEffect(() => {
+    (async function () {
+      if (!(await isPlatformPaySupported({googlePay: {testEnv: true}}))) {
+        Alert.alert('Google Pay is not supported.');
+        return;
       }
-      // setLoading(false);
-    } catch (e) {
-      // setLoading(false);
-      // alert(JSON.stringify(e));
-      ShowToast(localizationStrings?.msg_Unknown_error, 'error');
-      console.log(e);
-    }
-  };
+    })();
+  }, []);
 
   const payWithGooglePay = option => {
     const body = new FormData();
-    body.append('amount', LastAmountWithCoupan + '00');
-    body.append('currency', currency);
+    body.append('amount', 5 * 100);
+    body.append('currency', "nok");
     console.log(body);
 
     setLoading(true);
@@ -437,23 +416,6 @@ const ChooseLocation = ({
         PaymentWithGoogle(v?.client_secret);
       }
       setLoading(false);
-    });
-  };
-
-  const GetDriverAvailablity = () => {
-    const body = new FormData();
-    body.append('picuplat', lat1);
-    body.append('pickuplon', lon1);
-    body.append('car_type_id', selected);
-    console.log(body);
-
-    post_api('check_available_driver', body).then(v => {
-      if (v.status == 1) {
-        payWith_Stripe();
-        // add_booking();
-      } else {
-        showError(localizationStrings?.Driver_not_found);
-      }
     });
   };
 
@@ -484,8 +446,304 @@ const ChooseLocation = ({
     add_booking(clientSecret);
   };
 
-  // console.log('CardDetailsCardDetailsCardDetailsCardDetails',CardDetails);
-  // alert(JSON.stringify(paymentMethod));
+  // --->>> PAYMENT BY CARD <<<---
+  async function get_token() {
+    try {
+      setLoading(true);
+      const url = baseUrl + 'get_token';
+
+      console.log(url);
+
+      const body = new FormData();
+      body.append('card_number', CardDetails?.card_num);
+      body.append('expiry_month', CardDetails?.card_exp?.split('/')[0]);
+      body.append('expiry_year', CardDetails?.card_exp?.split('/')[1]);
+      body.append('cvc_code', CardDetails?.card_cvv);
+      // alert(JSON.stringify(body));
+      console.log('Toke____Data', body);
+      // return;
+      const res = await fetch(url, {
+        method: 'POST',
+        body: body,
+        headers: {
+          'content-type': 'multipart/form-data',
+        },
+      });
+      // console.log(res);
+      const rslt = await res.json();
+      console.log(rslt);
+
+      if (rslt.status == '1') {
+        return rslt.result;
+      } else {
+        ShowToast(rslt.result || rslt.message || 'Unknown error', 'error');
+      }
+      setLoading(false);
+    } catch (e) {
+      setLoading(false);
+      // ShowToast('An error occured.');
+      ShowToast('An error occured.', 'error');
+
+      console.log(e);
+    }
+  }
+
+  async function Payment_access(token) {
+    // setLoading(true);
+    const url = baseUrl + 'stripe_payment';
+    console.log(url);
+
+    const body = new FormData();
+    body.append('user_id', userData?.id);
+    body.append('payment_method', 'Card');
+    body.append('amount', LastAmountWithCoupan);
+    body.append('currency', currency == 'inr' ? 'nok' : currency);
+    body.append('token', token);
+
+    console.log(body);
+    // return;
+    const res = await fetch(url, {
+      method: 'POST',
+      body: body,
+      headers: {
+        'content-type': 'multipart/form-data',
+      },
+    });
+    // console.log(res);
+    const rslt = await res.json();
+    // console.log("===============",rslt);
+
+    if (rslt.status == '1') {
+      return rslt;
+    } else {
+      ShowToast(rslt.result || rslt.message || 'Unknown error', 'error');
+      return rslt;
+    }
+    setLoading(false);
+  }
+
+  const payment_through_Card = async item => {
+    try {
+      setLoading(true);
+      const token = await get_token();
+      if (!token) {
+        ShowToast('invalid card details', 'error');
+        setLoading(false);
+        return;
+      }
+      // alert(JSON.stringify(token))
+      // return
+      const data = await Payment_access(token);
+      setLoading(false);
+      // alert(JSON.stringify(data.transaction_id));
+      if (data.status == '1') {
+        showSuccess('Payment successfully.');
+        add_booking(data.transaction_id);
+        setTransaction_id(data.transaction_id);
+      }
+    } catch (error) {
+      setLoading(false);
+      // console.log('===============',error);
+      // alert(error.message.toString(), 'error');
+    }
+  };
+  // --->>> PAYMENT BY CARD REUND <<<---
+  async function Refund_Payment_access() {
+    // setLoading(true);
+    const url = baseUrl + 'get_refund_stripe_payment';
+    console.log(url);
+
+    const body = new FormData();
+    body.append('transaction_id', transaction_id_);
+    body.append('amount', LastAmountWithCoupan);
+
+    // alert(JSON.stringify(body));
+    // return;
+    const res = await fetch(url, {
+      method: 'POST',
+      body: body,
+      headers: {
+        'content-type': 'multipart/form-data',
+      },
+    });
+    // console.log(res);
+    const rslt = await res.json();
+    // console.log("===============",rslt);
+
+    if (rslt.status == '1') {
+      return rslt;
+    } else {
+      ShowToast(rslt.result || rslt.message || 'Unknown error', 'error');
+      return rslt;
+    }
+    setLoading(false);
+  }
+
+  // --->>> PAYMENT BY OPAY <<<---
+  const payWith_OPay = async () => {
+    // navigation.navigate('PaymentWebview', {
+    //   url: 'https://sandboxcashier.opaycheckout.com/bankInfo?payToken=eyJhbGciOiJIUzUxMiJ9.eyJjb3VudHJ5IjoiRUciLCJwYXlObyI6IjIzMDkyNTUwODE4MTA5OTA2MjkyMyIsInN1YiI6IjI4MTgyMzA5MTM2MDAzNyIsIm9yZGVyTm8iOiIyMzA5MjUxNDgxODEwOTkwNjA3MDkiLCJvcmRlckN1cnJlbmN5IjoiRUdQIiwicGF5TWV0aG9kIjoiQmFua0NhcmQiLCJzZXNzaW9uSWQiOiIyMzA5MjUxNDgxODEwOTkwNjA3MDkiLCJzaWxlbmNlIjoiWSIsImV4cCI6MTY5NTYyNjMzMH0.Z3i3aiq_hDAee_FabIvDBIsC1yA0PQH_mJ86NT8EJLEj4SxjvxRgulhAC8GXTrO1vieSe3MST7ruT9GmmYEa8g&session=230925148181099060709',
+    //   visible_: setVisible,
+    //   user_id: userId,
+    //   picuplocation: add1,
+    //   picuplat: lat1,
+    //   pickuplon: lon1,
+    //   dropofflocation: Drop_address,
+    //   droplat: drop_lat,
+    //   droplon: drop_lon,
+    //   car_type_id: selected,
+    //   end_time: moment(date1).format('YYYY-MM-DD hh:mm:ss'),
+    //   amount: LastAmountWithCoupan,
+    //   vat: charge_vat?.vat,
+    //   payment_type: paymentMethod,
+    //   distance: distance,
+    //   distance_time: time,
+    //   timezone: 'asia/kolkata',
+    //   apply_code:
+    //     SelectedCoupan == ''
+    //       ? SelectedCoupan
+    //       : SelectedCoupan?.coupon_code || '',
+    //   promo_id:
+    //     SelectedCoupan == SelectedCoupan ? '' : SelectedCoupan?.id || '',
+    //   promo_discount_amount: Discount,
+    //   transaction_id: rslt?.data?.reference,
+    //   start_time: moment(BookingType == 'later' ? date : new Date()).format(
+    //     'YYYY-MM-DD hh:mm:ss',
+    //   ),
+    //   toll_tax:
+    //     TollData?.tolls != undefined
+    //       ? TollData?.tolls[0]?.fares[0]?.convertedPrice?.value
+    //       : 0,
+    //   req_datetime: moment(BookingType == 'later' ? date : new Date()).format(
+    //     'YYYY-MM-DD hh:mm:ss',
+    //   ),
+    // });
+    // return;
+    try {
+      // setLoading(true);
+      const url =
+        'https://api.opaycheckout.com/api/v1/international/cashier/create';
+
+      const body = {
+        amount: {
+          currency: 'EGP',
+          total: parseFloat('5' + '00'),
+        },
+
+        callbackUrl: 'https://3tdrive.com/',
+        country: 'EG',
+        product: {
+          description: 'description',
+          name: 'name',
+        },
+        reference: randomString.toString(),
+        payMethod: 'BankCard',
+        returnUrl: 'https://3tdrive.com/',
+      };
+
+      console.log(body);
+      const res = await fetch(url, {
+        method: 'POST', // or 'PUT'
+        headers: {
+          'Content-Type': 'application/json',
+          MerchantId: '281823091304127',
+          Authorization: 'Bearer OPAYPUB16946278056470.016889235515118783',
+        },
+        body: JSON.stringify(body),
+      });
+      // console.log(res);
+      const rslt = await res.json();
+      console.log(rslt);
+      // alert(JSON.stringify(rslt?.message));
+      // return;
+
+      if (rslt.message == 'SUCCESSFUL') {
+        // Linking.openURL(rslt?.data?.cashierUrl);
+        navigation.navigate('PaymentWebview', {
+          url: rslt?.data?.cashierUrl,
+          visible_: setVisible,
+          user_id: userId,
+          picuplocation: add1,
+          picuplat: lat1,
+          pickuplon: lon1,
+          dropofflocation: Drop_address,
+          droplat: drop_lat,
+          droplon: drop_lon,
+          car_type_id: selected,
+          end_time: moment(date1).format('YYYY-MM-DD hh:mm:ss'),
+          amount: LastAmountWithCoupan,
+          vat: charge_vat?.vat,
+          payment_type: paymentMethod,
+          distance: distance,
+          distance_time: time,
+          timezone: 'asia/kolkata',
+          BookingType_: BookingType,
+          booking_later_time:
+            OnlyTime[0] +
+            ' ' +
+            moment(OnlyTime[1], 'h:mm:ss A').format('HH:mm:ss'),
+          apply_code:
+            SelectedCoupan == ''
+              ? SelectedCoupan
+              : SelectedCoupan?.coupon_code || '',
+          promo_id:
+            SelectedCoupan == SelectedCoupan ? '' : SelectedCoupan?.id || '',
+          promo_discount_amount: Discount,
+          transaction_id: randomString,
+          start_time: moment(BookingType == 'later' ? date : new Date()).format(
+            'YYYY-MM-DD hh:mm:ss',
+          ),
+          toll_tax:
+            TollData?.tolls != undefined
+              ? TollData?.tolls[0]?.fares[0]?.convertedPrice?.value
+              : 0,
+          req_datetime: moment(
+            BookingType == 'later' ? date : new Date(),
+          ).format('YYYY-MM-DD hh:mm:ss'),
+        });
+      } else {
+        ShowToast(rslt.message || 'Unknown error', 'error');
+      }
+      // setLoading(false);
+    } catch (e) {
+      // setLoading(false);
+      // alert(JSON.stringify(e));
+      ShowToast(localizationStrings?.msg_Unknown_error, 'error');
+      console.log(e);
+    }
+  };
+
+  const GetDriverAvailablity = () => {
+    // payWithGooglePay(requestData);
+    // return;
+    const body = new FormData();
+    body.append('picuplat', lat1);
+    body.append('pickuplon', lon1);
+    body.append('car_type_id', selected);
+    console.log(body);
+
+    post_api('check_available_driver', body).then(v => {
+      if (v.status == 1) {
+        if (userData?.payment_option == 'OPay') {
+          payWith_OPay();
+        }
+        if (userData?.payment_option == 'Fawry') {
+          Fawry.startPayment(fawryConfig);
+        }
+        if (userData?.payment_option == 'Card') {
+          // payWith_Stripe();
+          payment_through_Card();
+        }
+        if (userData?.payment_option == 'Google Pay') {
+          payWithGooglePay(requestData);
+        }
+        // add_booking();
+      } else {
+        showError(localizationStrings?.Driver_not_found);
+      }
+    });
+  };
+
   useEffect(() => {
     if (address_?.address != undefined) {
       fetchDestinationCords2(
@@ -495,31 +753,6 @@ const ChooseLocation = ({
       );
     }
   }, [address_]);
-
-  const requestData = {
-    cardPaymentMethod: {
-      tokenizationSpecification: {
-        type: 'PAYMENT_GATEWAY',
-        // stripe (see Example):
-        gateway: 'stripe',
-        gatewayMerchantId: 'BCR2DN4TRKYLFSLH',
-        stripe: {
-          publishableKey:
-            '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',
-          version: '2018-11-08',
-        },
-      },
-      allowedCardNetworks,
-      allowedCardAuthMethods,
-    },
-    transaction: {
-      totalPrice: '1',
-      totalPriceStatus: 'FINAL',
-      currencyCode: 'NOK',
-      testEnv: false,
-    },
-    merchantName: 'Example Merchant',
-  };
 
   const fetchDestinationCords1 = (lat, lng, address) => {
     getCordinates1({lat, lng, address});
@@ -540,7 +773,14 @@ const ChooseLocation = ({
     getCordinates2({lat, lng, address});
   };
 
-  // alert(paymentMethod);
+  var now = BookingType == 'later' ? date : new Date();
+  var then = moment(now).subtract(2, 'minutes').toDate();
+  const OnlyTime = moment(then).format('YYYY-MM-DD- hh:mm:ss A')?.split('- ');
+
+  // alert(moment(then).format('YYYY-MM-DD hh:mm:ss'));
+  // alert(moment(then).format('YYYY-MM-DD- hh:mm:ss A')?.split('- ')[1]);
+  // alert(OnlyTime[0]+' '+moment(OnlyTime[1], "h:mm:ss A").format("HH:mm:ss"));
+  // alert(moment(OnlyTime[1], "h:mm:ss A").format("HH:mm:ss"));
 
   const Update_Payment = () => {
     // alert();
@@ -582,7 +822,7 @@ const ChooseLocation = ({
       : countryId == '11' && localizationStrings.SAR;
 
   const add_booking = async transaction_id => {
-    setLoading(true);
+    // setLoading(true);
     const body = new FormData();
     body.append('user_id', userId);
     body.append('picuplocation', add1);
@@ -596,13 +836,17 @@ const ChooseLocation = ({
     body.append(
       'start_time',
       moment(BookingType == 'later' ? date : new Date()).format(
-        'YYYY-MM-DD hh:mm:s',
+        'YYYY-MM-DD hh:mm:ss',
       ),
     );
-    body.append('end_time', moment(date1).format('YYYY-MM-DD hh:mm:s'));
+    body.append(
+      'booking_later_time',
+      OnlyTime[0] + ' ' + moment(OnlyTime[1], 'h:mm:ss A').format('HH:mm:ss'),
+    );
+    body.append('end_time', moment(date1).format('YYYY-MM-DD hh:mm:ss'));
     body.append(
       'current_datetime',
-      moment(new Date()).format('YYYY-MM-DD hh:mm:s'),
+      moment(new Date()).format('YYYY-MM-DD hh:mm:ss'),
     );
     body.append('amount', LastAmountWithCoupan);
     body.append('vat', charge_vat?.vat);
@@ -626,22 +870,24 @@ const ChooseLocation = ({
     );
     body.append('promo_discount_amount', Discount || 0);
     body.append('transaction_id', transaction_id);
-    body.append('order_id', randomString);
+    body.append('order_id', transaction_id);
 
     body.append(
       'req_datetime',
       moment(BookingType == 'later' ? date : new Date()).format(
-        'YYYY-MM-DD hh:mm:s',
+        'YYYY-MM-DD hh:mm:ss',
       ),
     );
-    console.log(JSON.stringify(body));
+    console.log('_____________________', JSON.stringify(body));
     // return;
     post_api('addBookingRequest', body)
       .then(v => {
         // return;
         setLoading(false);
         if (v.status == 1) {
-          setVisible(true);
+          if (BookingType == 'now') {
+            setVisible(true);
+          }
           console.log('v.result.id', v.result.id);
           store.dispatch({type: B_ID, payload: v.result.id});
           showSuccess(localizationStrings?.msg_Booking_Created);
@@ -943,9 +1189,16 @@ const ChooseLocation = ({
                     ? require('../assets/icons/using/GooglePay.png')
                     : userData?.payment_option == 'Pay_in_Car'
                     ? require('../assets/icons/using/CardMachine_EG.png')
+                    : userData?.payment_option == 'Fawry'
+                    ? require('../assets/icons/using/Fawry.png')
                     : require('../assets/icons/using/CashMachine.png')
                 }
-                style={{height: 20, width: 35, resizeMode: 'contain'}}
+                style={{
+                  height: 20,
+                  width: 35,
+                  resizeMode: 'contain',
+                  borderWidth: 1,
+                }}
               />
               <Text style={[styles.text14, {marginLeft: 10}]}>
                 {localizationStrings?.Pay_Tyep + ' '}
@@ -959,6 +1212,8 @@ const ChooseLocation = ({
                   ? localizationStrings.Google_Pay
                   : userData?.payment_option == 'Pay_in_Car'
                   ? localizationStrings.PayInCar
+                  : userData?.payment_option == 'Fawry'
+                  ? localizationStrings.Fawry
                   : userData?.payment_option == 'Cash' &&
                     localizationStrings?.Cash}
               </Text>
@@ -999,7 +1254,9 @@ const ChooseLocation = ({
                 }
               </View>
             )}
+
             <View style={{height: 5}} />
+
             {SelectedCoupan != '' && (
               <View style={styles.rowContainer}>
                 <Text style={styles.text14}>
@@ -1028,21 +1285,22 @@ const ChooseLocation = ({
                   return;
                 }
                 if (userData?.payment_option == 'OPay') {
-                  payWith_OPay();
+                  GetDriverAvailablity();
+                }
+                if (userData?.payment_option == 'Fawry') {
+                  GetDriverAvailablity();
                 }
                 if (userData?.payment_option == 'Card') {
                   GetDriverAvailablity();
-
-                  // CardPayment();
                 }
                 if (userData?.payment_option == 'Google Pay') {
-                  payWithGooglePay(requestData);
+                  GetDriverAvailablity();
                 }
                 if (userData?.payment_option == 'Pay_in_Car') {
-                  add_booking('Cash');
+                  add_booking(randomString);
                 }
                 if (userData?.payment_option == 'Cash') {
-                  add_booking('Cash');
+                  add_booking(randomString);
                 }
 
                 // add_booking();
@@ -1064,9 +1322,12 @@ const ChooseLocation = ({
             />
             <AskNow isOpen={ask} setIsOpen={setAsk} />
             <SearchingDriverPopup
-              visible={visible}
-              setVisible={setVisible}
+              visible={tripData?.booktype == 'later' ? displaySearch : visible}
+              setVisible={
+                tripData?.booktype == 'later' ? setDisplaySearch : setVisible
+              }
               estimate={moment(add_time(new Date(), time)).format('mm ')}
+              Refund_Payment_access={Refund_Payment_access}
               // estimate={moment(add_time(date, time)).format(
               //   'Do MMM' + ' @' + 'hh:mm a',
               // )}
@@ -1204,6 +1465,51 @@ const styles = StyleSheet.create({
     width: 40,
     resizeMode: 'contain',
     tintColor: '#000000',
+  },
+  container_: {
+    backgroundColor: '#25231F',
+    borderWidth: 1,
+    borderColor: '#36342F',
+    borderRadius: 20,
+    paddingHorizontal: 16,
+    paddingVertical: 20,
+  },
+  title: {
+    fontSize: 16,
+    fontFamily: 'Jost-Regular',
+    color: '#FFFFFF',
+    textAlign: 'center',
+    marginHorizontal: 15,
+    lineHeight: 23,
+    marginBottom: 10,
+  },
+  title1: {
+    fontSize: 18,
+    fontFamily: 'Jost-Medium',
+    color: '#FFFFFF',
+    textAlign: 'center',
+    marginHorizontal: 15,
+    lineHeight: 23,
+    marginTop: 10,
+  },
+  number: {
+    fontSize: 12,
+    fontFamily: 'Jost-Regular',
+    color: '#BAB6AE',
+    backgroundColor: '#36342F',
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 4,
+    alignSelf: 'center',
+    marginVertical: 5,
+  },
+  img: {
+    height: 80,
+    width: 80,
+    resizeMode: 'contain',
+    alignSelf: 'center',
+    backgroundColor: '#36342F',
+    borderRadius: 40,
   },
 });
 export default ChooseLocation;

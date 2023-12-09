@@ -72,4 +72,4 @@ export const data = [
   ],
 ];
 // export const mapsApiKey = 'AIzaSyCj_8-SZsoxYxZwN_Wi_7hU8kDSeQx_YVQ';
-export const mapsApiKey = 'AIzaSyCGzL3BtdfRz6geQcU1EJf8sP1b4tPGMB0';
+export const mapsApiKey = 'AIzaSyBlAosMrt-6lZPaA9-8LSYGZLPl444OoDY';

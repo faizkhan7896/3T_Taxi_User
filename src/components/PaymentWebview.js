@@ -99,14 +99,16 @@ const WebViewScreen = () => {
     body.append('distance', params?.distance);
     body.append('distance_time', params?.distance_time);
     body.append('timezone', params?.timezone);
-    body.append('transaction_id', params.url?.split('uniqueID=')[1]);
+    body.append('transaction_id', params.transaction_id);
     body.append('req_datetime', params?.req_datetime);
-    body.append('booktype', params?.BookingType);
-    body.append('order_id', params?.order_id);
-
+    body.append('booktype', params?.BookingType_);
+    body.append('order_id', params.transaction_id);
+    //
+    body.append('booking_later_time', params?.booking_later_time);
+    //
     body.append(
       'current_datetime',
-      moment(new Date()).format('YYYY-MM-DD hh:mm:s'),
+      moment(new Date()).format('YYYY-MM-DD hh:mm:ss'),
     );
     body.append(
       'apply_code',
@@ -160,6 +162,10 @@ const WebViewScreen = () => {
 
     if (navState?.url?.split('result?status=')[1]?.slice(0, 7) == 'SUCCESS') {
       add_booking();
+    }
+    if (navState?.url?.split('result?status=')[1]?.slice(0, 7) == 'FAIL') {
+      navigation.goBack();
+      showError('Payment Failed for some reason');
     }
     if (
       navState?.title == '3tdrive.com/stripe/payment_success' &&
@@ -264,35 +270,35 @@ const WebViewScreen = () => {
       />
       <Header navigation={navigation} Headertext={'Payment'} />
 
-      {failed ? (
+      {/* {failed ? (
         <DefaultScreen />
-      ) : (
-        <WebView
-          source={{uri: params.url}}
-          onNavigationStateChange={onNavigationStateChange}
-          javaScriptEnabled
-          setSupportMultipleWindows={false}
-          ref={ref => {
-            wvRef.current = ref;
-          }}
-          onLoadStart={() => setvisible(true)}
-          onLoadEnd={() => {
-            setvisible(false);
-            setsplash_loading(true);
-          }}
-          style={{flex: 1}}
-          allowsFullscreenVideo
-          pullToRefreshEnabled
-          onError={e => {
-            console.warn(e.nativeEvent);
-            setfailed(true);
-          }}
-          geolocationEnabled={true}
-          scalesPageToFit={false}
-          injectedJavaScriptBeforeContentLoaded={`const meta = document.createElement('meta'); meta.setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'); meta.setAttribute('name', 'viewport'); document.getElementsByTagName('head')[0].appendChild(meta);`}
-          injectedJavaScript={`document.getElementsByClassName("elementor-search-form__container")[0].style="padding:10px 10px";`}
-        />
-      )}
+      ) : ( */}
+      <WebView
+        source={{uri: params.url}}
+        onNavigationStateChange={onNavigationStateChange}
+        javaScriptEnabled
+        setSupportMultipleWindows={false}
+        ref={ref => {
+          wvRef.current = ref;
+        }}
+        onLoadStart={() => setvisible(true)}
+        onLoadEnd={() => {
+          setvisible(false);
+          setsplash_loading(true);
+        }}
+        style={{flex: 1}}
+        allowsFullscreenVideo
+        pullToRefreshEnabled
+        onError={e => {
+          console.warn(e.nativeEvent);
+          setfailed(true);
+        }}
+        geolocationEnabled={true}
+        scalesPageToFit={false}
+        injectedJavaScriptBeforeContentLoaded={`const meta = document.createElement('meta'); meta.setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'); meta.setAttribute('name', 'viewport'); document.getElementsByTagName('head')[0].appendChild(meta);`}
+        injectedJavaScript={`document.getElementsByClassName("elementor-search-form__container")[0].style="padding:10px 10px";`}
+      />
+      {/* )} */}
 
       {loading && (
         <View

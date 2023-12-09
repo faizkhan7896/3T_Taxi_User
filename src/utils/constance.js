@@ -1,7 +1,7 @@
 // export const baseUrl = 'http://162.240.54.118/~taxi/webservice/';
 export const baseUrl = 'https://3tdrive.com/webservice/';
 // export const baseUrl = 'https://myasp-app.com/3t_taxi/webservice/';
-export const mapsApiKey = 'AIzaSyCGzL3BtdfRz6geQcU1EJf8sP1b4tPGMB0';
+export const mapsApiKey = 'AIzaSyBlAosMrt-6lZPaA9-8LSYGZLPl444OoDY';
 
 import Toast from 'react-native-toast-message';
 import _ from 'lodash';
@@ -44,7 +44,8 @@ export const get_address = async (latitude, longitude) => {
     latitude +
     ',' +
     longitude +
-    '&key='+mapsApiKey;
+    '&key=' +
+    mapsApiKey;
   // console.log('get_address',url);
   // alert('e.message');
 
