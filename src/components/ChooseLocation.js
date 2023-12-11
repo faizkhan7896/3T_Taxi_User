@@ -387,16 +387,16 @@ const ChooseLocation = ({
       allowedCardAuthMethods,
     },
     transaction: {
-      totalPrice: '5',
+      totalPrice: '1',
       totalPriceStatus: 'FINAL',
-      currencyCode: 'NOK',
+      currencyCode: 'nok',
       testEnv: false,
     },
     merchantName: 'Example Merchant',
   };
   useEffect(() => {
     (async function () {
-      if (!(await isPlatformPaySupported({googlePay: {testEnv: true}}))) {
+      if (!(await isPlatformPaySupported({googlePay: {testEnv: false}}))) {
         Alert.alert('Google Pay is not supported.');
         return;
       }
@@ -404,15 +404,17 @@ const ChooseLocation = ({
   }, []);
 
   const payWithGooglePay = option => {
+    // alert(JSON.stringify('clientSecret'));
+
     const body = new FormData();
-    body.append('amount', 5 * 100);
-    body.append('currency', "nok");
+    body.append('amount', LastAmountWithCoupan * 100);
+    body.append('currency', 'nok');
     console.log(body);
 
     setLoading(true);
     post_api('generateIntentToken', body).then(v => {
+      // alert(JSON.stringify(v?.client_secret));
       if (v.id != undefined) {
-        // alert(JSON.stringify(v?.client_secret));
         PaymentWithGoogle(v?.client_secret);
       }
       setLoading(false);
@@ -428,7 +430,7 @@ const ChooseLocation = ({
         testEnv: false,
         merchantName: 'My merchant name',
         merchantCountryCode: 'NO',
-        currencyCode: currency,
+        currencyCode: 'nok',
         billingAddressConfig: {
           format: PlatformPay.BillingAddressFormat.Full,
           isPhoneNumberRequired: false,
@@ -627,7 +629,7 @@ const ChooseLocation = ({
       const body = {
         amount: {
           currency: 'EGP',
-          total: parseFloat('5' + '00'),
+          total: parseFloat(LastAmountWithCoupan + '00'),
         },
 
         callbackUrl: 'https://3tdrive.com/',
@@ -735,7 +737,7 @@ const ChooseLocation = ({
           payment_through_Card();
         }
         if (userData?.payment_option == 'Google Pay') {
-          payWithGooglePay(requestData);
+          payWithGooglePay();
         }
         // add_booking();
       } else {

@@ -41,11 +41,16 @@ export const data = [
       id: 'Card',
       image: require('../assets/icons/using/Card_.png'),
     },
-    {
-      name: localizationStrings?.Google_Pay,
-      id: 'Google Pay',
-      image: require('../assets/icons/using/GooglePay.png'),
-    },
+    // {
+    //   name: localizationStrings.Opay,
+    //   id: 'OPay',
+    //   image: require('../assets/icons/using/Opay.jpeg'),
+    // },
+    // {
+    //   name: localizationStrings?.Google_Pay,
+    //   id: 'Google Pay',
+    //   image: require('../assets/icons/using/GooglePay.png'),
+    // },
   ],
 ];
 
