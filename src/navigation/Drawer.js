@@ -33,7 +33,7 @@ const Drawer = createDrawerNavigator();
 
 async function signout() {
   const out = await GoogleSignin.signOut();
-  console.log('signout', out);
+  //console.log('signout', out);
   store.dispatch({
     type: SIGNOUT,
     payload: {id: 1},

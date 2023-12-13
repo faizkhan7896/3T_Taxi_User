@@ -41,7 +41,7 @@ const HomeBookNow = ({
   setLoading,
 }) => {
   const {userId, countryId} = useSelector(state => state.user||9);
-  console.log('userUd', userId);
+  //console.log('userUd', userId);
   // const [loading, setLoading] = useState(false)
   const [selected, setSelected] = useState(1);
   const navigation = useNavigation();
@@ -84,7 +84,7 @@ const HomeBookNow = ({
         requestOptions,
       );
       const res = await response.json();
-      console.log('api responce', res);
+      //console.log('api responce', res);
       if (res.status == 1) {
         setVisible(true);
         setLoading(false);
@@ -93,7 +93,7 @@ const HomeBookNow = ({
         setLoading(false);
       }
     } catch (error) {
-      console.log(error);
+      //console.log(error);
       setLoading(false);
     }
   };
@@ -229,7 +229,7 @@ const HomeBookNow = ({
             }}
             onPress={(data, details = null) => {
               // 'details' is provided when fetchDetails = true
-              console.log(data, details);
+              //console.log(data, details);
               setPlace1([
                 {
                   latitude: details.geometry.location.lat,
@@ -268,7 +268,7 @@ const HomeBookNow = ({
               }}
               onPress={(data, details = null) => {
                 // 'details' is provided when fetchDetails = true
-                // console.log(data, details?.geometry.location.lat);
+                // //console.log(data, details?.geometry.location.lat);
                 setPlace2([
                   {
                     latitude: details.geometry.location.lat,

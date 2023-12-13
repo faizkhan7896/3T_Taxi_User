@@ -86,11 +86,11 @@ export default function SeupProfile() {
           type: img.type,
         });
     }
-    console.log('JSON.stringify(body)', JSON.stringify(body));
+    //console.log('JSON.stringify(body)', JSON.stringify(body));
     post_api('update_profile', body)
       .then(res => {
         setLoading(false);
-        console.log('api', res);
+        //console.log('api', res);
         // return;
         if (res.status == '1') {
           // store.dispatch({type: USERDATA, payload: res.result});
@@ -102,7 +102,7 @@ export default function SeupProfile() {
         showError(res.message);
       })
       .catch(error => {
-        console.log(error);
+        //console.log(error);
         setLoading(false);
         // showError('An error occurred');
       });
@@ -114,7 +114,7 @@ export default function SeupProfile() {
       }
     });
   };
-  console.log(img);
+  //console.log(img);
   return (
     <View style={{flex: 1, backgroundColor: theme.colors.ButtonText}}>
       {loading && <Loader />}

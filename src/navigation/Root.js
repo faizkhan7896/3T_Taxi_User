@@ -26,15 +26,15 @@ function App() {
   const isLoggedIn = useSelector(state => state?.user?.login);
   const Language_Updated = useSelector(state => state?.user?.LangigaeUpdated);
   const {countryId, userId, cityId} = useSelector(state => state?.user);
-  console.log(isLoggedIn);
+  //console.log(isLoggedIn);
   const [LanguageUpdated, setLanguageUpdated] = useState(false);
   const [reload, setReload] = useState({});
   const [LocationData, setLocationData] = useState({});
   // alert(JSON.stringify(countryId))
-  // console.log('countryIdcountryIdcountryId',);
+  // //console.log('countryIdcountryIdcountryId',);
 
   const updateLang = val => {
-    // console.log('setLanguage=', val);
+    // //console.log('setLanguage=', val);
     localizationStrings.setLanguage(val);
     setReload({});
   };
@@ -47,12 +47,12 @@ function App() {
         userId +
         '&language=' +
         localizationStrings.getLanguage();
-      // console.log(url);
+      // //console.log(url);
       const response = await fetch(url);
       const res = await response.json();
-      // console.log('update_languageupdate_languageupdate_language', res);
+      // //console.log('update_languageupdate_languageupdate_language', res);
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
 
@@ -65,7 +65,7 @@ function App() {
     if (locPermissionDenied) {
       const {latitude, longitude} = await getCurrentLocation();
 
-      console.log('latitude-longitude:', latitude, longitude);
+      //console.log('latitude-longitude:', latitude, longitude);
 
       try {
         const url_NO =
@@ -86,9 +86,9 @@ function App() {
         const res = await response.json();
 
         clearTimeout(timeoutId);
-        console.log('URL=', url);
-        console.log('country=', res?.results[0]?.components?.country);
-        console.log('city=', res?.results[0]?.components?.city);
+        //console.log('URL=', url);
+        //console.log('country=', res?.results[0]?.components?.country);
+        //console.log('city=', res?.results[0]?.components?.city);
         setLocationData(res?.results[0]?.components);
         // return;
 
@@ -129,27 +129,27 @@ function App() {
         if (res?.results[0]?.components?.country == 'Norway') {
           store.dispatch({type: COUNTRY, payload: '9'});
           updateLang('Norwegian');
-          console.log('Norwegian');
+          //console.log('Norwegian');
         }
         if (res?.results[0]?.components?.country == 'Egypt') {
           store.dispatch({type: COUNTRY, payload: '10'});
           updateLang('Arabic');
-          console.log('Arabic');
+          //console.log('Arabic');
         }
         if (res?.results[0]?.components?.country == 'Saudi Arabia') {
           store.dispatch({type: COUNTRY, payload: '10'});
           updateLang('Arabic');
-          console.log('Arabic');
+          //console.log('Arabic');
         }
         if (res?.results[0]?.components?.country == 'India') {
           store.dispatch({type: COUNTRY, payload: '4'});
           updateLang('English');
-          console.log('English');
+          //console.log('English');
         }
         // alert(JSON.stringify(localizationStrings.getLanguage()));
         setLanguageUpdated(true);
       } catch (error) {
-        console.log('post njbn', error);
+        //console.log('post njbn', error);
       }
     }
   };

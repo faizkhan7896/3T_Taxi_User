@@ -16,7 +16,7 @@ export default function Login() {
   const [value, setValue] = useState('379130');
 
   const {userData} = useSelector(state => state.user);
-  console.log(userData);
+  //console.log(userData);
   const navigation = useNavigation();
   const inputRef = useRef();
   const [loading, setLoading] = useState(false);
@@ -26,10 +26,10 @@ export default function Login() {
   async function confirmCode() {
     try {
       const verify = await params.confirm.confirm(value);
-      console.log(verify);
+      //console.log(verify);
       otp();
     } catch (error) {
-      console.log('Invalid code.');
+      //console.log('Invalid code.');
     }
   }
 
@@ -48,7 +48,7 @@ export default function Login() {
       .then(v => {
         setLoading(false);
 
-        console.log('vvvvvvvvvvvvvvvvvv', v);
+        //console.log('vvvvvvvvvvvvvvvvvv', v);
         store.dispatch({type: USERDATA, payload: v.result});
         v.result.profile_status == 'unverified'
           ? navigation.navigate('SetProfile')
@@ -106,7 +106,7 @@ export default function Login() {
             fontWeight: '700',
           }}
           onCodeFilled={code => {
-            console.log(`Code is ${code}, you are good to go!`);
+            //console.log(`Code is ${code}, you are good to go!`);
           }}
           ref={inputRef}
           onLayout={() => inputRef.current.focus()}

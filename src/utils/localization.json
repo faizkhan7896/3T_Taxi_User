@@ -265,6 +265,20 @@
     "Submit": "Submit",
     "Password": "Password",
     "Fawry": "Fawry",
+    "Distance": "Distance",
+    "Start": "Start",
+    "End": "End",
+
+    "VAT_": "VAT",
+    "Trip_Details": "Trip Details",
+    "Total_Price": "Total Price",
+
+    "Paid_By": "Paid By",
+    "Price_Information": "Price Information",
+    "User_Name": "User Name",
+    "Email_or_Phone_Number": "Email or Phone Number",
+    "User_Information": "User Information",
+    "Add_A_Tip": "If you want give a tips?",
     "Please_Select_Country_Code": "Please Select Country Code"
   },
 
@@ -533,6 +547,19 @@
     "Submit": "يُقدِّم",
     "Password": "كلمة المرور",
     "Fawry": "فوري",
+
+    "VAT_": "ضريبة القيمة المضافة",
+    "Paid_By": "المدفوعة بواسطة",
+    "Price_Information": "معلومات الأسعار",
+    "User_Name": "اسم المستخدم",
+    "Email_or_Phone_Number": "البريد الإلكتروني أو رقم الهاتف",
+    "User_Information": "معلومات المستخدم",
+    "Distance": "مسافة",
+    "Start": "يبدأ",
+    "End": "نهاية",
+    "Trip_Details": "تفاصيل الرحلة",
+    "SignupMsg": "مرحبًا أيها الكابتن، يسعدنا أن تكون جزءًا من أسطول ثري تي ",
+    "Add_A_Tip": "إذا كنت تريد إعطاء النصائح؟",
 
     "Please_Select_Country_Code": "الرجاء تحديد رمز البلد"
   },
@@ -809,6 +836,20 @@
     "Submit": "Sende inn",
     "Password": "Passord",
     "Fawry": "Fawry",
+    "Total_Price": "Total Price",
+
+    "VAT_": "mva",
+    "Paid_By": "Betalt av",
+    "Price_Information": "Prisinformasjon",
+    "User_Name": "Brukernavn",
+    "Email_or_Phone_Number": "E-post eller telefonnummer",
+    "User_Information": "brukerinformasjon",
+    "Distance": "Avstand",
+    "Start": "Start",
+    "End": "Slutt",
+    "Trip_Details": "Turdetaljer",
+    "SignupMsg": "Hei kaptein, vi er glade for å ha deg som en del av 3T Captains-flåten",
+    "Add_A_Tip": "Hvis du vil gi et tips?",
 
     "Please_Select_Country_Code": "Vennligst velg landskode"
   }

@@ -35,7 +35,7 @@ export default function Continue_Trip({setBook}) {
   const [isFocused, setIsFocused] = useState(true);
 
   // alert(JSON.stringify(tripData?.status));
-  // console.log('tripDatatripData', tripData);
+  // //console.log('tripDatatripData', tripData);
 
   const [data, setData] = useState([]);
   const [TripStatus, setTripStatus] = useState('');
@@ -47,7 +47,7 @@ export default function Continue_Trip({setBook}) {
   const [inBackground, setInBackground] = useState(false);
 
   // alert(JSON.stringify(tripData?.live_user_status));
-  // console.log('',driver_details);
+  // //console.log('',driver_details);
 
   const {countryId} = useSelector(state => state.user || 9);
 
@@ -66,11 +66,11 @@ export default function Continue_Trip({setBook}) {
     // body.append('request_id', '75');
     body.append('request_id', booking_id);
 
-    // console.log(body);
+    // //console.log(body);
 
     post_api('get_booking_details', body)
       .then(v => {
-        // console.log('contineu===>', v);
+        // //console.log('contineu===>', v);
 
         if (v.status == 1) {
           store.dispatch({type: TRIP_DATA, payload: v.result[0]});
@@ -94,7 +94,7 @@ export default function Continue_Trip({setBook}) {
         },
         error => {
           // See error code charts below.
-          console.log('error:-', error.code, error.message);
+          //console.log('error:-', error.code, error.message);
         },
         {
           accuracy: {android: 'high', ios: 'best'},
@@ -117,7 +117,7 @@ export default function Continue_Trip({setBook}) {
         },
         error => {
           // See error code charts below.
-          console.log('error:-', error.code, error.message);
+          //console.log('error:-', error.code, error.message);
         },
         {
           accuracy: {android: 'high', ios: 'best'},
@@ -143,7 +143,7 @@ export default function Continue_Trip({setBook}) {
       }
       body.append('lat', lati || lat);
       body.append('lon', longi || long);
-      console.log('update_user_live_lat_lon', body);
+      //console.log('update_user_live_lat_lon', body);
 
       const res = await fetch(url, {
         method: 'POST',
@@ -152,11 +152,11 @@ export default function Continue_Trip({setBook}) {
           'content-type': 'multipart/form-data',
         },
       });
-      console.log('update_user_live_lat_lon', res);
+      //console.log('update_user_live_lat_lon', res);
       const rslt = await res.json();
-      console.log('update_user_live_lat_lon', rslt);
+      //console.log('update_user_live_lat_lon', rslt);
     } catch (e) {
-      console.log(e);
+      //console.log(e);
     }
   }
 
@@ -176,7 +176,7 @@ export default function Continue_Trip({setBook}) {
       }
       body.append('lat', lat);
       body.append('lon', long);
-      console.log('update_user_live_lat_lon', body);
+      //console.log('update_user_live_lat_lon', body);
 
       const res = await fetch(url, {
         method: 'POST',
@@ -185,11 +185,11 @@ export default function Continue_Trip({setBook}) {
           'content-type': 'multipart/form-data',
         },
       });
-      console.log('update_user_live_lat_lon', res);
+      //console.log('update_user_live_lat_lon', res);
       const rslt = await res.json();
-      console.log('update_user_live_lat_lon', rslt);
+      //console.log('update_user_live_lat_lon', rslt);
     } catch (e) {
-      console.log(e);
+      //console.log(e);
     }
   }
 

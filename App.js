@@ -47,7 +47,7 @@ export default function App({navigation}) {
           PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,
         );
       } catch (error) {
-        console.log('Notification Authorization status:', authStatus);
+        //console.log('Notification Authorization status:', authStatus);
       }
     }
   };
@@ -60,14 +60,14 @@ export default function App({navigation}) {
       authStatus === messaging.AuthorizationStatus.PROVISIONAL;
 
     if (enabled) {
-      console.log('Authorization status:', authStatus);
+      //console.log('Authorization status:', authStatus);
     }
   }
 
   const get_token = async () => {
     await messaging().registerDeviceForRemoteMessages();
     const token = await messaging().getToken();
-    console.log('token', token);
+    //console.log('token', token);
   };
 
   useEffect(() => {
@@ -158,7 +158,7 @@ export default function App({navigation}) {
           payload: {value: false, data: ''},
         });
       }, 3000);
-      console.log('A new FCM message arrived', remoteMessage?.notification);
+      //console.log('A new FCM message arrived', remoteMessage?.notification);
     });
 
     return unsubscribe;

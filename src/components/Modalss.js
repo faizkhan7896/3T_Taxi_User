@@ -13,7 +13,7 @@
 //   export default function SolidButton({modalVisible,setModalVisible,Visible,message,textValue,tt})
 
 //   {
-//   console.log(Visible);
+//   //console.log(Visible);
 
 {
   /* <Modal

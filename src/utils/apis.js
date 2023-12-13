@@ -11,10 +11,10 @@ export const apis = {
         headers: {'content-type': 'multipart/form-data'},
       });
       const res = await response.json();
-      // console.log(res);
+      // //console.log(res);
       return res;
     } catch (error) {
-      console.log('post njbn', error);
+      //console.log('post njbn', error);
     }
   },
   numberVerify: async ({number, setLoading}) => {
@@ -29,7 +29,7 @@ export const apis = {
         headers: {'content-type': 'multipart/form-data'},
       });
       const result = await res.json();
-      console.log(result);
+      //console.log(result);
 
       if (result.status == '1') {
         store.dispatch({type: ID, payload: result.result.id});
@@ -41,7 +41,7 @@ export const apis = {
         setLoading(false);
       }
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   },
   otp: async ({id, otp, setLoading}) => {
@@ -57,7 +57,7 @@ export const apis = {
         headers: {'content-type': 'multipart/form-data'},
       });
       const result = await res.json();
-      console.log(result);
+      //console.log(result);
       if (result.status == '1') {
         setLoading(false);
         return result.result;
@@ -66,7 +66,7 @@ export const apis = {
         setLoading(false);
       }
     } catch (error) {
-      console.log(error);
+      //console.log(error);
       setLoading(false);
     }
   },
@@ -86,7 +86,7 @@ export const apis = {
         headers: {'content-type': 'multipart/form-data'},
       });
       const result = await res.json();
-      console.log(result);
+      //console.log(result);
       if (result.status == '1') {
         store.dispatch({type: USERDATA, payload: result.result});
         setLoading(false);
@@ -96,7 +96,7 @@ export const apis = {
         setLoading(false);
       }
     } catch (error) {
-      console.log(error);
+      //console.log(error);
       setLoading(false);
     }
   },
@@ -133,7 +133,7 @@ export const apis = {
         headers: {'content-type': 'multipart/form-data'},
       });
       const result = await res.json();
-      console.log(result);
+      //console.log(result);
       if (result.status == '1') {
         store.dispatch({type: USERDATA, payload: result.result});
         setLoading(false);
@@ -143,7 +143,7 @@ export const apis = {
         setLoading(false);
       }
     } catch (error) {
-      console.log(error);
+      //console.log(error);
       setLoading(false);
     }
   },
@@ -166,7 +166,7 @@ export const apis = {
         headers: {'content-type': 'multipart/form-data'},
       });
       const result = await res.json();
-      console.log(result);
+      //console.log(result);
       if (result.status == '1') {
         setLoading(false);
         return result.result;
@@ -175,7 +175,7 @@ export const apis = {
         setLoading(false);
       }
     } catch (error) {
-      console.log(error);
+      //console.log(error);
       setLoading(false);
     }
   },

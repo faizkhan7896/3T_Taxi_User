@@ -30,12 +30,12 @@ const LanguageSelectionScreen = ({navigation}) => {
     try {
       const url =
         baseUrl + 'update_language?user_id=' + userId + '&language=' + val;
-      console.log(url);
+      //console.log(url);
       const response = await fetch(url);
       const res = await response.json();
-      console.log('update_languageupdate_languageupdate_language', res);
+      //console.log('update_languageupdate_languageupdate_language', res);
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
   const updateLang = val => {

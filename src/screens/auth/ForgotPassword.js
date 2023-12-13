@@ -42,7 +42,7 @@ export default function Login() {
       const body = new FormData();
       body.append('forgot_password', `${Number}`);
 
-      console.log(body);
+      //console.log(body);
 
       var requestOptions = {
         method: 'GET',
@@ -54,7 +54,7 @@ export default function Login() {
       );
 
       const result = await res.json();
-      console.log('forgot_password', result);
+      //console.log('forgot_password', result);
 
       if (result.status == '1') {
         showSuccess(result?.message);
@@ -65,7 +65,7 @@ export default function Login() {
         setLoading(false);
       }
     } catch (error) {
-      console.log('' + error, 'error');
+      //console.log('' + error, 'error');
       setLoading(false);
     }
   };

@@ -11,13 +11,13 @@ export const ShowToast = (msg, type = 'success', otherProps = {}) =>
   Toast.show({text1: msg, type, ...otherProps});
 
 export const validate = text => {
-  console.log(text);
+  //console.log(text);
   let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
   if (reg.test(text) === false) {
-    console.log('Email is Not Correct');
+    //console.log('Email is Not Correct');
     return false;
   } else {
-    console.log('Email is Correct');
+    //console.log('Email is Correct');
     return true;
   }
 };
@@ -46,17 +46,17 @@ export const get_address = async (latitude, longitude) => {
     longitude +
     '&key=' +
     mapsApiKey;
-  // console.log('get_address',url);
+  // //console.log('get_address',url);
   // alert('e.message');
 
   try {
     const res = await fetch(url);
     const json = await res.json();
-    // console.log('get_address',json);
+    // //console.log('get_address',json);
     return json.results[0]?.formatted_address;
   } catch (e) {
     // alert(e.message);
-    console.log('get_address', e);
+    //console.log('get_address', e);
   }
 };
 

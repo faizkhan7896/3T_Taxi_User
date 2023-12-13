@@ -32,7 +32,7 @@ const FAQs = () => {
       }
       setLoading(false);
     } catch (error) {
-      console.log(error);
+      //console.log(error);
       setLoading(false);
     }
   };

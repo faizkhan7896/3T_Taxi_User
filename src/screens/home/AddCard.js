@@ -130,7 +130,7 @@ export default function AddCard(props) {
             <CardScanner
               style={{flex: 1}}
               didCardScan={response => {
-                console.log('Card info: ', response);
+                //console.log('Card info: ', response);
                 setTimeout(() => {
                   setCardNumber(response?.cardNumber.toString());
                   setCardHoldername(response?.holderName.toString());

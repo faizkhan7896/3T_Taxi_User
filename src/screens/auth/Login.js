@@ -39,17 +39,17 @@ export default function Login() {
   const Facebook = () => {
     LoginManager.logInWithPermissions(['public_profile']).then(
       function (result) {
-        if (result.isCancelled) {
-          console.log('Login cancelled');
-        } else {
-          console.log(
-            'Login success with permissions: ' +
-              result.grantedPermissions.toString(),
-          );
-        }
+        // if (result.isCancelled) {
+        //   console.log('Login cancelled');
+        // } else {
+        //   console.log(
+        //     'Login success with permissions: ' +
+        //       result.grantedPermissions.toString(),
+        //   );
+        // }
       },
       function (error) {
-        console.log('Login fail with error: ' + error);
+        // console.log('Login fail with error: ' + error);
       },
     );
   };
@@ -65,7 +65,7 @@ export default function Login() {
         requestOptions,
       );
       const res = await response.json();
-      console.log(res);
+      // console.log(res);
 
       if (res.country_code != undefined) {
         // alert(JSON.stringify(res?.country_code));
@@ -83,11 +83,11 @@ export default function Login() {
 
   async function onGoogleButtonPress() {
     await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
-    console.log('2', googleCredential);
+    // console.log('2', googleCredential);
     const {idToken} = await GoogleSignin.signIn();
-    console.log('3', idToken);
+    // console.log('3', idToken);
     const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-    console.log('googleCredential', googleCredential);
+    // console.log('googleCredential', googleCredential);
     return auth().signInWithCredential(googleCredential);
   }
 
@@ -96,7 +96,7 @@ export default function Login() {
       setLoading(true);
 
       const token = await firebase.messaging().getToken();
-      console.log(token);
+      // console.log(token);
       // return;
 
       const body = new FormData();
@@ -106,7 +106,7 @@ export default function Login() {
       body.append('type', "USER");
 
 
-      console.log(body);
+      // console.log(body);
       var requestOptions = {
         method: 'POST',
         body: body,
@@ -118,7 +118,7 @@ export default function Login() {
       );
 
       const result = await res.json();
-      console.log('user_login', result);
+      // console.log('user_login', result);
 
       if (result.status == '1') {
         // alert(JSON.stringify(result?.result?.id));
@@ -132,7 +132,7 @@ export default function Login() {
         setLoading(false);
       }
     } catch (error) {
-      console.log('' + error, 'error');
+      // console.log('' + error, 'error');
       setLoading(false);
     }
   };

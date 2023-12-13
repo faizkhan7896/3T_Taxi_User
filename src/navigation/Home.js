@@ -50,7 +50,7 @@ function HomeNavigator() {
     post_api('update_lat_lon', body)
       .then(v => {
         if (v.status == 1) {
-          // console.log(v);
+          // //console.log(v);
         }
       })
       .catch(() => console.log(v));
@@ -72,16 +72,16 @@ function HomeNavigator() {
           'content-type': 'multipart/form-data',
         },
       });
-      console.log(res);
+      //console.log(res);
       const rslt = await res.json();
-      // console.log(rslt);
-      console.log(status);
+      // //console.log(rslt);
+      //console.log(status);
       // alert(status);
     } catch (e) {}
   }
 
   const handlePutAppToBackground = state => {
-    console.log(state);
+    //console.log(state);
     if (
       (Platform.OS == 'android' && state == 'background') ||
       (Platform.OS == 'ios' && state == 'inactive')
@@ -110,8 +110,6 @@ function HomeNavigator() {
       clearInterval(intervalCall);
     };
   }, []);
-
-  
 
   return (
     <Stack.Navigator

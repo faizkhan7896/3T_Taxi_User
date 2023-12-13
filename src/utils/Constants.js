@@ -52,7 +52,7 @@ export const locationPermission = () =>
         return reject('Location Permission denied');
       })
       .catch(error => {
-        console.log('Ask Location permission error: ', error);
+        //console.log('Ask Location permission error: ', error);
         return reject(error);
       });
   });
@@ -77,7 +77,7 @@ export {showError, showSuccess};
 
 export const add_time = (date, addtime) => {
   var d = date; // get current date
-  console.log(JSON.stringify(moment(date).format('Do MMM')));
+  //console.log(JSON.stringify(moment(date).format('Do MMM')));
   // return
   d.setHours(d.getHours(), d.getMinutes() + addtime, 0, 0);
   return d;
@@ -92,7 +92,7 @@ export const Get_timeBy_LatLng = (
     `https://maps.googleapis.com/maps/api/directions/json?origin=${pickup_latitude},${pickup_longitude}&destination=${destination_latitude},${destination_longitude}&key=` +
     mapsApiKey;
 
-  console.log(url);
+  //console.log(url);
 
   fetch(url)
     .then(response => response.json())
@@ -124,13 +124,13 @@ export const post_api = async (api_name, body) => {
         'content-type': 'multipart/form-data',
       },
     });
-    console.log('post_api_BODY', body);
+    //console.log('post_api_BODY', body);
 
     const res = await response.json();
-    console.log(res);
+    //console.log(res);
     return res;
   } catch (error) {
-    // console.log(error);
+    // //console.log(error);
     throw error;
   }
 };
@@ -144,14 +144,14 @@ export const get_Profile = async id => {
       body: body1,
       headers: {'content-type': 'multipart/form-data'},
     });
-    // console.log('get_Profile');
+    // //console.log('get_Profile');
     const res = await response.json();
-    // console.log(res);
-    // console.log('get_Profile_userdata===>', res);
+    // //console.log(res);
+    // //console.log('get_Profile_userdata===>', res);
     if (res.status) {
       store.dispatch({type: USERDATA, payload: res.result});
     }
   } catch (error) {
-    console.log(error);
+    //console.log(error);
   }
 };

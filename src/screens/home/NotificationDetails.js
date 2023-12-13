@@ -24,7 +24,7 @@ const NotificationDetails = () => {
   const {userId} = useSelector(state => state?.user);
 
   //   alert(JSON.stringify(params?.params.param));
-  //   console.log('params - ', params);
+  //   //console.log('params - ', params);
 
   return (
     <View style={{flex: 1, backgroundColor: theme.colors.ButtonText}}>

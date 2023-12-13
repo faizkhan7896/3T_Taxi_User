@@ -18,7 +18,7 @@ export default function TripEnd({navigation}) {
   const dimension = useWindowDimensions();
   const {tripData} = useSelector(state => state?.user);
   const [ReviewSended, setReviewSended] = useState(false);
-  // console.log('tripData', tripData);
+  // //console.log('tripData', tripData);
   // alert(JSON.stringify(tripData?.users_details?.first_name))
   // useEffect(() => {
   //   navigation.navigate('HomeMap');

@@ -30,7 +30,7 @@
 //   const [isFocused, setIsFocused] = useState(true);
 
 //   // alert(JSON.stringify(tripData?.driver_image));
-//   // console.log('tripDatatripData', tripData);
+//   // //console.log('tripDatatripData', tripData);
 //   const [data, setData] = useState([]);
 //   const [TripStatus, setTripStatus] = useState('');
 //   // alert(JSON.stringify());
@@ -40,11 +40,11 @@
 //     // body.append('request_id', '75');
 //     body.append('request_id', booking_id);
 
-//     console.log(body);
+//     //console.log(body);
 
 //     post_api('get_booking_details', body)
 //       .then(v => {
-//         console.log('contineu===>', v);
+//         //console.log('contineu===>', v);
 
 //         if (v.status == 1) {
 //           store.dispatch({type: TRIP_DATA, payload: v.result[0]});
@@ -383,7 +383,7 @@ export default function StartTrip({navigation}) {
   const {booking_id, tripData} = useSelector(state => state?.user);
 
   // alert(JSON.stringify(start_trip));
-  // console.log('tripDatatripData', tripData);
+  // //console.log('tripDatatripData', tripData);
 
   useEffect(() => {
     setTimeout(() => {

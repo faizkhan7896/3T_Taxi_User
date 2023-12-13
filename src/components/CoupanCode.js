@@ -43,17 +43,17 @@ export default function PaymentOptions({
   const get_Codes = async () => {
     try {
       const url = baseUrl + 'get_coupon_codes?user_id=' + userId;
-      console.log(url);
+      //console.log(url);
       const response = await fetch(url);
       const res = await response.json();
-      console.log(res);
+      //console.log(res);
       if (res.status == '1') {
-        // console.log(v);
+        // //console.log(v);
         setData(res?.result);
       } else {
       }
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
 

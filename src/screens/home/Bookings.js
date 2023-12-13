@@ -57,7 +57,7 @@ export default function Bookings() {
       .then(response => response.json())
       .then(result => {
         setLoading(false);
-        console.log(result);
+        //console.log(result);
         if (result.status == 1) {
           setBooking_data(result.result);
         } else {
@@ -75,18 +75,18 @@ export default function Bookings() {
     try {
       setLoading(true);
       const url = baseUrl + 'cancelBookingByUser';
-      console.log(url);
+      //console.log(url);
       const body = new FormData();
       body.append('user_id', userId);
       body.append('booking_id', deleteBokingData?.id);
-      console.log(body);
+      //console.log(body);
       const res = await fetch(url, {
         method: 'POST',
         body: body,
         headers: {'content-type': 'multipart/form-data'},
       });
       const result = await res.json();
-      console.log(result);
+      //console.log(result);
       if (result.status == '1') {
         setLoading(false);
         get_data();
@@ -97,7 +97,7 @@ export default function Bookings() {
         setLoading(false);
       }
     } catch (error) {
-      console.log(error);
+      //console.log(error);
       setLoading(false);
     }
   };

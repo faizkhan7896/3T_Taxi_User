@@ -62,7 +62,7 @@ const DATA = [
     title: 'Great Timing',
   },
 ];
-const TIP_DATA = [
+const TIP_DATA_EGP = [
   {
     id: '10',
     val: '10',
@@ -74,6 +74,20 @@ const TIP_DATA = [
   {
     id: '50',
     val: '50',
+  },
+];
+const TIP_DATA_NOK = [
+  {
+    id: '50',
+    val: '50',
+  },
+  {
+    id: '100',
+    val: '100',
+  },
+  {
+    id: '150',
+    val: '150',
   },
 ];
 
@@ -95,14 +109,14 @@ const App = ({navigation, setReviewSended}) => {
   const [CardDetails, setCardDetails] = useState({}); // const [TollData, setTollData] = useState({});
   const [topToBottom, setTopToBottom] = useState(0);
 
-  // alert(JSON.stringify(CardDetails?.card_num));
-  console.log('badgesbadgesbadgesbadgesbadges', userData?.payment_option);
+  // alert(JSON.stringify(country));
+  //console.log('badgesbadgesbadgesbadgesbadges', userData?.payment_option);
 
   const handlePresentModalPress = useCallback(() => {
     bottomSheetModalRef.current?.present();
   }, []);
   const handleSheetChanges = useCallback(index => {
-    console.log('handleSheetChanges', index);
+    //console.log('handleSheetChanges', index);
   }, []);
 
   const get_badges = async () => {
@@ -119,13 +133,13 @@ const App = ({navigation, setReviewSended}) => {
       if (res.status == '1') {
         // setLoading(false);
         setBadges(res.result);
-        console.log(res);
+        //console.log(res);
       } else {
         ShowToast(res.message || 'Unknown error', 'error');
         // setLoading(false);
       }
     } catch (error) {
-      console.log('post njbn', error);
+      //console.log('post njbn', error);
     }
   };
 
@@ -145,11 +159,11 @@ const App = ({navigation, setReviewSended}) => {
     body.append('amount', tip?.toString());
     body.append('currency', country || 'NOK');
 
-    console.log('paymentByCard', body);
+    //console.log('paymentByCard', body);
 
     post_api('paymentByCard', body)
       .then(v => {
-        // console.log('___paymentByCard', v);
+        // //console.log('___paymentByCard', v);
         if (v.status == '1') {
           // alert(JSON.stringify(v?.transaction_id));
           AddReview();
@@ -160,7 +174,7 @@ const App = ({navigation, setReviewSended}) => {
       })
       .catch(e => {
         showError(e);
-        console.log('paymentByCardpaymentByCardpaymentByCard', e);
+        //console.log('paymentByCardpaymentByCardpaymentByCard', e);
       });
   };
 
@@ -181,11 +195,11 @@ const App = ({navigation, setReviewSended}) => {
     body2.append('payment_type', paymentMethod?.id);
     body2.append('tip_amount', tip);
 
-    console.log('addEndTripRattingBadge', body2);
+    //console.log('addEndTripRattingBadge', body2);
     // return
 
     apis.post_api('addEndTripRattingBadge', body2).then(v => {
-      console.log('addEndTripRattingBadgeaddEndTripRattingBadge', v);
+      //console.log('addEndTripRattingBadgeaddEndTripRattingBadge', v);
       // alert(JSON.stringify(v.status));
       if (v.status == 1) {
         setReviewSended(true);
@@ -256,7 +270,7 @@ const App = ({navigation, setReviewSended}) => {
         returnUrl: 'https://3tdrive.com/',
       };
 
-      console.log(body);
+      //console.log(body);
       const res = await fetch(url, {
         method: 'POST', // or 'PUT'
         headers: {
@@ -266,9 +280,9 @@ const App = ({navigation, setReviewSended}) => {
         },
         body: JSON.stringify(body),
       });
-      // console.log(res);
+      // //console.log(res);
       const rslt = await res.json();
-      console.log(rslt);
+      //console.log(rslt);
       // alert(JSON.stringify(rslt?.message));
       // return;
 
@@ -285,7 +299,7 @@ const App = ({navigation, setReviewSended}) => {
       // setLoading(false);
       // alert(JSON.stringify(e));
       ShowToast(localizationStrings?.msg_Unknown_error, 'error');
-      console.log(e);
+      //console.log(e);
     }
   };
 
@@ -457,7 +471,7 @@ const App = ({navigation, setReviewSended}) => {
                   onPress={() => {
                     if (badge[i] != item?.id) {
                       setBadge(v => [...v, item.id]);
-                      console.log(badge);
+                      //console.log(badge);
                     } else {
                       setBadge(v => [...v.slice(0, i), ...v.slice(i + 1)]);
                     }
@@ -518,39 +532,41 @@ const App = ({navigation, setReviewSended}) => {
                   marginBottom: 10,
                   marginHorizontal: 50,
                 }}>
-                {TIP_DATA.map((item, i) => (
-                  <TouchableOpacity
-                    onPress={() => {
-                      setTip(item?.val);
-                    }}
-                    style={{
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      borderWidth: 1,
-                      height: 45,
-                      width: 45,
-                      borderColor:
-                        tip == item?.val
-                          ? theme.colors.yellow
-                          : theme.colors.lightGray,
-                      borderRadius: 100,
-                    }}>
-                    <Text
-                      numberOfLines={2}
+                {(country == '10' ? TIP_DATA_EGP : TIP_DATA_NOK).map(
+                  (item, i) => (
+                    <TouchableOpacity
+                      onPress={() => {
+                        setTip(item?.val);
+                      }}
                       style={{
-                        fontFamily: 'Jost-Medium',
-                        color:
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        borderWidth: 1,
+                        height: 45,
+                        width: 45,
+                        borderColor:
                           tip == item?.val
                             ? theme.colors.yellow
                             : theme.colors.lightGray,
-                        alignSelf: 'center',
-                        textAlign: 'center',
-                        fontSize: 18,
+                        borderRadius: 100,
                       }}>
-                      {item?.id}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
+                      <Text
+                        numberOfLines={2}
+                        style={{
+                          fontFamily: 'Jost-Medium',
+                          color:
+                            tip == item?.val
+                              ? theme.colors.yellow
+                              : theme.colors.lightGray,
+                          alignSelf: 'center',
+                          textAlign: 'center',
+                          fontSize: 18,
+                        }}>
+                        {item?.id}
+                      </Text>
+                    </TouchableOpacity>
+                  ),
+                )}
               </View>
             </View>
 

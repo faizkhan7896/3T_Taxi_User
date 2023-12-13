@@ -3141,11 +3141,6 @@ cross-spawn@^7.0.0, cross-spawn@^7.0.2:
     shebang-command "^2.0.0"
     which "^2.0.1"
 
-crypto-js@>=3.2.0:
-  version "4.2.0"
-  resolved "https://registry.npmjs.org/crypto-js/-/crypto-js-4.2.0.tgz"
-  integrity sha512-KALDyEYgpY+Rlob/iriUtjV6d5Eq+Y191A5g4UqLAi8CyGP9N1+FdVbkc1SxKc2r4YAYqG8JzO2KGL+AizD70Q==
-
 css-color-keywords@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/css-color-keywords/-/css-color-keywords-1.0.0.tgz"
@@ -6474,13 +6469,6 @@ onetime@^5.1.0:
   dependencies:
     mimic-fn "^2.1.0"
 
-opay-online-rn-sdk@^0.9.3:
-  version "0.9.3"
-  resolved "https://registry.npmjs.org/opay-online-rn-sdk/-/opay-online-rn-sdk-0.9.3.tgz"
-  integrity sha512-UFx44LpmbnY7FqOP6w/CIFeDjag3Y7MMRSR9hmuV8HlXQ1zRDp7z/8roSEA86U85HnjJlgbmc/v3hDM8l5tfZQ==
-  dependencies:
-    crypto-js ">=3.2.0"
-
 open@^6.2.0:
   version "6.4.0"
   resolved "https://registry.npmjs.org/open/-/open-6.4.0.tgz"
@@ -7088,7 +7076,7 @@ react-native-vector-icons@*, react-native-vector-icons@^9.2.0, react-native-vect
     prop-types "^15.7.2"
     yargs "^16.1.1"
 
-react-native-webview@^13.6.0, react-native-webview@>=8.0.0:
+react-native-webview@^13.6.0:
   version "13.6.3"
   resolved "https://registry.npmjs.org/react-native-webview/-/react-native-webview-13.6.3.tgz"
   integrity sha512-IApO0JSj0uAWsBGKWagyfgDYoX29piiMYLmkHtRjKeL1rIVjLoR/bMe7KJ/0X47y86b//a6u3cYQtphyay+F2A==
@@ -7096,7 +7084,7 @@ react-native-webview@^13.6.0, react-native-webview@>=8.0.0:
     escape-string-regexp "2.0.0"
     invariant "2.2.4"
 
-react-native@*, react-native@^*, "react-native@^0.0.0-0 || >=0.60 <1.0", "react-native@>= 0.51", "react-native@>= 0.59", "react-native@>= 0.64.3", react-native@>=0.42.0, react-native@>=0.57, react-native@>=0.57.0, react-native@>=0.57.7, react-native@>=0.59, react-native@>=0.60.5, react-native@>=0.63.3, react-native@>=0.65.0, react-native@>0.64, react-native@0.70.6:
+react-native@*, react-native@^*, "react-native@^0.0.0-0 || >=0.60 <1.0", "react-native@>= 0.59", "react-native@>= 0.64.3", react-native@>=0.42.0, react-native@>=0.57, react-native@>=0.57.0, react-native@>=0.57.7, react-native@>=0.59, react-native@>=0.60.5, react-native@>=0.63.3, react-native@>=0.65.0, react-native@>0.64, react-native@0.70.6:
   version "0.70.6"
   resolved "https://registry.npmjs.org/react-native/-/react-native-0.70.6.tgz"
   integrity sha512-xtQdImPHnwgraEx3HIZFOF+D1hJ9bC5mfpIdUGoMHRws6OmvHAjmFpO6qfdnaQ29vwbmZRq7yf14sbury74R/w==
@@ -7168,7 +7156,7 @@ react-test-renderer@>=16.6.1, react-test-renderer@18.1.0:
     react-shallow-renderer "^16.15.0"
     scheduler "^0.22.0"
 
-react@*, "react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.8 || ^17.0 || ^18.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^18.0.0 || ^17.0.0 || ^16.0.0 || ^15.6.0", react@^18.1.0, "react@>= 16.0 || < 18.0", "react@>= 17.0.1", react@>=16, react@>=16.0, react@>=16.3.0, react@>=16.6.1, react@>=16.8, react@>=16.8.6, react@>=17.0.0, react@>15.6.0, react@18.1.0:
+react@*, "react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.8 || ^17.0 || ^18.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^18.0.0 || ^17.0.0 || ^16.0.0 || ^15.6.0", react@^18.1.0, "react@>= 17.0.1", react@>=16, react@>=16.0, react@>=16.3.0, react@>=16.6.1, react@>=16.8, react@>=16.8.6, react@>=17.0.0, react@>15.6.0, react@18.1.0:
   version "18.1.0"
   resolved "https://registry.npmjs.org/react/-/react-18.1.0.tgz"
   integrity sha512-4oL8ivCz5ZEPyclFQXaNksK3adutVS8l2xzZU0cqEFrE9Sb7fC0EFK5uEk74wIreL1DERyjvsU915j1pcT2uEQ==

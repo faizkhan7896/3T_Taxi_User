@@ -110,7 +110,7 @@ export default function Privacy() {
       setLoading(true);
       const response = await fetch(baseUrl + 'get_privacy_policy');
       const res = await response.json();
-      console.log(res);
+      //console.log(res);
       if (res.status == '1') {
         setDetail(res.result);
         setLoading(false);
@@ -119,7 +119,7 @@ export default function Privacy() {
       }
     } catch (error) {
       setLoading(false);
-      console.log(error);
+      //console.log(error);
       ShowToast(error);
     }
   };

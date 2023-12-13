@@ -36,7 +36,7 @@ export default function StartTripSlider({start}) {
   );
 
   const [estimatedTome, setEstimatedTome] = useState();
-  console.log(estimatedTome);
+  //console.log(estimatedTome);
 
   // alert(JSON.stringify(tripData?.driver_details?.mobile));
 
@@ -56,11 +56,11 @@ export default function StartTripSlider({start}) {
     // body.append('request_id', '75');
     body.append('request_id', booking_id);
 
-    console.log(body);
+    //console.log(body);
 
     post_api('get_booking_finish', body)
       .then(v => {
-        console.log('distanceCalculation===>', v);
+        //console.log('distanceCalculation===>', v);
 
         if (v.status == 1) {
           store.dispatch({type: TRIP_DATA, payload: v.result});
@@ -105,11 +105,11 @@ export default function StartTripSlider({start}) {
     body.append('droff_lon', tripData?.droplon);
     // 23.1994097,77.4058914,11z
 
-    console.log(body);
+    //console.log(body);
 
     post_api('distanceCalculation', body)
       .then(v => {
-        console.log('distanceCalculation===>', v);
+        //console.log('distanceCalculation===>', v);
 
         if (v.status == 1) {
           formatEstimatedTime(v?.min);

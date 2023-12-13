@@ -48,11 +48,11 @@ const CancelRide = ({isOpen, setIsOpen, setBook, setcancel_popup}) => {
     body.append('cancel_time', moment(new Date()).format('YYYY-MM-DD hh:mm:ss'));
     body.append('cancel_reaison', selected);
     body.append('type', 'USER');
-    console.log('body', body);
+    //console.log('body', body);
     post_api('cancelBookingRequest', body)
       .then(v => {
         setLoading(false);
-        console.log('--------------------', v);
+        //console.log('--------------------', v);
         if (v.status == 1) {
           store.dispatch({type: BOOKING_STATUS, booking_id: 'FINISH'});
           store.dispatch({type: B_ID, booking_id: ''});

@@ -37,7 +37,7 @@ const SearchingDriverPopup = ({
   const [cancel_ride_popup, setCancel_ride_popup] = useState(false);
   const dimension = useWindowDimensions();
   const [accept, setAccept] = useState(false);
-  // console.log('booking_id', booking_id, 'userId', userId);
+  // //console.log('booking_id', booking_id, 'userId', userId);
   // alert(JSON.stringify(tripData?.amount));
   // alert(JSON.stringify(userData?.payment_option));
 
@@ -47,7 +47,7 @@ const SearchingDriverPopup = ({
     body.append('user_id', userId);
     body.append('booking_id', booking_id);
 
-    console.log(body);
+    //console.log(body);
 
     post_api('user_cancel_ride', body)
       .then(v => {
@@ -77,7 +77,7 @@ const SearchingDriverPopup = ({
   //   body.append('user_id', userId);
   //   body.append('booking_id', booking_id);
 
-  //   console.log(body);
+  //   //console.log(body);
 
   //   post_api('user_cancel_ride_refund_amount', body)
   //     .then(v => {
@@ -107,10 +107,10 @@ const SearchingDriverPopup = ({
     // body.append('request_id', '45');
     body.append('request_id', booking_id);
 
-    console.log('get_User_Search_Booking', body);
+    //console.log('get_User_Search_Booking', body);
     post_api('get_User_Search_Booking', body)
       .then(v => {
-        // console.log('driver==>', v);
+        // //console.log('driver==>', v);
         if (v.status == 1) {
           setDriver_data(v.result);
           setAccept(true);
@@ -135,7 +135,7 @@ const SearchingDriverPopup = ({
     body.append('accepted_request_id', booking_id);
     post_api('userbookingcontinue', body)
       .then(v => {
-        console.log('contineucontineucontineu===>', v);
+        //console.log('contineucontineucontineu===>', v);
         setLoading(false);
         if (v.status == 1) {
           setVisible(false);

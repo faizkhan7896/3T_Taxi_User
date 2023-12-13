@@ -120,7 +120,7 @@ const ChooseLocation = ({
   // alert(JSON.stringify(CardDetails))
   // alert(JSON.stringify(tripData?.booktype == 'later' ? displaySearch : visible))
 
-  // console.log('Calculation Formula ============================', {
+  // //console.log('Calculation Formula ============================', {
   //   carges: Car_Details?.charge + ' + ',
   //   distance: distance + ' x ',
   //   per_km: Car_Details?.per_km + ' + ',
@@ -135,7 +135,7 @@ const ChooseLocation = ({
   // alert(JSON.stringify(BookingType));
 
   // alert(JSON.stringify(userData?.payment_option));
-  // console.log('lat1,lon1, drop_lat, drop_lon', lat1, lon1, drop_lat, drop_lon);
+  // //console.log('lat1,lon1, drop_lat, drop_lon', lat1, lon1, drop_lat, drop_lon);
 
   // OLD ======== distance x charges (per km) + distance x charges (per km) /100 x vat_Tax + toll_price
   // CLIENT FORMULA ========== Start + distance x km price + time x min price + toll + extra - discount
@@ -188,7 +188,7 @@ const ChooseLocation = ({
       `https://maps.googleapis.com/maps/api/directions/json?origin=${pickup_latitude},${pickup_longitude}&destination=${destination_latitude},${destination_longitude}&key=` +
       mapsApiKey;
 
-    console.log('maps.googleapis.com', url);
+    //console.log('maps.googleapis.com', url);
 
     fetch(url)
       .then(response => response.json())
@@ -290,7 +290,7 @@ const ChooseLocation = ({
   //   {
   //     eventName: Fawry.FawryCallbacks.FAWRY_EVENT_PAYMENT_COMPLETED,
   //     listener: (data: any) =>
-  //       console.log(
+  //       //console.log(
   //         'Fawry.FawryCallbacks',
   //         Fawry.FawryCallbacks.FAWRY_EVENT_PAYMENT_COMPLETED,
   //         data,
@@ -299,7 +299,7 @@ const ChooseLocation = ({
   //   {
   //     eventName: Fawry.FawryCallbacks.FAWRY_EVENT_ON_SUCCESS,
   //     listener: (data: any) => {
-  //       console.log(
+  //       //console.log(
   //         'Fawry.FawryCallbacks',
   //         Fawry.FawryCallbacks.FAWRY_EVENT_ON_SUCCESS,
   //         data,
@@ -310,7 +310,7 @@ const ChooseLocation = ({
   //   {
   //     eventName: Fawry.FawryCallbacks.FAWRY_EVENT_ON_FAIL,
   //     listener: (error: any) =>
-  //       console.log(
+  //       //console.log(
   //         'Fawry.FawryCallbacks',
   //         Fawry.FawryCallbacks.FAWRY_EVENT_ON_FAIL,
   //         error,
@@ -319,7 +319,7 @@ const ChooseLocation = ({
   //   {
   //     eventName: Fawry.FawryCallbacks.FAWRY_EVENT_CardManager_FAIL,
   //     listener: (error: any) =>
-  //       console.log(
+  //       //console.log(
   //         'Fawry.FawryCallbacks',
   //         Fawry.FawryCallbacks.FAWRY_EVENT_CardManager_FAIL,
   //         error,
@@ -409,7 +409,7 @@ const ChooseLocation = ({
     const body = new FormData();
     body.append('amount', LastAmountWithCoupan * 100);
     body.append('currency', 'nok');
-    console.log(body);
+    //console.log(body);
 
     setLoading(true);
     post_api('generateIntentToken', body).then(v => {
@@ -454,7 +454,7 @@ const ChooseLocation = ({
       setLoading(true);
       const url = baseUrl + 'get_token';
 
-      console.log(url);
+      //console.log(url);
 
       const body = new FormData();
       body.append('card_number', CardDetails?.card_num);
@@ -462,7 +462,7 @@ const ChooseLocation = ({
       body.append('expiry_year', CardDetails?.card_exp?.split('/')[1]);
       body.append('cvc_code', CardDetails?.card_cvv);
       // alert(JSON.stringify(body));
-      console.log('Toke____Data', body);
+      //console.log('Toke____Data', body);
       // return;
       const res = await fetch(url, {
         method: 'POST',
@@ -471,9 +471,9 @@ const ChooseLocation = ({
           'content-type': 'multipart/form-data',
         },
       });
-      // console.log(res);
+      // //console.log(res);
       const rslt = await res.json();
-      console.log(rslt);
+      //console.log(rslt);
 
       if (rslt.status == '1') {
         return rslt.result;
@@ -486,14 +486,14 @@ const ChooseLocation = ({
       // ShowToast('An error occured.');
       ShowToast('An error occured.', 'error');
 
-      console.log(e);
+      //console.log(e);
     }
   }
 
   async function Payment_access(token) {
     // setLoading(true);
     const url = baseUrl + 'stripe_payment';
-    console.log(url);
+    //console.log(url);
 
     const body = new FormData();
     body.append('user_id', userData?.id);
@@ -502,7 +502,7 @@ const ChooseLocation = ({
     body.append('currency', currency == 'inr' ? 'nok' : currency);
     body.append('token', token);
 
-    console.log(body);
+    //console.log(body);
     // return;
     const res = await fetch(url, {
       method: 'POST',
@@ -511,9 +511,9 @@ const ChooseLocation = ({
         'content-type': 'multipart/form-data',
       },
     });
-    // console.log(res);
+    // //console.log(res);
     const rslt = await res.json();
-    // console.log("===============",rslt);
+    // //console.log("===============",rslt);
 
     if (rslt.status == '1') {
       return rslt;
@@ -545,7 +545,7 @@ const ChooseLocation = ({
       }
     } catch (error) {
       setLoading(false);
-      // console.log('===============',error);
+      // //console.log('===============',error);
       // alert(error.message.toString(), 'error');
     }
   };
@@ -553,7 +553,7 @@ const ChooseLocation = ({
   async function Refund_Payment_access() {
     // setLoading(true);
     const url = baseUrl + 'get_refund_stripe_payment';
-    console.log(url);
+    //console.log(url);
 
     const body = new FormData();
     body.append('transaction_id', transaction_id_);
@@ -568,9 +568,9 @@ const ChooseLocation = ({
         'content-type': 'multipart/form-data',
       },
     });
-    // console.log(res);
+    // //console.log(res);
     const rslt = await res.json();
-    // console.log("===============",rslt);
+    // //console.log("===============",rslt);
 
     if (rslt.status == '1') {
       return rslt;
@@ -643,7 +643,7 @@ const ChooseLocation = ({
         returnUrl: 'https://3tdrive.com/',
       };
 
-      console.log(body);
+      //console.log(body);
       const res = await fetch(url, {
         method: 'POST', // or 'PUT'
         headers: {
@@ -653,9 +653,9 @@ const ChooseLocation = ({
         },
         body: JSON.stringify(body),
       });
-      // console.log(res);
+      // //console.log(res);
       const rslt = await res.json();
-      console.log(rslt);
+      //console.log(rslt);
       // alert(JSON.stringify(rslt?.message));
       // return;
 
@@ -711,7 +711,7 @@ const ChooseLocation = ({
       // setLoading(false);
       // alert(JSON.stringify(e));
       ShowToast(localizationStrings?.msg_Unknown_error, 'error');
-      console.log(e);
+      //console.log(e);
     }
   };
 
@@ -722,7 +722,7 @@ const ChooseLocation = ({
     body.append('picuplat', lat1);
     body.append('pickuplon', lon1);
     body.append('car_type_id', selected);
-    console.log(body);
+    //console.log(body);
 
     post_api('check_available_driver', body).then(v => {
       if (v.status == 1) {
@@ -761,7 +761,7 @@ const ChooseLocation = ({
   };
 
   const fetchDestinationCords2 = (lat, lng, address) => {
-    // console.log('fetchDestinationCords2fetchDestinationCords2fetchDestinationCords2',lat, lng, address);
+    // //console.log('fetchDestinationCords2fetchDestinationCords2fetchDestinationCords2',lat, lng, address);
     // if (destinationAddress) {
     setState({
       ...state,
@@ -792,15 +792,15 @@ const ChooseLocation = ({
       'payment_option',
       paymentMethod?.id == undefined ? 'Cash' : paymentMethod?.id,
     );
-    console.log(body);
+    //console.log(body);
 
     setLoading(true);
     post_api('add_payment_option', body).then(v => {
       if (v.status == 1) {
-        console.log(
-          'add_payment_optionadd_payment_optionadd_payment_option',
-          v,
-        );
+        // console.log(
+        //   'add_payment_optionadd_payment_optionadd_payment_option',
+        //   v,
+        // );
         get_Profile(userId);
       }
       setLoading(false);
@@ -880,7 +880,7 @@ const ChooseLocation = ({
         'YYYY-MM-DD hh:mm:ss',
       ),
     );
-    console.log('_____________________', JSON.stringify(body));
+    //console.log('_____________________', JSON.stringify(body));
     // return;
     post_api('addBookingRequest', body)
       .then(v => {
@@ -890,13 +890,13 @@ const ChooseLocation = ({
           if (BookingType == 'now') {
             setVisible(true);
           }
-          console.log('v.result.id', v.result.id);
+          //console.log('v.result.id', v.result.id);
           store.dispatch({type: B_ID, payload: v.result.id});
           showSuccess(localizationStrings?.msg_Booking_Created);
           return;
         }
         if (v.status == 0) {
-          console.log('v.result.id', v.result.id);
+          //console.log('v.result.id', v.result.id);
           store.dispatch({type: B_ID, payload: v.result.id});
           showError(localizationStrings?.Driver_not_found);
           return;
@@ -1075,14 +1075,14 @@ const ChooseLocation = ({
               date={date}
               // modal
               onDateChange={v => {
-                console.log('v date - ');
+                //console.log('v date - ');
                 setDate(v);
                 setDate1(v);
                 // if (booking_Later_Date == '') {
                 // store.dispatch({type: BOOKING_LATER_DATE, payload: v});
                 // alert();
                 // setDate('2023-10-5 17:30:00');
-                //   // console.log(v);
+                //   // //console.log(v);
                 // }
               }}
               // onConfirm={date => {

@@ -34,7 +34,7 @@ const WebViewScreen = () => {
   const [loading, setLoading] = useState(false);
 
   // alert(JSON.stringify(params?.order_id));
-  // console.log(
+  // //console.log(
   //   'data',
   //   params?.user_id,
   //   params?.picuplocation,
@@ -67,9 +67,9 @@ const WebViewScreen = () => {
       }
     }, 12000);
     backhandler = BackHandler.addEventListener('hardwareBackPress', () => {
-      console.log('this.wvRef', wvRef.current);
+      //console.log('this.wvRef', wvRef.current);
       if (navState.canGoBack && wvRef.current) {
-        // console.log(wvRef)
+        // //console.log(wvRef)
         wvRef.current.goBack();
         return true;
       }
@@ -126,15 +126,15 @@ const WebViewScreen = () => {
     );
 
     // alert('Work In Progress');
-    console.log('addBookingRequest', JSON.stringify(body));
+    //console.log('addBookingRequest', JSON.stringify(body));
     // return;
     post_api('addBookingRequest', body)
       .then(v => {
-        console.log('v -', v);
+        //console.log('v -', v);
         // alert(JSON.stringify(v?.status));
 
         if (v.status == 1) {
-          // console.log('v.result.id', v.result);
+          // //console.log('v.result.id', v.result);
           // navigation.goBack();
           setTimeout(() => {
             params?.visible_(true);
@@ -148,7 +148,7 @@ const WebViewScreen = () => {
 
         if (v.status == 0) {
           setLoading(false);
-          console.log('v.result.id', v.result.id);
+          //console.log('v.result.id', v.result.id);
           store.dispatch({type: B_ID, payload: v.result.id});
           showError(localizationStrings?.Driver_not_found);
           return;
@@ -158,7 +158,7 @@ const WebViewScreen = () => {
   };
 
   const onNavigationStateChange = navState => {
-    console.log('WebView Response - - ', navState);
+    //console.log('WebView Response - - ', navState);
 
     if (navState?.url?.split('result?status=')[1]?.slice(0, 7) == 'SUCCESS') {
       add_booking();

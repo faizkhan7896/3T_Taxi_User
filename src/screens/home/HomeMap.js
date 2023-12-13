@@ -92,7 +92,7 @@ const HomeMap = () => {
 
   // alert(JSON.stringify(curLoc));
 
-  // console.log('tripData', tripData);
+  // //console.log('tripData', tripData);
   const mapRef = useRef();
   const markerRef = useRef();
   const [book, setBook] = useState('0');
@@ -125,7 +125,7 @@ const HomeMap = () => {
     heading: 0,
   });
   const [MarkerDraged, setMarkerDraged] = useState(false);
-  // console.log(coordinate);
+  // //console.log(coordinate);
   const {
     curLoc,
     time,
@@ -199,14 +199,14 @@ const HomeMap = () => {
           '&apikey=thMhMyY4WurTOql3MeQnbad_YODxRL8N0JT4pAjL3qw',
       );
 
-      console.log('GetTollGetTollGetToll', response.url);
+      //console.log('GetTollGetTollGetToll', response.url);
       // return;
 
       const res = await response.json();
-      console.log(
-        'GetTollGetTollGetToll',
-        res?.routes[0]?.sections[0]?.tolls[0]?.fares[0]?.convertedPrice,
-      );
+      // console.log(
+      //   'GetTollGetTollGetToll',
+      //   res?.routes[0]?.sections[0]?.tolls[0]?.fares[0]?.convertedPrice,
+      // );
 
       if (res?.routes?.length == 1) {
         // alert(JSON.stringify(res?.routes[0]))
@@ -215,7 +215,7 @@ const HomeMap = () => {
         ShowToast(res.title || 'Unknown error', 'error');
       }
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
 
@@ -230,10 +230,10 @@ const HomeMap = () => {
       const url =
         baseUrl + 'get_nearest_driver?lat=' + latitude + '&lon=' + longitude;
 
-      // console.log('Nearest Driver URL.....................', url);
+      // //console.log('Nearest Driver URL.....................', url);
       const response = await fetch(url, requestOptions);
       const res = await response.json();
-      // console.log('Nearest Driver.....................', res);
+      // //console.log('Nearest Driver.....................', res);
 
       if (res.status == '1') {
         // alert(JSON.stringify(res?.message));
@@ -254,9 +254,9 @@ const HomeMap = () => {
 
     post_api('get_booking_details', body)
       .then(v => {
-        // console.log('booking detail api v - ', v);
+        // //console.log('booking detail api v - ', v);
 
-        console.log('booking_id______________________', v?.result[0]?.status);
+        //console.log('booking_id______________________', v?.result[0]?.status);
 
         // alert(JSON.stringify(v?.result[0]?.status));        
 
@@ -384,7 +384,7 @@ const HomeMap = () => {
       if (isFocused) {
         setLat(!lat);
         post_api('get_ads_notice', body3).then(v => {
-          // console.log('get_ads_notice', v);
+          // //console.log('get_ads_notice', v);
           // alert()
           if (v.status === '1') {
             setAddsBanner(v.result);
@@ -412,7 +412,7 @@ const HomeMap = () => {
       });
 
       const rslt = await res.json();
-      console.log('CAR Data =>', rslt);
+      //console.log('CAR Data =>', rslt);
       if (rslt.status == 1) {
         setModal(false);
       } else {
@@ -420,7 +420,7 @@ const HomeMap = () => {
       }
     } catch (e) {
       // alert('An error occured.');
-      console.log(e);
+      //console.log(e);
     }
   }
 
@@ -436,16 +436,16 @@ const HomeMap = () => {
     // alert()
     const locPermissionDenied = await locationPermission();
     if (locPermissionDenied) {
-      console.log('curLoc - ', curLoc);
+      //console.log('curLoc - ', curLoc);
 
       get_address(curLoc?.latitude, curLoc?.longitude).then(v => {
-        console.log('v 1 - ', v);
+        //console.log('v 1 - ', v);
         updateState({
           address1: v,
         });
       });
       onCenter();
-      console.log('console.log(address_1,)', address1);
+      //console.log('//console.log(address_1,)', address1);
       animate(curLoc?.latitude, curLoc?.longitude);
     }
   };
@@ -454,17 +454,17 @@ const HomeMap = () => {
     // alert()
     const locPermissionDenied = await locationPermission();
     if (locPermissionDenied) {
-      console.log('locations latitued - ', destinationCords?.latitude);
+      //console.log('locations latitued - ', destinationCords?.latitude);
       // get_address(destinationCords?.latitude, destinationCords?.longitude).then(
       //   v => {
-      //     console.log('v data - ', address1);
+      //     //console.log('v data - ', address1);
       //     updateState({
       //       address2: v,
       //     });
       //   },
       // );
       onCenter();
-      console.log('console.log(address_1,)', address1);
+      //console.log('//console.log(address_1,)', address1);
       animate(destinationCords?.latitude, destinationCords?.longitude);
     }
   };
@@ -485,9 +485,9 @@ const HomeMap = () => {
       }
 
       onCenter();
-      // console.log('console.log(address_1,)', address1);
+      // //console.log('//console.log(address_1,)', address1);
       animate(latitude, longitude);
-      //   console.log('get live location after 4 second', heading);
+      //   //console.log('get live location after 4 second', heading);
       updateState({
         heading: heading,
         curLoc: {latitude, longitude},
@@ -500,9 +500,11 @@ const HomeMap = () => {
       });
     }
   };
+      // alert(JSON.stringify(tripData?.status));
+
 
   const fetchValue1 = data => {
-    console.log('this is Pickup data', data);
+    //console.log('this is Pickup data', data);
     animate(data.lat, data.lng);
     onCenter();
     updateState({
@@ -517,10 +519,10 @@ const HomeMap = () => {
 
   const fetchValue2 = data => {
     // alert(JSON.stringify( data));
-    console.log(
-      'fetchDestinationCords2fetchDestinationCords2fetchDestinationCords2',
-      data,
-    );
+    // console.log(
+    //   'fetchDestinationCords2fetchDestinationCords2fetchDestinationCords2',
+    //   data,
+    // );
 
     updateState({
       address2: data.address,
@@ -534,7 +536,7 @@ const HomeMap = () => {
   const checkValid = async () => {
     // Get_timeBy_LatLng(19.076, 72.8777, 22.9676, 76.0534);
 
-    // console.log('Get_timeBy_LatLngGet_timeBy_LatLngGet_timeBy_LatLngGet_timeBy_LatLng',
+    // //console.log('Get_timeBy_LatLngGet_timeBy_LatLngGet_timeBy_LatLngGet_timeBy_LatLng',
     //   Get_timeBy_LatLng(
     //     curLoc?.latitude,
     //     curLoc?.longitude,
@@ -543,7 +545,7 @@ const HomeMap = () => {
     //   ),
     // );
 
-    // console.log(
+    // //console.log(
     //   'lat1, lon1, drop_lat, drop_lon',
     //   curLoc?.latitude,
     //   curLoc?.longitude,
@@ -662,7 +664,7 @@ const HomeMap = () => {
                 onDragEnd={v => {
                   const lat = v?.nativeEvent?.coordinate?.latitude;
                   const lon = v?.nativeEvent?.coordinate?.longitude;
-                  console.log(lat, lon);
+                  //console.log(lat, lon);
                   setMarkerDraged(true);
 
                   setUpdatedLocation(v?.nativeEvent?.coordinate);
@@ -767,7 +769,6 @@ const HomeMap = () => {
 
             {tripData?.status == 'Start' ? (
               <MapViewDirections
-                // origin={curLoc}
                 region={Mapregion}
                 origin={{
                   latitude: parseFloat(tripData?.driver_details?.lat),
@@ -782,19 +783,19 @@ const HomeMap = () => {
                   longitudeDelta: LONGITUDE_DELTA,
                 }}
                 mode="DRIVING"
-                // apikey={mapsApiKey}
+                apikey={mapsApiKey}
                 strokeWidth={2}
                 strokeColor="#FFDC00"
                 optimizeWaypoints={false}
                 onStart={params => {
-                  console.log(
-                    `Started routing between "${params.origin}" and "${params.destination}"`,
-                  );
+                  // console.log(
+                  //   `Started routing between "${params.origin}" and "${params.destination}"`,
+                  // );
                 }}
                 onReady={result => {
                   GetToll();
-                  console.log(`Distance: ${result.distance} km`);
-                  console.log(`Duration: ${result.duration} min.`);
+                  //console.log(`Distance: ${result.distance} km`);
+                  //console.log(`Duration: ${result.duration} min.`);
                   fetchTime(result.distance, result.duration),
                     mapRef.current.fitToCoordinates(result.coordinates, {
                       edgePadding: {
@@ -806,7 +807,7 @@ const HomeMap = () => {
                     });
                 }}
                 onError={errorMessage => {
-                  console.log('GOT AN ERROR');
+                  //console.log('GOT AN ERROR');
                 }}
               />
             ) : tripData?.status == 'Ride_Start' ? (
@@ -832,14 +833,14 @@ const HomeMap = () => {
                 strokeColor="#FFDC00"
                 optimizeWaypoints={true}
                 onStart={params => {
-                  console.log(
-                    `Started routing between "${params.origin}" and "${params.destination}"`,
-                  );
+                  // console.log(
+                  //   `Started routing between "${params.origin}" and "${params.destination}"`,
+                  // );
                 }}
                 onReady={result => {
                   GetToll();
-                  console.log(`Distance: ${result.distance} km`);
-                  console.log(`Duration: ${result.duration} min.`);
+                  //console.log(`Distance: ${result.distance} km`);
+                  //console.log(`Duration: ${result.duration} min.`);
                   fetchTime(result.distance, result.duration),
                     mapRef.current.fitToCoordinates(result.coordinates, {
                       edgePadding: {
@@ -851,7 +852,7 @@ const HomeMap = () => {
                     });
                 }}
                 onError={errorMessage => {
-                  console.log('GOT AN ERROR');
+                  //console.log('GOT AN ERROR');
                 }}
               />
             ) : (
@@ -870,14 +871,14 @@ const HomeMap = () => {
                   strokeColor="#FFDC00"
                   optimizeWaypoints={true}
                   onStart={params => {
-                    console.log(
-                      `Started routing between "${params.origin}" and "${params.destination}"`,
-                    );
+                    // console.log(
+                    //   `Started routing between "${params.origin}" and "${params.destination}"`,
+                    // );
                   }}
                   onReady={result => {
                     GetToll();
-                    console.log(`Distance: ${result.distance} km`);
-                    console.log(`Duration: ${result.duration} min.`);
+                    //console.log(`Distance: ${result.distance} km`);
+                    //console.log(`Duration: ${result.duration} min.`);
                     fetchTime(result.distance, result.duration),
                       mapRef.current.fitToCoordinates(result.coordinates, {
                         edgePadding: {
@@ -889,7 +890,7 @@ const HomeMap = () => {
                       });
                   }}
                   onError={errorMessage => {
-                    console.log('GOT AN ERROR');
+                    //console.log('GOT AN ERROR');
                   }}
                 />
               )

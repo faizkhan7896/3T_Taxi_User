@@ -24,7 +24,7 @@ const ChatDeatils = () => {
   const [messagesending, setMessagesending] = useState(false);
   const [isFocused, setIsFocused] = useState(true);
 
-  // console.log('paramsparams', params?.item);
+  // //console.log('paramsparams', params?.item);
 
   // alert(JSON.stringify(params?.item?.driver_details?.online_status));
 
@@ -44,7 +44,7 @@ const ChatDeatils = () => {
       // body.append('sender_id', '1' /* params?.id */);
       // body.append('receiver_id', '7');
 
-      console.log(body);
+      //console.log(body);
 
       var requestOptions = {
         method: 'POST',
@@ -53,7 +53,7 @@ const ChatDeatils = () => {
       };
       const response = await fetch(baseUrl + 'insert_chat', requestOptions);
       const res = await response.json();
-      console.log(res);
+      //console.log(res);
       if (res.status == '1') {
         get_chat();
         setMess('');
@@ -65,7 +65,7 @@ const ChatDeatils = () => {
       }
     } catch (error) {
       setMessagesending(false);
-      console.log(error);
+      //console.log(error);
       ShowToast(error);
     }
   };
@@ -77,7 +77,7 @@ const ChatDeatils = () => {
       body.append('sender_id', user_id /* params?.id */);
       body.append('receiver_id', Driver_Id);
 
-      console.log('bodybody', body);
+      //console.log('bodybody', body);
       var requestOptions = {
         method: 'POST',
         body: body,
@@ -85,7 +85,7 @@ const ChatDeatils = () => {
       };
       const response = await fetch(baseUrl + 'get_chat', requestOptions);
       const res = await response.json();
-      console.log(res);
+      //console.log(res);
       if (res.status == '1') {
         setDetails(res.result.reverse());
         setLoading(false);
@@ -96,7 +96,7 @@ const ChatDeatils = () => {
       }
     } catch (error) {
       setLoading(false);
-      console.log(error);
+      //console.log(error);
       ShowToast(error);
     }
   };

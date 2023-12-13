@@ -64,11 +64,11 @@ const CarDeatail = ({
         '&city=' +
         city_Id;
 
-      console.log(JSON.stringify(url));
+      //console.log(JSON.stringify(url));
       const response = await fetch(url, requestOptions);
 
       const res = await response.json();
-      console.log(res);
+      //console.log(res);
 
       if (res.status == '1') {
         setCars(res.result);
@@ -81,7 +81,7 @@ const CarDeatail = ({
         ShowToast(res.message || 'Unknown error', 'error');
       }
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
 
@@ -98,12 +98,12 @@ const CarDeatail = ({
     body.append('lon', longitude);
     body.append('city', city_Id);
 
-    // console.log('bodybodybodybodybody', JSON.stringify(body));
+    // //console.log('bodybodybodybodybody', JSON.stringify(body));
     // alert(JSON.stringify(body));
     // return;
     post_api('car_list', body)
       .then(v => {
-        console.log('cvdscdsvcdscgvdscdsg', v);
+        //console.log('cvdscdsvcdscgvdscdsg', v);
         if (v?.status == '1') {
           setCars(v?.result);
           setCar_Details(v?.result[0]);

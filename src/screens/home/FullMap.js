@@ -347,11 +347,11 @@ const HomeMap = () => {
     const body = new FormData();
     body.append('request_id', booking_id);
 
-    console.log(body);
+    // console.log(body);
 
     post_api('get_booking_details', body)
       .then(v => {
-        console.log('distanceCalculation===>', v);
+        // console.log('distanceCalculation===>', v);
 
         if (v.status == 1) {
           store.dispatch({type: TRIP_DATA, payload: v.result});
@@ -395,23 +395,23 @@ const HomeMap = () => {
         alert(JSON.stringify(address_?.address)),
       );
       onCenter();
-      console.log('console.log(address_1,)', address1);
+      // console.log('console.log(address_1,)', address1);
 
       animate(updatedLocation?.latitude, updatedLocation?.longitude);
     }
   };
 
-  console.log(
-    'curLoc?.latitude, curLoc?.longitude',
-    curLoc?.latitude,
-    curLoc?.longitude,
-  );
+  // console.log(
+  //   'curLoc?.latitude, curLoc?.longitude',
+  //   curLoc?.latitude,
+  //   curLoc?.longitude,
+  // );
 
   const getLiveLocation = async () => {
     const locPermissionDenied = await locationPermission();
     if (locPermissionDenied) {
       const {latitude, longitude, heading} = await getCurrentLocation();
-      console.log('latitude,ongitudelatitude, longitude', latitude, longitude),
+      // console.log('latitude,ongitudelatitude, longitude', latitude, longitude),
         updateState({
           coordinate: new AnimatedRegion({
             latitude: latitude,
@@ -426,7 +426,7 @@ const HomeMap = () => {
         }),
       );
       onCenter();
-      console.log('console.log(address_1,)', address1);
+      // console.log('console.log(address_1,)', address1);
       //   console.log('get live location after 4 second', heading);
       updateState({
         heading: heading,

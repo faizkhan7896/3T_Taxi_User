@@ -42,7 +42,7 @@ export default function SetProfile() {
     const body = new FormData();
     post_api('get_country')
       .then(v => {
-        console.log('contineu===>', v);
+        //console.log('contineu===>', v);
         setLoading(false);
         if (v.status == 1) {
           setAllCountrys(v?.result);
@@ -90,7 +90,7 @@ export default function SetProfile() {
     body.append('phone_code', ' ' + country?.phone_code);
 
     setLoading(true);
-    console.log(body);
+    //console.log(body);
 
     post_api('userSignUp', body)
       .then(v => {

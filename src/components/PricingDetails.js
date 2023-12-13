@@ -32,7 +32,7 @@ export default function PaymentOptions({
   const [selectedCard, setSelectedCard] = useState({});
   const dimension = useWindowDimensions();
   // alert(JSON.stringify(distance))
-  // console.log(CarData);
+  // //console.log(CarData);
 
   const country =
     countryId == '4'

@@ -42,15 +42,15 @@ export default function SetupPayment() {
   // alert(JSON.stringify(Data[0]?.card_exp))
 
   const get_card = () => {
-    console.log('userId in cards -', userId);
+    //console.log('userId in cards -', userId);
     const body = new FormData();
     body.append('user_id', userId);
     post_api('getUsercard', body).then(v => {
-      console.log('re response in my wallet card - ', v.message);
+      //console.log('re response in my wallet card - ', v.message);
       if (v.status == 0) {
         setData([]);
       } else if (v.status == 1) {
-        console.log(v);
+        //console.log(v);
         setData(v?.result);
         setSelected(v?.result[0]?.card_name);
         setSelectedCard(v?.result[0]);
@@ -59,15 +59,15 @@ export default function SetupPayment() {
   };
 
   const delete_card = cardId => {
-    console.log('card_id real- ', cardId);
-    console.log('userId in cards -', userId);
+    //console.log('card_id real- ', cardId);
+    //console.log('userId in cards -', userId);
     const body = new FormData();
     body.append('user_id', userId);
     body.append('card_id', cardId);
     post_api('delete_user_card', body).then(v => {
-      console.log('this is the response status in delete card - ', v.status);
+      //console.log('this is the response status in delete card - ', v.status);
       if (v.status == 1) {
-        console.log(v);
+        //console.log(v);
         ShowToast('Card Deleted Successfully');
         get_card();
       } else {

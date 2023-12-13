@@ -46,7 +46,7 @@ const ContactUs = () => {
     post_api('add_support', body)
       .then(v => {
         if (v.status == 1) {
-          console.log(v);
+          //console.log(v);
           showSuccess(v.message);
           setName('');
           setEmail('');

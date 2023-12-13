@@ -32,7 +32,7 @@ export default function SeupProfile(props) {
       setLoading(true);
       const response = await fetch(baseUrl + 'get_coupon_codes');
       const res = await response.json();
-      console.log(res);
+      //console.log(res);
       if (res.status == '1') {
         setData(res.result);
         setLoading(false);
@@ -41,7 +41,7 @@ export default function SeupProfile(props) {
       }
     } catch (error) {
       setLoading(false);
-      console.log(error);
+      //console.log(error);
       ShowToast(error);
     }
   };

@@ -102,7 +102,7 @@ export default function PaymentOptions({
     // setLoading(true);
     post_api('getUsercard', body).then(v => {
       if (v.status == 1) {
-        console.log(v);
+        //console.log(v);
         setData(v?.result);
         setSelectedCard(v?.result[0]);
         setCardDetails(v?.result[0]);
@@ -174,7 +174,7 @@ export default function PaymentOptions({
     );
   };
 
-  console.log('..............................................---- ', selected);
+  //console.log('..............................................---- ', selected);
   return (
     <Modal
       isVisible={isOpen}

@@ -50,7 +50,7 @@ export default function SavePalace({navigation}) {
     fetch(baseUrl + 'addUserlocation', requestOptions)
       .then(response => response.json())
       .then(result => {
-        console.log(result);
+        //console.log(result);
         get_place();
         setAddress();
         setName();
@@ -70,7 +70,7 @@ export default function SavePalace({navigation}) {
     fetch(baseUrl + 'deleteUserLocation', requestOptions)
       .then(response => response.json())
       .then(result => {
-        console.log(result);
+        //console.log(result);
         get_place();
       })
       .catch(error => console.log('error', error));
@@ -86,7 +86,7 @@ export default function SavePalace({navigation}) {
         requestOptions,
       );
       const res = await response.json();
-      console.log(res);
+      //console.log(res);
 
       if (res.status == '1') {
         setPlaces(res.result);
@@ -99,7 +99,7 @@ export default function SavePalace({navigation}) {
     get_place();
   }, []);
 
-  console.log('address', address);
+  //console.log('address', address);
   return (
     <View style={{flex: 1, backgroundColor: theme.colors.ButtonText}}>
       <CustomHeader title={localizationStrings?.Save_Place} />

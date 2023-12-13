@@ -33,7 +33,7 @@ const TripDetail = ({navigation}) => {
       ? 'EGP'
       : countryId == '11' && 'SAR';
 
-  // console.log(params.data);
+  // //console.log(params.data);
   // alert(JSON.stringify(params?.item?.promo_discount_amount));
 
   const DeleteReciept = () => {
@@ -43,13 +43,13 @@ const TripDetail = ({navigation}) => {
     setLoading(true);
 
     apis.post_api('deleteReceiptByUser', body).then(v => {
-      console.log(v);
+      //console.log(v);
       setLoading(false);
       // setDetail(v.result[0]);
       navigation.goBack();
     });
     api.get_gym().then(v => {
-      console.log(v);
+      //console.log(v);
     });
   };
 
@@ -128,12 +128,12 @@ const TripDetail = ({navigation}) => {
             }}
           /> */}
         </View>
-        <GradientLineWithText title={'Trip Details'} />
+        <GradientLineWithText title={localizationStrings.Trip_Details} />
 
         <View style={{borderTopWidth: 1, borderTopColor: theme.colors[656055]}}>
           <TextComp
-            t1={'Booking'}
-            t2={'Distance'}
+            t1={localizationStrings?.Booking}
+            t2={localizationStrings?.Distance}
             s1={params?.item?.id}
             s2={params?.item?.distance + ' km'}
           />
@@ -144,8 +144,8 @@ const TripDetail = ({navigation}) => {
       s2={params?.item?.distance + ' km'}
     /> */}
           <TextComp
-            t1={'Start'}
-            t2={'End'}
+            t1={localizationStrings?.Start}
+            t2={localizationStrings?.End}
             s1={
               moment(params?.item?.start_time).format('LT') == 'Invalid date'
                 ? 'Start Time'
@@ -158,28 +158,28 @@ const TripDetail = ({navigation}) => {
             }
           />
         </View>
-        <GradientLineWithText title={'User Information'} />
+        <GradientLineWithText title={localizationStrings.User_Information} />
         <View style={{borderTopWidth: 1, borderTopColor: theme.colors[656055]}}>
           <TextComp
-            t1={'User Name'}
-            t2={'Email or Phone Number'}
+            t1={localizationStrings.User_Name}
+            t2={localizationStrings.Email_or_Phone_Number}
             s1={params?.item?.users_details?.user_name}
             s2={params?.item?.users_details?.mobile}
           />
         </View>
-        <GradientLineWithText title={'Price Information'} />
+        <GradientLineWithText title={localizationStrings.Price_Information} />
         <View style={{borderTopWidth: 1, borderTopColor: theme.colors[656055]}}>
           <TextComp
-            t1={'Total Price'}
-            t2={'Discount '}
+            t1={localizationStrings.Total_Price}
+            t2={localizationStrings.Coupan_Discount}
             s1={params?.item?.amount + ' ' + country}
             s2={params?.item?.promo_discount_amount + ' ' + country}
             color={theme.colors.yellow}
           />
           <TextComp
-            t1={'VAT'}
-            t2={'Paid By'}
-            s1={params?.item?.vat + ' ' + country}
+            t1={localizationStrings.VAT_}
+            t2={localizationStrings.Paid_By}
+            s1={params?.item?.vat + '% ' + country}
             s2={params?.item?.payment_type}
           />
         </View>

@@ -34,7 +34,7 @@ export default function SetupPayment() {
     setLoading(true);
     post_api('getUsercard', body).then(v => {
       if (v.status == 1) {
-        console.log(v);
+        //console.log(v);
       }
       setLoading(false);
     });
@@ -44,12 +44,12 @@ export default function SetupPayment() {
     const body = new FormData();
     body.append('user_id', userId);
     body.append('payment_option', option);
-    console.log(body);
+    //console.log(body);
 
     setLoading(true);
     post_api('add_payment_option', body).then(v => {
       if (v.status == 1) {
-        console.log(v);
+        //console.log(v);
         get_Profile(userId);
       }
       setLoading(false);

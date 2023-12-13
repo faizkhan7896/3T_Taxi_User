@@ -9,7 +9,7 @@ const AddressPickup = ({placheholderText, fetchAddress, editable}) => {
   // alert(JSON.stringify(countryId))
 
   const onPressAddress = (data, details) => {
-    // console.log('details==>>>>', details);
+    // //console.log('details==>>>>', details);
 
     // let resLength = details.address_components;
     // let zipCode = '';
@@ -37,8 +37,8 @@ const AddressPickup = ({placheholderText, fetchAddress, editable}) => {
     //     ? dataTextCityObj.short_name
     //     : dataTextCityObj.long_name;
 
-    // console.log("zip cod found", zipCode)
-    // console.log("city namte", cityText)
+    // //console.log("zip cod found", zipCode)
+    // //console.log("city namte", cityText)
 
     const lat = details.geometry.location.lat;
     const lng = details.geometry.location.lng;

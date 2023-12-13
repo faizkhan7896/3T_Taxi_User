@@ -26,7 +26,7 @@ export default function SetupPayment() {
   const [modalVisible, setModalVisible] = useState(false);
   const {countryId} = useSelector(state => state.user || 9);
 
-  console.log(selected);
+  //console.log(selected);
 
   const country =
     countryId == '4'

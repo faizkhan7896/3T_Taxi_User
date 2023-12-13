@@ -23,7 +23,7 @@ import localizationStrings from '../utils/Localization';
 
 async function signout() {
   const out = await GoogleSignin.signOut();
-  console.log('signout', out);
+  //console.log('signout', out);
 }
 
 export default function CustomDrawer(props) {
@@ -31,7 +31,7 @@ export default function CustomDrawer(props) {
   const isOpen = useDrawerStatus();
   const [darkTheme, setDarkTheme] = useState(false);
   const {userData, countryId} = useSelector(state => state.user||9);
-  console.log(userData);
+  //console.log(userData);
 
   const country =
     countryId == '4'
@@ -47,7 +47,7 @@ export default function CustomDrawer(props) {
 
   async function signout() {
     // const out = await GoogleSignin.signOut();
-    // console.log('signout', out);
+    // //console.log('signout', out);
     store.dispatch({
       type: SIGNOUT,
       payload: {id: 1},

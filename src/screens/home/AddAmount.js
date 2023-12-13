@@ -43,12 +43,12 @@ const AddAmount = ({navigation}) => {
     body.append('expiry_month', params?.cardData?.card_exp?.split('/')[0]);
     body.append('expiry_year', params?.cardData?.card_exp?.split('/')[1]);
     body.append('cvc_code', params?.cardData?.card_cvv);
-    console.log(body);
+    //console.log(body);
 
     setLoading(true);
     post_api('get_token', body).then(v => {
       if (v.status == 1) {
-        console.log(v);
+        //console.log(v);
         AddMoney(v?.result?.id);
       }
       setLoading(false);
@@ -61,14 +61,14 @@ const AddAmount = ({navigation}) => {
     body.append('amount', amount);
     body.append('token', token);
     body.append('currency', country);
-    console.log(body);
+    //console.log(body);
     // return;
 
     setLoading(true);
     post_api('add_wallet', body).then(v => {
       if (v.status == 1) {
         get_Profile(userId);
-        // console.log(v);
+        // //console.log(v);
         setSuccess(true);
       } else {
         ShowToast(v?.result?.code);

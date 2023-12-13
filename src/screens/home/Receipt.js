@@ -77,7 +77,7 @@ export default function Receipts() {
     )
       .then(response => response.json())
       .then(result => {
-        console.log('get_user_trip_booking_receipt', result);
+        //console.log('get_user_trip_booking_receipt', result);
 
         if (result.status == 1) {
           setReceipt_data(result?.result);
