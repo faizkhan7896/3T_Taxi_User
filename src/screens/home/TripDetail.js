@@ -179,7 +179,7 @@ const TripDetail = ({navigation}) => {
           <TextComp
             t1={localizationStrings.VAT_}
             t2={localizationStrings.Paid_By}
-            s1={params?.item?.vat + '% ' + country}
+            s1={params?.item?.vat + '%'}
             s2={params?.item?.payment_type}
           />
         </View>
