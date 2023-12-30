@@ -1,31 +1,17 @@
-import auth from '@react-native-firebase/auth';
-import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import {useNavigation} from '@react-navigation/native';
-import React, {useEffect, useRef, useState} from 'react';
+import { useNavigation } from '@react-navigation/native';
+import React, { useState } from 'react';
 import {
-  Dimensions,
-  Image,
   StyleSheet,
   Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-  useWindowDimensions,
+  View
 } from 'react-native';
-import {LoginManager} from 'react-native-fbsdk-next';
-import LinearGradient from 'react-native-linear-gradient';
-import RNPickerSelect from 'react-native-picker-select';
-import {useDispatch} from 'react-redux';
 import CustomButton from '../../components/CustomButton';
-import Statusbar from '../../components/Statusbar';
-import {COUNTRY, ID, LOGIN, USERDATA} from '../../redux/ActionTypes';
-import store from '../../redux/store';
-import {post_api, showError, showSuccess} from '../../utils/Constants';
-import {theme} from '../../utils/theme';
 import CustomTextInput from '../../components/CustomTextInput';
-import {baseUrl} from '../../utils/constance';
-import {firebase} from '@react-native-firebase/messaging';
+import Statusbar from '../../components/Statusbar';
+import { showError, showSuccess } from '../../utils/Constants';
 import localizationStrings from '../../utils/Localization';
+import { baseUrl } from '../../utils/constance';
+import { theme } from '../../utils/theme';
 
 export default function Login() {
   const navigation = useNavigation();

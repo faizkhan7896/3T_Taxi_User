@@ -39,6 +39,15 @@ function App() {
     setReload({});
   };
 
+  const country =
+    countryId == '4'
+      ? 'IN'
+      : countryId == '9'
+      ? 'NO'
+      : countryId == '10'
+      ? 'EGY'
+      : countryId == '11' && 'SAR';
+
   const update_language = async () => {
     try {
       const url =
@@ -46,7 +55,9 @@ function App() {
         'update_language?user_id=' +
         userId +
         '&language=' +
-        localizationStrings.getLanguage();
+        localizationStrings.getLanguage() +
+        '&country=' +
+        country;
       // //console.log(url);
       const response = await fetch(url);
       const res = await response.json();
